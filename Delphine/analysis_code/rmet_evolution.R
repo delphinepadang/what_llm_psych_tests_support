@@ -22,7 +22,41 @@ library(tidyverse)   # data wrangling + ggplot
 library(lme4)        # mixed-effects models (for the stats step)
 
 # ---- 1. Load -----------------------------------------------
-rmet <- read_csv("RMET_Results.csv")
+# ---- data location (standard path block — identical across the R scripts) -----
+# Reads inputs from, and writes outputs to, the `data_summaries` folder that sits
+# next to `analysis_code/`. Resolution order:
+#   (1) env var AAI_DATA_DIR  (2) first command-line arg  (3) a `data_summaries`
+#   folder found next to this script or one level up. Nothing to edit to run from
+#   inside analysis_code/ or from the project root; override only if you move data.
+.aai_script_dir <- function() {
+  fa <- grep("^--file=", commandArgs(FALSE), value = TRUE)
+  if (length(fa)) return(normalizePath(dirname(sub("^--file=", "", fa[[1]]))))
+  for (i in seq_len(sys.nframe())) {
+    of <- sys.frame(i)$ofile
+    if (!is.null(of)) return(normalizePath(dirname(of)))
+  }
+  normalizePath(getwd())
+}
+.aai_find_data <- function() {
+  env <- Sys.getenv("AAI_DATA_DIR", "")
+  if (nzchar(env)) return(normalizePath(env))
+  a <- commandArgs(trailingOnly = TRUE)
+  if (length(a) >= 1 && nzchar(a[[1]])) return(normalizePath(a[[1]]))
+  for (cand in c(file.path(.aai_script_dir(), "data_summaries"),
+                 file.path(.aai_script_dir(), "..", "data_summaries"),
+                 file.path(getwd(), "data_summaries"))) {
+    if (dir.exists(cand)) return(normalizePath(cand))
+  }
+  stop("Could not find the 'data_summaries' folder. Set AAI_DATA_DIR, pass it as ",
+       "the first argument, or run from inside the project.", call. = FALSE)
+}
+DATA_DIR <- .aai_find_data()
+in_path  <- function(f) file.path(DATA_DIR, f)
+out_path <- function(f) file.path(DATA_DIR, f)
+message("[paths] data_summaries -> ", DATA_DIR)
+# -------------------------------------------------------------------------------
+
+rmet <- read_csv(in_path("RMET_Results.csv"))
 
 # Quick look — always sanity-check what you loaded
 glimpse(rmet)
@@ -79,11 +113,37 @@ rmet %>% summarise(n_parse_errors = sum(!is.na(parse_error)))
 rmet %>% summarise(accuracy = mean(is_correct), n = n())
 
 # Accuracy per model (this is the core descriptive result)
+# We attach a 95% CONFIDENCE INTERVAL to every accuracy, because
+# with only ~72 observations per model the point estimates are
+# uncertain -- the CIs make that uncertainty visible and are the
+# honest way to show the version "trend" is suggestive, not firm.
+#
+# We use the Wilson interval for a binomial proportion: it is the
+# standard, well-behaved CI for a "k correct out of n" accuracy
+# (better than the naive normal approximation, especially near 0/1).
+wilson_ci <- function(k, n, conf = 0.95) {
+  z  <- qnorm(1 - (1 - conf) / 2)
+  p  <- k / n
+  den <- 1 + z^2 / n
+  centre <- (p + z^2 / (2 * n)) / den
+  half   <- z * sqrt(p * (1 - p) / n + z^2 / (4 * n^2)) / den
+  tibble(lower = centre - half, upper = centre + half)
+}
+
 acc_by_model <- rmet %>%
   group_by(family, subfam, m, vorder) %>%
-  summarise(accuracy = mean(is_correct), n = n(), .groups = "drop") %>%
+  summarise(k = sum(is_correct), n = n(), .groups = "drop") %>%
+  mutate(accuracy = k / n) %>%
+  bind_cols(wilson_ci(.$k, .$n)) %>%   # adds lower / upper columns
   arrange(family, subfam, vorder)
-print(acc_by_model, n = 100)
+
+# Print with CIs rounded for readability
+acc_by_model %>%
+  mutate(across(c(accuracy, lower, upper), ~ round(.x, 3))) %>%
+  print(n = 100)
+# READING THIS: e.g. gpt-5.2 ~ 0.625 [0.51, 0.73]. The intervals are
+# WIDE (~20 points) and overlap heavily across versions -- which is
+# exactly why the version trend should be called suggestive, not proven.
 
 # Effect of the DEFINITIONS condition
 # (In the pilot this was essentially nil — expect ~0.715 vs ~0.710)
@@ -104,6 +164,8 @@ plot_df <- acc_by_model %>%
 p <- ggplot(plot_df, aes(x = vorder, y = accuracy,
                          colour = line, group = line)) +
   geom_hline(yintercept = 0.25, linetype = "dashed", colour = "grey60") +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.15,
+                alpha = 0.5) +    # 95% Wilson CIs -- show the uncertainty
   geom_line(linewidth = 0.9) +
   geom_point(size = 2.5) +
   geom_text(aes(label = m), vjust = -0.9, size = 2.6, show.legend = FALSE) +
@@ -117,7 +179,7 @@ p <- ggplot(plot_df, aes(x = vorder, y = accuracy,
   ) +
   theme_minimal(base_size = 12)
 
-ggsave("rmet_evolution_plot.png", p, width = 9, height = 5.5, dpi = 150)
+ggsave(out_path("rmet_evolution_plot.png"), p, width = 9, height = 5.5, dpi = 150)
 print(p)
 
 # ---- 5. A first inferential model --------------------------
@@ -149,7 +211,7 @@ summary(m_gpt)
 #     of noise. This is a pilot signal, not a final result.
 
 # ---- 6. Save the tidy results table ------------------------
-write_csv(acc_by_model, "rmet_accuracy_by_model.csv")
+write_csv(acc_by_model, out_path("rmet_accuracy_by_model.csv"))
 
 # ============================================================
 # WHAT TO EXPECT (verified values from the pilot data):

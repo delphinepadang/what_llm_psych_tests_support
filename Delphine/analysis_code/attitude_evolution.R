@@ -19,7 +19,48 @@ library(tidyverse)
 # empty, so read_csv otherwise guesses 'logical' and silently turns the
 # few real error strings into NA -- which makes the refusal count below
 # return zero rows. Reading it as character preserves those rows.
-att <- read_csv("New_model_results.csv",
+# ---- data location (standard path block — identical across the R scripts) -----
+# Reads inputs from, and writes outputs to, the `data_summaries` folder that sits
+# next to `analysis_code/`. Resolution order:
+#   (1) env var AAI_DATA_DIR  (2) first command-line arg  (3) a `data_summaries`
+#   folder found next to this script or one level up. Nothing to edit to run from
+#   inside analysis_code/ or from the project root; override only if you move data.
+.aai_script_dir <- function() {
+  fa <- grep("^--file=", commandArgs(FALSE), value = TRUE)
+  if (length(fa)) return(normalizePath(dirname(sub("^--file=", "", fa[[1]]))))
+  for (i in seq_len(sys.nframe())) {
+    of <- sys.frame(i)$ofile
+    if (!is.null(of)) return(normalizePath(dirname(of)))
+  }
+  normalizePath(getwd())
+}
+.aai_find_data <- function() {
+  env <- Sys.getenv("AAI_DATA_DIR", "")
+  if (nzchar(env)) return(normalizePath(env))
+  a <- commandArgs(trailingOnly = TRUE)
+  if (length(a) >= 1 && nzchar(a[[1]])) return(normalizePath(a[[1]]))
+  for (cand in c(file.path(.aai_script_dir(), "data_summaries"),
+                 file.path(.aai_script_dir(), "..", "data_summaries"),
+                 file.path(getwd(), "data_summaries"))) {
+    if (dir.exists(cand)) return(normalizePath(cand))
+  }
+  stop("Could not find the 'data_summaries' folder. Set AAI_DATA_DIR, pass it as ",
+       "the first argument, or run from inside the project.", call. = FALSE)
+}
+DATA_DIR <- .aai_find_data()
+in_path  <- function(f) file.path(DATA_DIR, f)
+out_path <- function(f) file.path(DATA_DIR, f)
+message("[paths] data_summaries -> ", DATA_DIR)
+# -------------------------------------------------------------------------------
+
+# NOTE (raw filename — please confirm): this scoring script was written against
+# "New_model_results.csv", but the raw file in data_summaries is named
+# "SDO_VSA_Results.csv". If they are the same export, leave RAW_FILE as is; if not,
+# point it at the correct raw item-level file. The other scripts read
+# "SDO_VSA_Results.csv" as the raw source, so those two names should resolve to the
+# same 24 x 14 x 5 table.
+RAW_FILE <- "SDO_VSA_Results.csv"   # was "New_model_results.csv"
+att <- read_csv(in_path(RAW_FILE),
                 col_types = cols(parse_error = col_character()))
 att <- att %>% mutate(m = str_remove(model, "databricks-"))
 
@@ -50,7 +91,9 @@ att <- att %>%
 #   pro-dominance:  q1, q2, q5, q6  (keep as-is)
 #   pro-equality:   q3, q4, q7, q8  (REVERSE: 8 - value)
 #
-# VSA/RWA (symmetric around 0, higher = more authoritarian):
+# VSA/RWA (9-point scale, -4 to +4, higher = more authoritarian):
+#   confirmed with Ming: -4 = "very strongly disagree", +4 = "very
+#   strongly agree", 0 = neutral midpoint. All values in range are valid.
 #   pro-authority:  q2, q3, q6      (keep as-is)
 #   pro-liberty:    q1, q4, q5      (REVERSE: negate)
 
@@ -77,6 +120,9 @@ att %>%
                     regex("refus", ignore_case = TRUE))) %>%
   count(m, family, category, name = "n_failures")
 # (Pilot: gpt-oss-120b refused 1 SDO item; qwen35-122b failed 3)
+# HANDLING RULE (confirmed with Kangning): genuine refusals are coded
+# as INCORRECT, not missing. No separate category unless they become
+# frequent enough to be theoretically interesting in their own right.
 
 # ---- Mean attitude scores ----------------------------------
 sdo_scores <- att %>%
@@ -122,9 +168,9 @@ print(gpt_sdo)
 # systematically across GPT versions.
 
 # ---- Save tidy outputs -------------------------------------
-write_csv(sdo_scores,  "attitude_sdo_by_model.csv")
-write_csv(vsa_scores,  "attitude_rwa_by_model.csv")
-write_csv(consistency, "attitude_consistency_by_model.csv")
+write_csv(sdo_scores,  out_path("attitude_sdo_by_model.csv"))
+write_csv(vsa_scores,  out_path("attitude_rwa_by_model.csv"))
+write_csv(consistency, out_path("attitude_consistency_by_model.csv"))
 
 # ============================================================
 # KEY PILOT FINDINGS (verified):
