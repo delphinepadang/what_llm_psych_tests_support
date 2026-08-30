@@ -1,0 +1,194 @@
+\begin{thebibliography}{33}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Altemeyer(1981)]{altemeyer1981}
+Bob Altemeyer.
+\newblock \emph{Right-Wing Authoritarianism}.
+\newblock University of Manitoba Press, Winnipeg, 1981.
+
+\bibitem[Altemeyer(1996)]{altemeyer1996}
+Bob Altemeyer.
+\newblock \emph{The Authoritarian Specter}.
+\newblock Harvard University Press, Cambridge, MA, 1996.
+
+\bibitem[Asbrock et~al.(2010)Asbrock, Sibley, and Duckitt]{asbrock2010}
+Frank Asbrock, Chris~G. Sibley, and John Duckitt.
+\newblock Right-wing authoritarianism and social dominance orientation and the dimensions of generalized prejudice: A longitudinal test.
+\newblock \emph{European Journal of Personality}, 24\penalty0 (4):\penalty0 324--340, 2010.
+\newblock \doi{10.1002/per.746}.
+
+\bibitem[Bai et~al.(2022)Bai, Jones, Ndousse, Askell, et~al.]{bai2022}
+Yuntao Bai, Andy Jones, Kamal Ndousse, Amanda Askell, et~al.
+\newblock Training a helpful and harmless assistant with reinforcement learning from human feedback, 2022.
+
+\bibitem[Barmettler(2026)]{barmettler2026}
+Joel~P. Barmettler.
+\newblock Progressive in principle, centrist in practice: {LLM} political bias is instrument-dependent, 2026.
+
+\bibitem[Bisbee et~al.(2024)Bisbee, Clinton, Dorff, Kenkel, and Larson]{bisbee2024}
+James Bisbee, Joshua~D. Clinton, Cassy Dorff, Brenton Kenkel, and Jennifer~M. Larson.
+\newblock Synthetic replacements for human survey data? {The} perils of large language models.
+\newblock \emph{Political Analysis}, 32\penalty0 (4):\penalty0 401--416, 2024.
+\newblock \doi{10.1017/pan.2024.5}.
+
+\bibitem[Bizumic and Duckitt(2018)]{bizumic2018}
+Boris Bizumic and John Duckitt.
+\newblock Investigating right wing authoritarianism with a very short authoritarianism scale.
+\newblock \emph{Journal of Social and Political Psychology}, 6\penalty0 (1):\penalty0 129--150, 2018.
+\newblock \doi{10.5964/jspp.v6i1.835}.
+
+\bibitem[Buyl et~al.(2026)Buyl, Rogiers, Noels, Bied, Dominguez-Catena, Heiter, Johary, Mara, Romero, Lijffijt, and De~Bie]{buyl2026}
+Maarten Buyl, Alexander Rogiers, Sander Noels, Guillaume Bied, Iris Dominguez-Catena, Edith Heiter, Iman Johary, Alexandru-Cristian Mara, Rapha{\"e}l Romero, Jefrey Lijffijt, and Tijl De~Bie.
+\newblock Large language models reflect the ideology of their creators.
+\newblock \emph{npj Artificial Intelligence}, 2\penalty0 (1):\penalty0 7, 2026.
+\newblock \doi{10.1038/s44387-025-00048-0}.
+
+\bibitem[Ceron et~al.(2024)Ceron, Falk, Bari{\'c}, Nikolaev, and Pad{\'o}]{ceron2024}
+Tanise Ceron, Neele Falk, Ana Bari{\'c}, Dmitry Nikolaev, and Sebastian Pad{\'o}.
+\newblock Beyond prompt brittleness: Evaluating the reliability and consistency of political worldviews in {LLMs}.
+\newblock \emph{Transactions of the Association for Computational Linguistics}, 12:\penalty0 1378--1400, 2024.
+\newblock \doi{10.1162/tacl_a_00710}.
+
+\bibitem[Dominguez-Olmedo et~al.(2024)Dominguez-Olmedo, Hardt, and Mendler-D{\"u}nner]{dominguezolmedo2024}
+Ricardo Dominguez-Olmedo, Moritz Hardt, and Celestine Mendler-D{\"u}nner.
+\newblock Questioning the survey responses of large language models.
+\newblock In \emph{Advances in Neural Information Processing Systems 37 (NeurIPS 2024)}, 2024.
+\newblock URL \url{https://proceedings.neurips.cc/paper_files/paper/2024/hash/515c62809e0a29729d7eec26e2916fc0-Abstract-Conference.html}.
+
+\bibitem[Duckitt(2001)]{duckitt2001}
+John Duckitt.
+\newblock A dual-process cognitive-motivational theory of ideology and prejudice.
+\newblock In Mark~P. Zanna, editor, \emph{Advances in Experimental Social Psychology}, volume~33, pages 41--113. Academic Press, 2001.
+\newblock \doi{10.1016/S0065-2601(01)80004-6}.
+
+\bibitem[Duckitt and Bizumic(2013)]{duckitt2013}
+John Duckitt and Boris Bizumic.
+\newblock Multidimensionality of right-wing authoritarian attitudes: Authoritarianism-conservatism-traditionalism.
+\newblock \emph{Political Psychology}, 34\penalty0 (6):\penalty0 841--862, 2013.
+\newblock \doi{10.1111/pops.12022}.
+
+\bibitem[Duckitt and Sibley(2007)]{duckitt2007}
+John Duckitt and Chris~G. Sibley.
+\newblock Right wing authoritarianism, social dominance orientation and the dimensions of generalized prejudice.
+\newblock \emph{European Journal of Personality}, 21\penalty0 (2):\penalty0 113--130, 2007.
+\newblock \doi{10.1002/per.614}.
+
+\bibitem[Duckitt and Sibley(2010)]{duckittsibley2010}
+John Duckitt and Chris~G. Sibley.
+\newblock Personality, ideology, prejudice, and politics: A dual-process motivational model.
+\newblock \emph{Journal of Personality}, 78\penalty0 (6):\penalty0 1861--1894, 2010.
+\newblock \doi{10.1111/j.1467-6494.2010.00672.x}.
+
+\bibitem[Duckitt et~al.(2010)Duckitt, Bizumic, Krauss, and Heled]{duckitt2010act}
+John Duckitt, Boris Bizumic, Stephen~W. Krauss, and Edna Heled.
+\newblock A tripartite approach to right-wing authoritarianism: The authoritarianism-conservatism-traditionalism model.
+\newblock \emph{Political Psychology}, 31\penalty0 (5):\penalty0 685--715, 2010.
+\newblock \doi{10.1111/j.1467-9221.2010.00781.x}.
+
+\bibitem[Einwiller et~al.(2026)Einwiller, Klabunde, and Lemmerich]{einwiller2026}
+Andreas Einwiller, Max Klabunde, and Florian Lemmerich.
+\newblock {AuAu}: A benchmark for auditing authoritarian alignment in large language models, 2026.
+
+\bibitem[Feng et~al.(2023)Feng, Park, Liu, and Tsvetkov]{feng2023}
+Shangbin Feng, Chan~Young Park, Yuhan Liu, and Yulia Tsvetkov.
+\newblock From pretraining data to language models to downstream tasks: Tracking the trails of political biases leading to unfair {NLP} models.
+\newblock In \emph{Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)}, pages 11737--11762, 2023.
+\newblock \doi{10.18653/v1/2023.acl-long.656}.
+
+\bibitem[Hartmann et~al.(2023)Hartmann, Schwenzow, and Witte]{hartmann2023}
+Jochen Hartmann, Jasper Schwenzow, and Maximilian Witte.
+\newblock The political ideology of conversational {AI}: Converging evidence on {ChatGPT}'s pro-environmental, left-libertarian orientation, 2023.
+
+\bibitem[Ho et~al.(2015)Ho, Sidanius, Kteily, Sheehy-Skeffington, Pratto, Henkel, Foels, and Stewart]{ho2015}
+Arnold~K. Ho, Jim Sidanius, Nour Kteily, Jennifer Sheehy-Skeffington, Felicia Pratto, Kristin~E. Henkel, Rob Foels, and Andrew~L. Stewart.
+\newblock The nature of social dominance orientation: Theorizing and measuring preferences for intergroup inequality using the new {SDO7} scale.
+\newblock \emph{Journal of Personality and Social Psychology}, 109\penalty0 (6):\penalty0 1003--1028, 2015.
+\newblock \doi{10.1037/pspi0000033}.
+
+\bibitem[Moore et~al.(2024)Moore, Deshpande, and Yang]{moore2024}
+Jared Moore, Tanvi Deshpande, and Diyi Yang.
+\newblock Are large language models consistent over value-laden questions?
+\newblock In \emph{Findings of the Association for Computational Linguistics: EMNLP 2024}, pages 15185--15221, 2024.
+\newblock \doi{10.18653/v1/2024.findings-emnlp.891}.
+
+\bibitem[Motoki et~al.(2024)Motoki, {Pinho Neto}, and Rodrigues]{motoki2024}
+Fabio Motoki, Valdemar {Pinho Neto}, and Victor Rodrigues.
+\newblock More human than human: Measuring {ChatGPT} political bias.
+\newblock \emph{Public Choice}, 198\penalty0 (1--2):\penalty0 3--23, 2024.
+\newblock \doi{10.1007/s11127-023-01097-2}.
+
+\bibitem[O{\.z}egalska-{\L}ukasik and {\L}ukasik(2026)]{lukasik2026}
+Natalia O{\.z}egalska-{\L}ukasik and Szymon {\L}ukasik.
+\newblock Artificial authority: From machine minds to political alignments. {An} experimental analysis of democratic and autocratic biases in large-language models.
+\newblock \emph{Politeja}, 23\penalty0 (2(102)):\penalty0 327--350, 2026.
+\newblock \doi{10.12797/Politeja.23.2026.102.19}.
+
+\bibitem[Pellert et~al.(2024)Pellert, Lechner, Wagner, Rammstedt, and Strohmaier]{pellert2024}
+Max Pellert, Clemens~M. Lechner, Claudia Wagner, Beatrice Rammstedt, and Markus Strohmaier.
+\newblock {AI} psychometrics: Assessing the psychological profiles of large language models through psychometric inventories.
+\newblock \emph{Perspectives on Psychological Science}, 19\penalty0 (5):\penalty0 808--826, 2024.
+\newblock \doi{10.1177/17456916231214460}.
+
+\bibitem[Perry et~al.(2013)Perry, Sibley, and Duckitt]{perry2013}
+Ryan Perry, Chris~G. Sibley, and John Duckitt.
+\newblock Dangerous and competitive worldviews: A meta-analysis of their associations with social dominance orientation and right-wing authoritarianism.
+\newblock \emph{Journal of Research in Personality}, 47\penalty0 (1):\penalty0 116--127, 2013.
+\newblock \doi{10.1016/j.jrp.2012.10.004}.
+
+\bibitem[Pratto et~al.(1994)Pratto, Sidanius, Stallworth, and Malle]{pratto1994}
+Felicia Pratto, Jim Sidanius, Lisa~M. Stallworth, and Bertram~F. Malle.
+\newblock Social dominance orientation: A personality variable predicting social and political attitudes.
+\newblock \emph{Journal of Personality and Social Psychology}, 67\penalty0 (4):\penalty0 741--763, 1994.
+\newblock \doi{10.1037/0022-3514.67.4.741}.
+
+\bibitem[R{\"o}ttger et~al.(2024)R{\"o}ttger, Hofmann, Pyatkin, Hinck, Kirk, Sch{\"u}tze, and Hovy]{rottger2024}
+Paul R{\"o}ttger, Valentin Hofmann, Valentina Pyatkin, Musashi Hinck, Hannah~Rose Kirk, Hinrich Sch{\"u}tze, and Dirk Hovy.
+\newblock Political compass or spinning arrow? {Towards} more meaningful evaluations for values and opinions in large language models.
+\newblock In \emph{Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)}, pages 15295--15311, 2024.
+\newblock \doi{10.18653/v1/2024.acl-long.816}.
+
+\bibitem[Rozado(2024)]{rozado2024}
+David Rozado.
+\newblock The political preferences of {LLMs}.
+\newblock \emph{PLOS ONE}, 19\penalty0 (7):\penalty0 e0306621, 2024.
+\newblock \doi{10.1371/journal.pone.0306621}.
+
+\bibitem[Salecha et~al.(2024)Salecha, Ireland, Subrahmanya, Sedoc, Ungar, and Eichstaedt]{salecha2024}
+Aadesh Salecha, Molly~E. Ireland, Shashanka Subrahmanya, Jo{\~a}o Sedoc, Lyle~H. Ungar, and Johannes~C. Eichstaedt.
+\newblock Large language models display human-like social desirability biases in {Big Five} personality surveys.
+\newblock \emph{PNAS Nexus}, 3\penalty0 (12):\penalty0 pgae533, 2024.
+\newblock \doi{10.1093/pnasnexus/pgae533}.
+
+\bibitem[Sharma et~al.(2024)Sharma, Tong, Korbak, Duvenaud, Askell, Bowman, Cheng, Durmus, Hatfield-Dodds, Johnston, Kravec, Maxwell, McCandlish, Ndousse, Rausch, Schiefer, Yan, Zhang, and Perez]{sharma2024}
+Mrinank Sharma, Meg Tong, Tomasz Korbak, David Duvenaud, Amanda Askell, Samuel~R. Bowman, Newton Cheng, Esin Durmus, Zac Hatfield-Dodds, Scott~R. Johnston, Shauna Kravec, Timothy Maxwell, Sam McCandlish, Kamal Ndousse, Oliver Rausch, Nicholas Schiefer, Da~Yan, Miranda Zhang, and Ethan Perez.
+\newblock Towards understanding sycophancy in language models.
+\newblock In \emph{The Twelfth International Conference on Learning Representations (ICLR 2024)}, 2024.
+
+\bibitem[Sidanius and Pratto(1999)]{sidanius1999}
+Jim Sidanius and Felicia Pratto.
+\newblock \emph{Social Dominance: An Intergroup Theory of Social Hierarchy and Oppression}.
+\newblock Cambridge University Press, Cambridge, 1999.
+
+\bibitem[S{\"u}hr et~al.(2025)S{\"u}hr, Samadi, Dorner, and Kelava]{suhr2025}
+Tom S{\"u}hr, Samira Samadi, Florian~E. Dorner, and Augustin Kelava.
+\newblock Challenging the validity of personality tests for large language models.
+\newblock In \emph{Proceedings of the 5th {ACM} Conference on Equity and Access in Algorithms, Mechanisms, and Optimization ({EAAMO})}, 2025.
+\newblock \doi{10.1145/3757887.3763016}.
+
+\bibitem[Urban et~al.(2025)Urban, Kmon{\'i}{\v c}kov{\'a}, and Urban]{urban2025}
+Marek Urban, Petra Kmon{\'i}{\v c}kov{\'a}, and Kamila Urban.
+\newblock {AI} is misled by {GenAI}: Stylistic bias in automated assessment of creativity in large language models.
+\newblock In \emph{Creative {AI} Track, Advances in Neural Information Processing Systems 38 (NeurIPS 2025)}, 2025.
+\newblock URL \url{https://neurips.cc/virtual/2025/129305}.
+
+\bibitem[Wang et~al.(2024)Wang, Chen, Deng, Wen, You, Liu, Li, and Li]{wang2024}
+Li~Wang, Xi~Chen, XiangWen Deng, Hao Wen, MingKe You, WeiZhi Liu, Qi~Li, and Jian Li.
+\newblock Prompt engineering in consistency and reliability with the evidence-based guideline for {LLM}s.
+\newblock \emph{npj Digital Medicine}, 7:\penalty0 41, 2024.
+\newblock \doi{10.1038/s41746-024-01029-4}.
+
+\end{thebibliography}

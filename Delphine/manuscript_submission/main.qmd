@@ -1,0 +1,195 @@
+---
+title: "The Diagnostic Fails Silently: Reliability and Aggregation in LLM Psychometrics"
+workshoptitle: "TAE (Trust-AI-Eval): Can We Trust AI Evaluation?"
+format:
+  pdf:
+    template: neurips-template.tex
+    keep-tex: true
+    cite-method: natbib
+    number-sections: true
+    pdf-engine: lualatex
+    header-includes:
+      - \usepackage{array}
+      - \usepackage{booktabs}
+bibliography: references.bib
+biblio-style: plainnat
+---
+abstract: |
+  Benchmark and audit protocols reduce model behaviour to scalar scores without stating the measurement model that licenses the reduction. We test that step directly, administering two validated psychometric instruments (SDO~7~(s), VSA) to 24 instruction-tuned models across five independent runs ($N = 1{,}680$). Within every model, rejection of authoritarian submission and conventionalism is near-uniform, while authoritarian aggression is rejected less: aggression exceeds submission in 23 of 24 models and is lower in none, with the remaining model tied (sign test on the 23 untied models, $p = 2.4 \times 10^{-7}$). The contrast is a within-model difference score, so it is independent of where the instrument's zero point falls; it survives restriction to keying-matched item pairs and holds in all six model families. Scored against the instrument's human midpoint, the asymmetry is large enough that the total carries the opposite sign to one of the components it averages, and the reported total exposes none of this. We document a second aggregation choice that reverses the conclusion over the same distribution, show that internal-consistency coefficients are undefined for deterministic responders --- the responders a reproducibility-conscious protocol is designed to produce --- and give a six-point reporting protocol that exposes these failures from data a repeated-administration design already collects.
+---
+
+# Introduction {#sec-intro}
+
+Two constructs organise most of what social psychology knows about who endorses inequality. Social dominance orientation (SDO) measures the preference for society to be ordered into dominant and subordinate groups [@pratto1994; @sidanius1999]. Right-wing authoritarianism (RWA) measures submission to authority, adherence to conventional norms, and support for punishing those who violate them [@altemeyer1981; @altemeyer1996]. Both are among the strongest known predictors of prejudice, intergroup hostility, and support for coercive policy.
+
+They are not interchangeable. Duckitt's dual-process model [@duckitt2001; @duckittsibley2010] treats them as separate motivational routes, and the clearest evidence is that they predict prejudice toward different targets: across 212 participants rating 24 commonly disliked groups, attitudes formed three factors rather than one, with RWA predicting prejudice toward groups perceived as dangerous and SDO toward derogated, low-status groups [@duckitt2007; @asbrock2010; @perry2013].
+
+That result is worth stating carefully, because this paper makes the same argument one level down. Treating prejudice as a single dimension had concealed that two orientations predict different things, and recovering the difference required decomposing the aggregate. We ask whether the same concealment happens inside one instrument, in a population the instrument was never validated on.
+
+Both instruments are themselves multidimensional, and the decomposition is specified by their authors rather than inferred by us. The SDO~7~ scale separates SDO-Dominance, a preference for systems in which high-status groups forcefully oppress lower-status groups, from SDO-Egalitarianism, a preference for hierarchy maintained through subtle ideologies and social policy [@ho2015]. The Very Short Authoritarianism (VSA) scale inherits the three-part structure of the ACT model [@duckitt2010act; @duckitt2013]: authoritarian aggression, authoritarian submission, and conventionalism. For the VSA, both label sets are the instrument authors' own [@bizumic2018].
+
+If these orientations index prejudice-proneness in humans, and models increasingly shape decisions about people, whether models reproduce similar response patterns is a substantive question, and a large literature now asks it [@hartmann2023; @motoki2024; @rozado2024; @feng2023; @buyl2026; @lukasik2026; @pellert2024]. Almost all of the questionnaire-based work reports scale totals: a model receives a coordinate, and comparisons between models are comparisons between those numbers.
+
+But a score is only interpretable if the measurement model behind it holds for the respondents being measured. Total scoring assumes a latent trait generating the item responses --- supported across validation samples for humans, and carried over to models without being re-established.
+
+The practice is already under scrutiny, but the scrutiny has been aimed at elicitation: probes are fragile under format change and paraphrase [@rottger2024], ordering artifacts drive responses toward uniform randomness once controlled [@dominguezolmedo2024], and social-desirability effects survive reverse-coding [@salecha2024]. @suhr2025 question whether the measurement model transfers at all: models endorse reverse-coded items alongside their forward-worded partners, and the human factor structure does not replicate. Their reliability finding matters most here --- Cronbach's $\alpha$ and McDonald's $\omega_h$ came out at conventionally acceptable levels while confirmatory factor analysis showed the structural model did not fit. A coefficient that looks fine sitting on top of a broken structure.
+
+No one has examined the step that comes next. Where the latent-trait assumption fails, the aggregate is not a noisy estimate of a disposition. It is an average over responses with no common cause, and its value can be arbitrary with respect to what the items say. Two recent papers show scores failing to travel outward: @barmettler2026 finds the left-of-centre convergence models display on abstract questionnaires does not carry over to concrete referenda, where their position shifts to the centre and no longer predicts how they vote, and @einwiller2026 find closed-form psychometric scores have essentially no predictive validity for authoritarian content in generation tasks (median $r = 0.01$) while the same items administered as open responses reach $r = 0.65$. We ask the question that comes before theirs. Does the score summarise the administration it was computed from?
+
+@einwiller2026 come closest to our design. They administer fifteen authoritarianism instruments to seventeen models --- the VSA among them --- and report the three ACT facets separately rather than as a total, which is the practice we are arguing for. They do not ask what the total does when the facets disagree. That is our question: whether the headline number a protocol reports still summarises the components underneath it.
+
+We gave the published short form of the SDO~7~ scale [@ho2015] and the VSA [@bizumic2018] to 24 instruction-tuned models across six families, running every model--item cell five times independently ($N = 1{,}680$). Repetition is a measurement here, not a robustness check: it makes within-model response stability an observable property, following work reporting that the consistency of model political worldviews varies across systems [@ceron2024; @moore2024].
+
+We read the same responses at three levels --- total, subdimension, and item --- and ask at each level whether the summary above it holds. The answer at each level is no. Aggregated over items, the authoritarianism total carries the opposite sign to one of its three subdimensions, a reversal that survives keying-matched restriction. Aggregated over administrations, rate-based and mean-based summaries of one distribution support opposite conclusions. Aggregated over respondents, internal-consistency coefficients are undefined for deterministic responders and unstable to the removal of a single model where defined at all. Throughout, *reversal* means a subdimension mean carrying the opposite sign to the total computed over it. The mechanism is not specific to attitude instruments: any protocol that averages heterogeneous items into a headline number makes the same assumption.
+
+# Method {#sec-method}
+
+We evaluated 24 instruction-tuned models across six families (GPT, Claude, Llama, Gemma, GPT-OSS, Qwen). Sixteen are proprietary flagship models and eight are open-weight. All 24 were reached through managed serving platforms rather than vendor APIs directly: seven through Azure OpenAI and seventeen through Databricks model serving. The full list is in @sec-app-models.
+
+**Instruments.** We chose the SDO~7~(s) and VSA over the more common personality inventories on three properties: both have a published subdimension structure with validation evidence, so the assumption under test is stated by the instrument's own authors; both balance wording direction within each subdimension, which permits the keying control in @sec-wording; and both are short enough that five-fold repetition across 24 models is affordable. Both are already in use here --- the VSA is one of the AuAu instruments [@einwiller2026].
+
+The SDO~7~(s) has 8 items on a 7-point favour--oppose scale (midpoint 4). Four measure group-based dominance and four measure opposition to egalitarianism; within each subdimension two items are worded pro-trait and two con-trait, so subdimension membership and wording direction are crossed rather than confounded. The VSA has 6 items on a 9-point agree--disagree scale scored $-4$ to $+4$ (midpoint 0), two per subdimension, with wording direction balanced within each pair [@bizumic2018]. This within-facet balance is load-bearing for @sec-wording.
+
+**Administration.** Each model received each item five times in independent API calls, giving 1,680 item-administrations (24 models $\times$ 14 items $\times$ 5 repeats). Five repeats is enough for the job we give it: we use repetition to classify models, not to estimate any model's item mean precisely. The question is binary --- does a model return the same answer every time. @wang2024 used the same number for the same purpose, nine models with each question asked five times, and recovered Fleiss $\kappa$ from $-0.002$ to $0.984$. What five repeats cannot support is a precise estimate of how much two variable models differ in dispersion, and we make no such comparison.
+
+No sampling parameters were set in either collection pipeline; all administrations used provider-side defaults. This is the standard choice here: @einwiller2026 use each model's recommended or default parameters, temperature 1.0 included, on the reasoning that deterministic settings would be unrealistic for typical use, and repeat generations ten times to capture the variation; @urban2025 make the same choice. The target is the behaviour a user gets from a deployed endpoint. The cost is real --- across Wang et al.'s thirty-six model--prompt cells only two returned near-perfect agreement ($\kappa = 0.984$ and $0.982$), both the same prompt at temperature 0, while every other cell but one fell below $0.6$ --- so the dispersion we report in @sec-aggregate is a property of each model under its serving defaults rather than of the weights. This does not touch the headline contrast, which is paired within model with both facets collected in the same session; and determinism, the property @sec-reliability turns on, is what an endpoint returns when configured for reproducibility, which makes that failure more general than our data rather than less.
+
+**Response handling and analysis.** Responses were parsed for the leading numeric value, with a text fallback where models answered in prose. Four administrations (0.24%) produced no usable response: one explicit refusal and three unparseable outputs, all on SDO items. We treated these as missing rather than imputing them, since attitude items have no correct answer.
+
+Item responses were reverse-keyed and averaged within model. With $n = 24$ and no distributional assumptions available all tests are non-parametric; the confirmatory test is a within-model paired Wilcoxon signed-rank contrast of aggression against submission. Ties are present, so the exact test does not apply and all reported $p$-values use the normal approximation without continuity correction --- we state this because R's `wilcox.test` corrects by default and would differ in the third significant figure. All statistics were reproduced independently in R and Python from item-level data; scripts and raw responses are in an anonymised repository linked from the supplementary material. Neither the aggression--submission contrast nor the keying-matched contrasts were pre-registered, and we return to this in @sec-limitations.
+
+# Results
+
+## The aggregate is unanimous and uninformative {#sec-aggregate}
+
+Scored the conventional way, the 24 models agree with each other. Social dominance averages 1.64 on the 1--7 scale ($SD = 0.50$, midpoint 4), and no model is above the midpoint. Authoritarianism averages $-0.82$ on the $-4$ to $+4$ scale ($SD = 0.58$, midpoint 0), with 21 of 24 below the midpoint, one exactly at it, and the two above it within 0.2 points. There is spread, but it is spread inside agreement: SDO runs from 1.00 to 3.42 and authoritarianism from $-1.80$ to $+0.20$. Models differ in how firmly they reject hierarchy and deference, not in whether they do.
+
+![Aggregate scores for all 24 models, ranked, with bootstrap 95% intervals over administrations. The shaded region on each panel is above the instrument midpoint. No model enters it on social dominance; two enter it on authoritarianism, both by less than 0.2 points, and one sits exactly on the boundary. Deterministic responders return zero-width intervals. Per-model values are in @sec-app-models.](figures/Figure2_aggregate_scores.png){#fig-scores width=100%}
+
+No property of a model predicts where it lands. Flagship ($n = 16$) and open-weight models ($n = 8$) do not differ on either instrument: SDO $U = 54.0$, $p = .56$; authoritarianism $U = 73.5$, $p = .58$, uncorrected. Neither access tier nor family locates a model on either scale.
+
+Response stability is a different story. Eight of 24 models returned identical responses across all five administrations of every SDO item, and six of 24 did the same on the VSA; no model was fully deterministic on both. At the other end, one 8B open-weight model returned mean within-item standard deviations of 1.40 on SDO and 2.19 on the VSA, roughly eight and five times the sample mean. Determinism is a model-level property that repeated administration makes visible and a single-shot protocol cannot detect even in principle (@fig-stability, @sec-app-stability).
+
+Taken together this is a null with no interpretation available. A study reporting only these numbers would conclude that contemporary LLMs share a political disposition and that the instruments discriminate poorly among them --- a conclusion that is an artifact of the scoring model. The next section shows what the assumption throws away.
+
+## Aggregating over items: the total carries the opposite sign to a subdimension {#sec-reversal}
+
+What follows is not principally a finding about authoritarianism. It is a demonstration that a validated total can carry the opposite sign to a component it was computed from.
+
+Broken into the three subdimensions the VSA was built to represent, the flat total of $-0.82$ separates into two rejections and one non-rejection: submission $-1.56$, conventionalism $-1.10$, authoritarian aggression $+0.22$. The total is negative. One of the three components it averages is positive. The rejections are unanimous; the exception is not. No model exceeds the midpoint on submission or conventionalism. Ten of 24 do on aggression.
+
+![The reversal concealed by the total. (A) Facet scores for every model, with the sample mean as a black diamond. No model exceeds the midpoint on submission or conventionalism; the mean crosses it only on aggression. (B) Within-model aggression-minus-submission differences, one bar per model, ranked. Every bar is zero or positive: no model scores aggression below submission.](figures/Figure3_subscales_VSA.png){#fig-facets width=100%}
+
+The pattern holds within models, not just between them. Aggression exceeds submission in 23 of 24 models individually and is never lower; the one remaining model scores the two facets identically (Wilcoxon signed-rank, $p = .000027$; sign test on the 23 untied models, $p = 2.4 \times 10^{-7}$). Aggression exceeds conventionalism in 20 of 24 and is again never lower, with four exact ties ($p = .000087$). Collapsing models to family medians, aggression exceeds submission in all six families. Because both contrasts are computed within model, neither can be produced by one deviant model, by which families happen to be in the sample, or by between-model heterogeneity of any kind. Dropping the single dispersion outlier from @sec-aggregate leaves both unchanged.
+
+Models do not swing over to endorsement. They move to the midpoint and stop: the facet median is exactly 0.00, eight models sit there, and only three exceed $+1$. Against the $-1.56$ those same models return on submission, this is an absence of rejection where rejection is otherwise universal, not an authoritarian disposition --- a distinction that matters for what the models are and not at all for what the total does. A summary reporting $-0.82$ tells a reader the models reject authoritarianism; on one of the three things the instrument measures they do not, and the summary gives no way to find that out.
+
+## The reversal is not item wording {#sec-wording}
+
+Two-item subdimensions invite an obvious objection: that the contrast reflects the wording of two particular items rather than subdimension structure. Because each VSA facet contains one forward-keyed and one reverse-keyed item, both contrasts can be recomputed within wording direction (@tbl-keying).
+
+| Item pair | Keying | Aggression higher in | $p$-value |
+|:---|:---|:---|:---|
+| Q5 aggression vs. Q1 submission | both reverse | 18/24 (1 reversal, 5 ties) | $p = 0.00061$ |
+| Q6 aggression vs. Q2 submission | both forward | 20/24 (0 reversals, 4 ties) | $p = 0.000083$ |
+| Q5 aggression vs. Q4 conventionalism | both reverse | 16/24 (1 reversal, 7 ties) | $p = 0.0019$ |
+| Q6 aggression vs. Q3 conventionalism | both forward | 13/24 (1 reversal, 10 ties) | $p = 0.0062$ |
+
+: Keying-matched within-model contrasts (paired Wilcoxon signed-rank, $n = 24$). Ties are models that scored the two items identically across all five administrations. {#tbl-keying}
+
+All four contrasts run in the same direction, and at most one model reverses in any of them --- against no reversals at all at facet level, which is what a real facet effect measured with noisy components looks like. The four rows are not independent tests but four decompositions of one contrast sharing items across rows; we report them uncorrected and note that they stand or fall together. A keying main effect is present in these data, but it does not run in a consistent direction across the two instruments and cannot account for a facet contrast that survives with wording direction held constant.
+
+**The items driving it.** The two aggression items are the only VSA items with positive means: q5 (society does not need tougher government and stricter laws; reverse-keyed) at $+0.23$, and q6 (crack down harder on troublemakers) at $+0.21$. Set against q2 (discipline, with everyone following our leaders) at $-2.14$, the same models reject deference to authority by more than two scale points while sitting at neutrality on coercive enforcement (@fig-items, @sec-app-items).
+
+**Internal replication on the second instrument.** The same structure appears on the SDO, in the subdimensions its authors specify. Opposition to egalitarianism (2.08) exceeds dominance (1.19) in 23 of 24 models, is lower in none, and ties in the remaining one ($p = .000027$). The SDO~7~(s) is also keying-balanced within subdimension, so the wording control applies here too: the contrast holds among the pro-trait items alone (2.68 vs. 1.18, 22 of 24, no reversals, $p = .000039$) and among the con-trait items alone (1.48 vs. 1.20, 17 of 24, two reversals, $p = .017$). It is carried mainly by the pro-trait side, and we say so. A keying contrast on the SDO also reaches significance (pro-trait 1.93 vs. con-trait 1.34, 19 of 24, $p = .00032$), which is why the keying-matched decomposition matters: the subdimension asymmetry survives it, so the two are separable rather than the same effect twice.
+
+The effect is weaker in kind --- both SDO subdimensions stay far below the midpoint, so this is a difference in degree of rejection rather than a sign reversal --- but the direction matches. Rejection is least complete on items opposing equalisation as policy (q5, 2.94; q6, 2.43) and most complete on those asserting group inferiority outright (q2, 1.05; q8, 1.03). Between-model variance concentrates accordingly: q5 and q6 carry 62% of total item variance while q8 and q2 contribute 0.2% and 1.0%, and item means span 1.03 to 2.94 inside a construct reported as one number.
+
+## Aggregating over administrations: rate and mean point opposite ways {#sec-rate}
+
+The same failure recurs at a second aggregation choice, one with nothing to do with which items go into the sum. @einwiller2026 report substantial authoritarian response rates where we report scale means below the midpoint. Both summaries are correct and they describe one distribution: in our data 11.7% of VSA administrations fall on the authoritarian side, and 73 of those 84 land on the two law-and-order items, while the means sit below the midpoint throughout.
+
+A rate records whether a model ever sides with a statement; a mean records how strongly it does so on average. Which summary gets reported determines which conclusion a reader draws, and neither is more principled in the absence of a stated measurement model. Note where the rate concentrates: the two items producing the facet reversal in @sec-reversal are the same two producing almost all authoritarian-side responses. The two inversions are not independent observations but one structure showing through two summaries.
+
+The point is not confined to our dataset. @einwiller2026 administer overlapping instruments to a different model set and report authoritarian aggression as the *least* expressed facet, where we find it the least rejected. Their summary is a rate over administrations, defined explicitly as how often rather than how strongly a model agrees; ours is a scale mean. The facet ordering reverses with the choice.
+
+## Aggregating over respondents: reliability coefficients do not transfer {#sec-reliability}
+
+Under perfect response consistency both the item variances and the total-score variance go to zero, so the ratio inside Cronbach's $\alpha$ is undefined rather than large. The coefficient is not merely unreliable but undefined for a deterministic responder --- and determinism is the outcome a well-specified evaluation protocol is designed to produce.
+
+Internal-consistency estimation requires between-respondent variance, and a single model is a single respondent, so the standard apparatus has no direct analogue. Two substitutions are available and they disagree. @urban2025 treat repeated sessions of one model as the analogue of separate human respondents, a question @suhr2025 also raise and leave open; the alternative --- each model one respondent, the model sample the respondent pool --- is implied whenever a study reports a single $\alpha$ across models. Both appear in the literature, and neither is labelled when reported.
+
+Treating repeated administrations as the replication unit, $\alpha$ is undefined for eight of 24 models on the SDO and six of 24 on the VSA --- the deterministic responders, whose total-score variance across administrations is exactly zero. Among the rest the median is 0.00 on both instruments; four models return a negative value on the SDO and five on the VSA, a further ten and seven return exactly zero, and above 0.20 there is one model on the SDO and five on the VSA. Two models had missing SDO administrations, leaving two and four complete repeats rather than five; their coefficients are reported with that $n$ and should not be read as estimates.
+
+Treating the 24 models as respondents instead gives $\alpha = 0.70$ for the SDO and $0.34$ for the VSA. The first would conventionally be reported as adequate; it is not stable, dropping to $0.54$ when one model is removed. Neither number is a property of the instrument as applied to models: the first fails hardest on exactly the models that appear best behaved, the second measures dispersion across an arbitrary convenience sample. Reporting either without saying which was computed, and on what replication unit, hands a reader a familiar-looking number with no defensible interpretation. This is a structural feature of applying human psychometric machinery to model respondents, not a limitation of our data.
+
+# Discussion
+
+**What actually failed.** Nothing in the elicitation went wrong. The instruments are validated, the administration followed the published response format, every cell was repeated five times, and four administrations out of 1,680 failed to parse. By the standards the field applies this is a clean run --- and the headline number still carries the opposite sign to one of its components. The failure lives in the summation, the step between having the responses and having the score, which evaluation protocols almost never state. A reader given $-0.82$ has no way to recover the $+0.22$ inside it, and no basis in the reported output for suspecting it.
+
+**Why the assumption does not transfer.** The VSA total is a valid summary of a human respondent because six items were shown to load on a single higher-order factor across four validation samples. That evidence is about humans. For models it points the other way: @einwiller2026 report unsatisfactory internal consistency on the multi-factor scales --- the VSA among them --- with CFA fit indices showing model response structures do not follow the human-validated solutions, and @suhr2025 find reverse-coded items frequently endorsed alongside their forward-worded partners. Our result is what should be expected; the surprise is that reporting the total continued without anyone checking whether it summarises anything. @sec-reliability shows the same problem one level up: the apparatus that would ordinarily catch a broken factor structure is itself undefined on deterministic responders, and a protocol following reproducibility guidance is what produces them. Both tools break in ways that produce plausible-looking output rather than errors.
+
+**Why enforcement is the exception.** Our design cannot separate the candidate explanations, so we offer this as a hypothesis. Openly endorsing group inequality or deference to leaders is directly penalised by contemporary alignment objectives [@bai2022]; coercive enforcement framed as public order is not, since "crack down harder on troublemakers" reads as a policy position rather than a statement about the worth of groups. The SDO pattern runs the same way. Social-desirability pressure supplies a presentational route to the same asymmetry [@salecha2024; @sharma2024]. Separating these requires behavioural measures rather than closed-form self-report, which @einwiller2026 find does not predict generation behaviour --- though their open-response administration of the same items does.
+
+**What to do instead.** The implication is narrow and cheap; nothing below requires data beyond repetition. **(1) State the aggregation rule and the evidence for it.** Where there is no evidence that the items share a common cause in the population being evaluated, report the component distribution alongside the headline number. **(2) Report subdimension scores and keying direction alongside any total**, and where subdimensions are keying-balanced, report the keying-matched contrast; it costs nothing and forecloses the wording objection before a reviewer raises it. **(3) Report both the rate and the mean**, which can carry opposite signs over a single distribution. **(4) State the replication unit for any reliability coefficient, and report the undefined cases** rather than dropping them; undefined-because-deterministic is a result, not missing data. **(5) Administer repeatedly and report within-item dispersion.** **(6) Disclose serving parameters**, and where they are handled server-side, report that fact --- a dispersion estimate without them is a property of an endpoint, not of a model.
+
+Any leaderboard metric that averages heterogeneous subtasks, any safety benchmark reporting a composite refusal score, and any values benchmark reporting a scale total makes the same assumption and can be checked the same way, at the same cost.
+
+# Limitations {#sec-limitations}
+
+**Two-item facets.** Our headline contrast rests on two-item subdimension scores. @bizumic2018 report that two-item VSA subscale reliabilities would be adequate only for conventionalism, and @einwiller2026, the only prior study to administer the VSA to language models, report unsatisfactory reliability there too. The instrument is weak on these respondents by two independent estimates. This extends the argument rather than undermining it: neither the total nor the decomposition is a safe summary, and the decomposition is simply the level at which the instrument's own construction reveals what the total conceals. The direction of the concealment is what matters, not the precision of the facet estimate.
+
+**Not pre-registered.** The aggression--submission contrast was specified after we inspected the aggregate scores. It is confirmatory of the subdimension hypothesis but was not pre-registered. This is the weakest methodological point in the paper and we prefer to name it than to let a reader find it.
+
+**Serving infrastructure.** Sampling parameters were not set and are handled server-side throughout, so dispersion is a property of each model under its serving defaults rather than of the weights. Setting the parameter would not fully resolve this: @wang2024 note that a temperature of zero is documented to let the model adjust its own sampling temperature until internal thresholds are met. Isolating model behaviour from serving infrastructure would require provider disclosure of endpoint defaults or local hosting with parameters fixed --- routes that answer different questions, the deployed system a user meets or the artifact a developer released. We measure the first, and say so. None of this bears on the reversal, computed within model with both facets collected in the same session.
+
+**One format, one session, one sample.** Administration used a single response format under a single framing, so robustness across formats [@rottger2024] is untested. The instruments are English-only and Western-normed, and the midpoints we interpret against are human anchors: a model at 0.00 on aggression is at the human midpoint, and whether that is the right zero for a model our design cannot answer. The design is a single-session snapshot, and identical prompts to the same system have produced significantly different response distributions across a three-month window [@bisbee2024]. Finally, 24 models from six families is a convenience sample, two of them represented by a single model, so the family-median check is a statement about sample composition rather than evidence about families.
+
+Most of these limitations concern what the models are; the paper's claim concerns what the total score does. The contrast in @sec-reversal would remain a demonstration that a total can invert its own components even if every dispositional reading in @sec-aggregate were an artifact of the format.
+
+# Conclusion
+
+A validated instrument, administered correctly and repeated adequately, produced a headline number carrying the opposite sign to one of the components it was computed from. Nothing in the elicitation went wrong; the failure was in the summation. The same failure appears at two further levels in the same dataset: choosing a rate rather than a mean reverses the conclusion, and choosing one replication unit rather than another turns an undefined reliability coefficient into a publishable one. Three aggregation choices, three inversions, one cause --- in each case a summary statistic applied without checking that the structure licensing it holds for the respondents being measured. Until a protocol makes its aggregation rule explicit and shows it is licensed for those respondents, a single reported score is not evidence about a model. It is evidence about an arithmetic choice.
+
+```{=latex}
+\appendix
+```
+
+# Response stability {#sec-app-stability}
+
+![Response stability across five administrations of each item, for the SDO (A) and the VSA (B). Each point is a model's mean within-item standard deviation, ranked. Values at zero are deterministic responders: eight models on the SDO and six on the VSA, with no overlap between the two sets. These are exactly the models for which the coefficient in @sec-reliability is undefined.](figures/Figure4_placement_vs_stability.png){#fig-stability width=100%}
+
+# Item-level responses {#sec-app-items}
+
+![Item-level responses across all 24 models, VSA. Each cell is a model's mean distance from the scale midpoint; blue is rejection, red is endorsement. Q1--Q4 (submission, conventionalism) are rejected almost uniformly. Q5 and Q6 (authoritarian aggression) are the only columns where cells sit at or above the midpoint --- and they are oppositely keyed, so the break in the pattern cannot be a wording effect.](figures/Figure5_item_heatmap.png){#fig-items width=100%}
+
+# Models evaluated {#sec-app-models}
+
+| Model | Family | Access | Serving | SDO | VSA | SD~SDO~ | SD~VSA~ |
+|:------|:-------|:-------|:--------|----:|----:|--------:|--------:|
+| gpt-4.1 | GPT | flagship | Azure | 1.12 | -1.10 | 0.00 | 0.80 |
+| gpt-4o | GPT | flagship | Azure | 1.45 | +0.20 | 0.17 | 0.40 |
+| gpt-5 | GPT | flagship | Azure | 1.82 | -0.53 | 0.11 | 0.52 |
+| gpt-5.1 | GPT | flagship | Azure | 1.43 | -1.60 | 0.17 | 0.85 |
+| gpt-5.2 | GPT | flagship | Azure | 1.73 | -0.53 | 0.30 | 0.07 |
+| gpt-5.4 | GPT | flagship | Azure | 1.55 | -0.17 | 0.07 | 0.00 |
+| gpt-5.5 | GPT | flagship | Azure | 1.25 | -0.87 | 0.00 | 0.42 |
+| claude-haiku-4-5 | Claude | flagship | Databricks | 1.20 | -0.37 | 0.07 | 0.23 |
+| claude-sonnet-4 | Claude | flagship | Databricks | 1.40 | -0.33 | 0.06 | 0.00 |
+| claude-sonnet-4-5 | Claude | flagship | Databricks | 1.73 | -0.63 | 0.06 | 0.07 |
+| claude-sonnet-4-6 | Claude | flagship | Databricks | 1.73 | -1.17 | 0.06 | 0.00 |
+| claude-opus-4-1 | Claude | flagship | Databricks | 1.50 | -0.40 | 0.00 | 0.15 |
+| claude-opus-4-5 | Claude | flagship | Databricks | 1.38 | -1.30 | 0.00 | 0.07 |
+| claude-opus-4-6 | Claude | flagship | Databricks | 1.62 | -1.80 | 0.00 | 0.07 |
+| claude-opus-4-7 | Claude | flagship | Databricks | 1.48 | -1.17 | 0.06 | 0.00 |
+| claude-opus-4-8 | Claude | flagship | Databricks | 2.15 | -0.67 | 0.06 | 0.00 |
+| llama-4-maverick | Llama | open-weight | Databricks | 1.38 | -1.57 | 0.00 | 0.09 |
+| meta-llama-3-3-70b-instruct | Llama | open-weight | Databricks | 1.75 | -1.80 | 0.00 | 0.07 |
+| meta-llama-3-1-8b-instruct | Llama | open-weight | Databricks | 3.42 | -0.67 | 1.40 | 2.19 |
+| gemma-3-12b | Gemma | open-weight | Databricks | 1.45 | -1.23 | 0.07 | 0.80 |
+| gpt-oss-120b | GPT-OSS | open-weight | Databricks | 1.33 | -0.90 | 0.39 | 1.58 |
+| gpt-oss-20b | GPT-OSS | open-weight | Databricks | 1.98 | +0.13 | 0.71 | 1.10 |
+| qwen3-next-80b-a3b-instruct | Qwen | open-weight | Databricks | 1.00 | -1.10 | 0.00 | 0.68 |
+| qwen35-122b-a10b | Qwen | open-weight | Databricks | 2.46 | 0.00 | 0.53 | 0.00 |
+
+: The 24 instruction-tuned models, with scale scores and mean within-item standard deviation across five administrations. A dispersion of 0.00 indicates a deterministic responder on that instrument. {#tbl-models}
