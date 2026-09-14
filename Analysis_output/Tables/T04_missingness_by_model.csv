@@ -1,0 +1,6 @@
+model_label,api_error,unparsed_or_refused,total_missing
+databricks-claude-sonnet-4,230,0,230
+databricks-gpt-oss-120b,0,14,14
+databricks-qwen35-122b-a10b,2,6,8
+databricks-gpt-oss-20b,0,1,1
+databricks-meta-llama-3-1-8b-instruct,0,1,1
