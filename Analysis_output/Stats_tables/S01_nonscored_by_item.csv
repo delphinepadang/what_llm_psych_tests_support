@@ -1,0 +1,14 @@
+inst_lang,item_no,subscale,keying,outcome,n
+SDO6-ZH,1,dominance,pro-trait,refusal,4
+SDO6-ZH,2,dominance,pro-trait,refusal,3
+SDO6-ZH,5,dominance,pro-trait,refusal,3
+SDO7s,4,dominance,con-trait,empty_response,2
+SDO6-EN,5,dominance,pro-trait,refusal,2
+SDO7s,2,dominance,pro-trait,refusal,1
+SDO7s,8,anti_egalitarianism,con-trait,empty_response,1
+SDO6-EN,7,dominance,pro-trait,refusal,1
+SDO6-EN,10,anti_egalitarianism,con-trait,empty_response,1
+SDO6-ZH,4,dominance,pro-trait,empty_response,1
+SDO6-ZH,7,dominance,pro-trait,refusal,1
+SDO6-ZH,8,dominance,pro-trait,empty_response,1
+SDO6-ZH,10,anti_egalitarianism,con-trait,refusal,1

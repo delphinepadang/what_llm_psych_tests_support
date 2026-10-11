@@ -1,0 +1,5 @@
+instrument,models,below_midpoint_every_run,above_midpoint_every_run,side_of_midpoint_flips,third_of_range_flips
+SDO6-EN,27,27,0,0,0
+SDO6-ZH,27,26,0,1,0
+SDO7s,27,26,0,1,2
+VSA,27,22,0,4,4

@@ -1,0 +1,28 @@
+display,runs,runs_zh_higher,runs_zh_lower,runs_no_difference,min_diff,max_diff,same_direction_every_run
+GPT-5.5,5,0,4,1,-0.1875,0,FALSE
+GPT-5.2,5,3,2,0,-0.1875,0.25,FALSE
+GPT-5.6-sol,5,2,2,1,-0.0625,0.125,FALSE
+GPT-OSS 20B,5,3,2,0,-0.25,0.8125,FALSE
+Qwen3.5 122B,5,2,2,1,-0.125,0.3125,FALSE
+GPT-5,5,4,1,0,-0.0625,0.625,FALSE
+GPT-5.1,5,4,0,1,0,0.1875,FALSE
+GPT-4.1,5,5,0,0,0.25,0.25,TRUE
+GPT-4o,5,5,0,0,0.25,0.375,TRUE
+GPT-5.4,5,5,0,0,0.3125,0.6875,TRUE
+Claude Fable 5,5,5,0,0,0.3125,0.375,TRUE
+Claude Haiku 4.5,5,5,0,0,0.3125,0.375,TRUE
+Claude Opus 4.1,5,5,0,0,0.125,0.25,TRUE
+Claude Opus 4.5,5,5,0,0,0.125,0.25,TRUE
+Claude Opus 4.6,5,5,0,0,0.3125,0.3125,TRUE
+Claude Opus 4.7,5,5,0,0,0.1875,0.25,TRUE
+Claude Opus 4.8,5,5,0,0,0.0625,0.1875,TRUE
+Claude Opus 5,5,5,0,0,0.1875,0.3125,TRUE
+Claude Sonnet 4.5,5,5,0,0,0.375,0.375,TRUE
+Claude Sonnet 4.6,5,5,0,0,0.1875,0.25,TRUE
+Claude Sonnet 5,5,5,0,0,0.3125,0.4375,TRUE
+Gemma 3 12B,5,5,0,0,0.375,0.5,TRUE
+GPT-OSS 120B,5,5,0,0,0.2375,0.8125,TRUE
+Llama 4 Maverick,5,5,0,0,0.625,0.625,TRUE
+Llama 3.1 8B,5,5,0,0,0.6875,1.6875,TRUE
+Llama 3.3 70B,5,5,0,0,0.375,0.625,TRUE
+Qwen3-Next 80B,5,5,0,0,0.125,0.375,TRUE

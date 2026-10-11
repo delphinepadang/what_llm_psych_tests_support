@@ -1,0 +1,496 @@
+==========================================================================================
+MS_AAI_ToM  |  Reframing checks (04_reframing_checks.R)
+Generated : 2026-10-06 16:16:32 AEDT
+Root      : /Users/delphine/Documents/research_projects/AI Bias paper/MS_AAI_ToM
+Data      : Results/SDO_VSA_Results_20260830.csv
+Borrowed from 02: FILES, SEED, CI_LEVEL, ALPHA, N_RUNS, MAX_API_FAIL, MODEL_LOOKUP, DEVELOPER_LEVELS, make_model_meta, classify_outcome, read_results, SCALE_BOUNDS, REVERSE_KEYS, SUBSCALE_MAP, INSTR_LEVELS, prep_sdo, icc_suite, kripp_alpha, paired_suite, meta_re, meta_summary, TIE_DIGITS, tie_round
+==========================================================================================
+
+
+==========================================================================================
+R0.  Data (same preparation and exclusion rule as 02)
+==========================================================================================
+  Models analysed: 27 (excluded for API failure above 50% of calls: Claude Sonnet 4)
+  Scored responses: 6186; model-item pairs with all 5 runs: 1227
+
+
+==========================================================================================
+R1.  Cross-check against the tables written by 02
+==========================================================================================
+  Note. Each quantity is recomputed here from the raw CSV with this script's own code
+  (only the data-preparation rules are shared with 02) and compared with the value in
+  Stats_tables. 'match' means the two agree to 1e-6.
+
+Table R1.1. Headline numbers: 02's tables vs recomputed here
+------------------------------------------------------------------------------------------
+ quantity                                     instrument  value_02    value_04    abs_diff match
+ Models after exclusions                      SDO6-EN       27.000000   27.000000 0        TRUE 
+ Calls after exclusions                       SDO6-EN     2160.000000 2160.000000 0        TRUE 
+ Models after exclusions                      SDO6-ZH       27.000000   27.000000 0        TRUE 
+ Calls after exclusions                       SDO6-ZH     2160.000000 2160.000000 0        TRUE 
+ Models after exclusions                      SDO7s         27.000000   27.000000 0        TRUE 
+ Calls after exclusions                       SDO7s       1080.000000 1080.000000 0        TRUE 
+ Models after exclusions                      VSA           27.000000   27.000000 0        TRUE 
+ Calls after exclusions                       VSA          810.000000  810.000000 0        TRUE 
+ Model-item pairs (n)                         SDO7s        212.000000  212.000000 0        TRUE 
+ Pairs changed (%)                            SDO7s         15.566038   15.566038 0        TRUE 
+ Pairs changed by 2+ points (%)               SDO7s          9.433962    9.433962 0        TRUE 
+ Model-item pairs (n)                         SDO6-EN      429.000000  429.000000 0        TRUE 
+ Pairs changed (%)                            SDO6-EN       16.317016   16.317016 0        TRUE 
+ Pairs changed by 2+ points (%)               SDO6-EN        6.993007    6.993007 0        TRUE 
+ Model-item pairs (n)                         SDO6-ZH      424.000000  424.000000 0        TRUE 
+ Pairs changed (%)                            SDO6-ZH       21.462264   21.462264 0        TRUE 
+ Pairs changed by 2+ points (%)               SDO6-ZH        8.726415    8.726415 0        TRUE 
+ Model-item pairs (n)                         VSA          162.000000  162.000000 0        TRUE 
+ Pairs changed (%)                            VSA           37.037037   37.037037 0        TRUE 
+ Pairs changed by 2+ points (%)               VSA           24.074074   24.074074 0        TRUE 
+ Model-item pairs (n)                         All SDO/VSA 1227.000000 1227.000000 0        TRUE 
+ Pairs changed (%)                            All SDO/VSA   20.700896   20.700896 0        TRUE 
+ Pairs changed by 2+ points (%)               All SDO/VSA   10.268949   10.268949 0        TRUE 
+ Item-level ICC(1,1), raw responses           SDO7s          0.961459    0.961459 0        TRUE 
+ Item-level ICC(1,1), reverse keys corrected  SDO7s          0.805293    0.805293 0        TRUE 
+ Item-level ICC(1,1), raw responses           SDO6-EN        0.966655    0.966655 0        TRUE 
+ Item-level ICC(1,1), reverse keys corrected  SDO6-EN        0.748248    0.748248 0        TRUE 
+ Item-level ICC(1,1), raw responses           SDO6-ZH        0.967213    0.967213 0        TRUE 
+ Item-level ICC(1,1), reverse keys corrected  SDO6-ZH        0.847968    0.847968 0        TRUE 
+ Item-level ICC(1,1), raw responses           VSA            0.805807    0.805807 0        TRUE 
+ Item-level ICC(1,1), reverse keys corrected  VSA            0.756137    0.756137 0        TRUE 
+ Full-scale ICC(1,1)                          SDO7s          0.809201    0.809201 0        TRUE 
+ Models whose scale score changed (%)         SDO7s         51.851852   51.851852 0        TRUE 
+ Full-scale ICC(1,1)                          SDO6-EN        0.887048    0.887048 0        TRUE 
+ Models whose scale score changed (%)         SDO6-EN       74.074074   74.074074 0        TRUE 
+ Full-scale ICC(1,1)                          SDO6-ZH        0.945484    0.945484 0        TRUE 
+ Models whose scale score changed (%)         SDO6-ZH       77.777778   77.777778 0        TRUE 
+ Full-scale ICC(1,1)                          VSA            0.790158    0.790158 0        TRUE 
+ Models whose scale score changed (%)         VSA           81.481481   81.481481 0        TRUE 
+ Mean Kendall tau between runs (scale scores) SDO7s          0.848879    0.848879 0        TRUE 
+ Model pairs reversed between runs (%)        SDO7s          5.042735    5.042735 0        TRUE 
+ Mean Kendall tau between runs (scale scores) SDO6-EN        0.802106    0.802106 0        TRUE 
+ Model pairs reversed between runs (%)        SDO6-EN        7.321937    7.321937 0        TRUE 
+ Mean Kendall tau between runs (scale scores) SDO6-ZH        0.850209    0.850209 0        TRUE 
+ Model pairs reversed between runs (%)        SDO6-ZH        5.099715    5.099715 0        TRUE 
+ Mean Kendall tau between runs (scale scores) VSA            0.680019    0.680019 0        TRUE 
+ Model pairs reversed between runs (%)        VSA           11.139601   11.139601 0        TRUE 
+ ZH - EN meta-analysis: models (k)            SDO6          27.000000   27.000000 0        TRUE 
+ ZH - EN meta-analysis: pooled shift          SDO6           0.245017    0.245017 0        TRUE 
+ ZH - EN meta-analysis: CI lower              SDO6           0.167938    0.167938 0        TRUE 
+ ZH - EN meta-analysis: CI upper              SDO6           0.322096    0.322096 0        TRUE 
+wrote 490.00B in  0s, 171.27MB/s                                                                                                                                                                                                      wrote 1.00TB in  0s, 2.13PB/s                                                                                                                                                                                                      wrote 751.00B in  0s, 393.74MB/s                                                                                                                                                                                                      wrote 1.00TB in  0s, 820.96TB/s                                                                                                                                                                                                        Per-model rows (Table S7.4) that match: 108 of 108  [details: R1_cross_check_per_model.csv]
+  All 51 headline checks match 02's tables.
+
+
+==========================================================================================
+R2.  Coefficient of variation of scale scores across runs (Rozado 2024)
+==========================================================================================
+  Note. Rozado (2024) summarised run-to-run variability as the CV (SD / mean x 100) of
+  each model's test score across 10 retakes, median 8.03%, and concluded the
+  variability was 'not too concerning'. Here the CV is computed for each model's scale
+  score across its 5 runs. The SD does not depend on how the scale is numbered but the
+  mean does, so the same answers are scored three ways: as analysed (SDO 1 to 7, VSA -4
+  to +4), shifted to start at 1, and shifted to start at 0. The run-to-run SD as % of
+  the scale range is an origin-free alternative.
+
+Table R2.1. Scale-score CV across 5 runs, by model (three codings)
+------------------------------------------------------------------------------------------
+ display           inst_lang scale_min scale_max span mean_score sd_score cv_as_analysed cv_from_one cv_from_zero sd_pct_range n_items pct_changed pct_change_2pt
+ GPT-OSS 20B       SDO7s     1         7         6    2.314      0.256    11.042         11.042       19.444       4.259        7      71.429      28.571        
+ Llama 3.1 8B      SDO7s     1         7         6    3.000      0.824    27.481         27.481       41.222      13.741        8      62.500      37.500        
+ GPT-OSS 120B      SDO7s     1         7         6    1.525      0.298    19.569         19.569       56.844       4.974        8      50.000      37.500        
+ Qwen3.5 122B      SDO7s     1         7         6    2.720      0.460    16.928         16.928       26.769       7.674        5      40.000      40.000        
+ GPT-5             SDO7s     1         7         6    2.100      0.271    12.904         12.904       24.636       4.517        8      37.500      37.500        
+ GPT-5.2           SDO7s     1         7         6    1.950      0.360    18.468         18.468       37.908       6.002        8      37.500      37.500        
+ Claude Opus 5     SDO7s     1         7         6    1.600      0.105     6.536          6.536       17.430       1.743        8      25.000       0.000        
+ Claude Sonnet 5   SDO7s     1         7         6    1.850      0.105     5.653          5.653       12.304       1.743        8      25.000       0.000        
+ Llama 3.3 70B     SDO7s     1         7         6    1.850      0.224    12.087         12.087       26.307       3.727        8      25.000      25.000        
+ GPT-4o            SDO7s     1         7         6    1.400      0.056     3.993          3.993       13.975       0.932        8      12.500       0.000        
+ GPT-5.1           SDO7s     1         7         6    1.250      0.088     7.071          7.071       35.355       1.473        8      12.500      12.500        
+ GPT-5.4           SDO7s     1         7         6    1.775      0.137     7.714          7.714       17.668       2.282        8      12.500      12.500        
+ Claude Haiku 4.5  SDO7s     1         7         6    1.150      0.056     4.861          4.861       37.268       0.932        8      12.500       0.000        
+ Claude Opus 4.1   SDO7s     1         7         6    1.475      0.056     3.790          3.790       11.769       0.932        8      12.500       0.000        
+ GPT-4.1           SDO7s     1         7         6    1.125      0.000     0.000          0.000        0.000       0.000        8       0.000       0.000        
+ GPT-5.5           SDO7s     1         7         6    1.250      0.000     0.000          0.000        0.000       0.000        8       0.000       0.000        
+ GPT-5.6-sol       SDO7s     1         7         6    1.375      0.000     0.000          0.000        0.000       0.000        8       0.000       0.000        
+ Claude Fable 5    SDO7s     1         7         6    1.375      0.000     0.000          0.000        0.000       0.000        8       0.000       0.000        
+ Claude Opus 4.5   SDO7s     1         7         6    1.375      0.000     0.000          0.000        0.000       0.000        8       0.000       0.000        
+ Claude Opus 4.6   SDO7s     1         7         6    1.500      0.000     0.000          0.000        0.000       0.000        8       0.000       0.000        
+ Claude Opus 4.7   SDO7s     1         7         6    1.625      0.000     0.000          0.000        0.000       0.000        8       0.000       0.000        
+ Claude Opus 4.8   SDO7s     1         7         6    2.125      0.000     0.000          0.000        0.000       0.000        8       0.000       0.000        
+ Claude Sonnet 4.5 SDO7s     1         7         6    1.625      0.000     0.000          0.000        0.000       0.000        8       0.000       0.000        
+ Claude Sonnet 4.6 SDO7s     1         7         6    1.625      0.000     0.000          0.000        0.000       0.000        8       0.000       0.000        
+ Gemma 3 12B       SDO7s     1         7         6    1.375      0.000     0.000          0.000        0.000       0.000        8       0.000       0.000        
+ Llama 4 Maverick  SDO7s     1         7         6    1.375      0.000     0.000          0.000        0.000       0.000        8       0.000       0.000        
+ Qwen3-Next 80B    SDO7s     1         7         6    1.000      0.000     0.000          0.000        0.000       0.000        8       0.000       0.000        
+ GPT-OSS 20B       SDO6-EN   1         7         6    1.788      0.215    12.011         12.011       27.263       3.578       16      62.500      37.500        
+ Llama 3.1 8B      SDO6-EN   1         7         6    2.538      0.361    14.213         14.213       23.458       6.011       16      56.250      43.750        
+ GPT-OSS 120B      SDO6-EN   1         7         6    1.300      0.198    15.247         15.247       66.069       3.303       14      50.000      14.286        
+ GPT-5.2           SDO6-EN   1         7         6    2.050      0.135     6.610          6.610       12.904       2.258       16      43.750      31.250        
+ Qwen3.5 122B      SDO6-EN   1         7         6    1.627      0.209    12.830         12.830       33.303       3.478       15      33.333      26.667        
+ GPT-5.4           SDO6-EN   1         7         6    1.337      0.071     5.328          5.328       21.114       1.188       16      31.250       0.000        
+ GPT-5             SDO6-EN   1         7         6    1.425      0.149    10.471         10.471       35.110       2.487       16      25.000      18.750        
+ Claude Opus 5     SDO6-EN   1         7         6    1.512      0.052     3.457          3.457       10.203       0.872       16      25.000       0.000        
+ GPT-5.1           SDO6-EN   1         7         6    1.175      0.052     4.450          4.450       29.881       0.872       16      18.750       0.000        
+ Claude Sonnet 5   SDO6-EN   1         7         6    1.612      0.052     3.243          3.243        8.537       0.872       16      18.750       0.000        
+ GPT-4.1           SDO6-EN   1         7         6    1.175      0.028     2.379          2.379       15.972       0.466       16      12.500       0.000        
+ Claude Fable 5    SDO6-EN   1         7         6    1.512      0.028     1.848          1.848        5.454       0.466       16      12.500       0.000        
+ Llama 3.3 70B     SDO6-EN   1         7         6    1.100      0.034     3.112          3.112       34.233       0.571       16      12.500       0.000        
+ GPT-5.5           SDO6-EN   1         7         6    1.238      0.068     5.533          5.533       28.828       1.141       16       6.250       6.250        
+ GPT-5.6-sol       SDO6-EN   1         7         6    1.188      0.044     3.722          3.722       23.570       0.737       16       6.250       6.250        
+ Claude Haiku 4.5  SDO6-EN   1         7         6    1.413      0.034     2.424          2.424        8.299       0.571       16       6.250       0.000        
+ Claude Opus 4.1   SDO6-EN   1         7         6    1.587      0.034     2.156          2.156        5.827       0.571       16       6.250       0.000        
+ Claude Sonnet 4.6 SDO6-EN   1         7         6    1.738      0.028     1.609          1.609        3.790       0.466       16       6.250       0.000        
+ Gemma 3 12B       SDO6-EN   1         7         6    1.475      0.034     2.321          2.321        7.207       0.571       16       6.250       0.000        
+ Qwen3-Next 80B    SDO6-EN   1         7         6    1.075      0.081     7.580          7.580      108.653       1.358       16       6.250       6.250        
+ GPT-4o            SDO6-EN   1         7         6    1.062      0.000     0.000          0.000        0.000       0.000       16       0.000       0.000        
+ Claude Opus 4.5   SDO6-EN   1         7         6    1.438      0.000     0.000          0.000        0.000       0.000       16       0.000       0.000        
+ Claude Opus 4.6   SDO6-EN   1         7         6    1.438      0.000     0.000          0.000        0.000       0.000       16       0.000       0.000        
+ Claude Opus 4.7   SDO6-EN   1         7         6    1.562      0.000     0.000          0.000        0.000       0.000       16       0.000       0.000        
+ Claude Opus 4.8   SDO6-EN   1         7         6    1.688      0.000     0.000          0.000        0.000       0.000       16       0.000       0.000        
+ Claude Sonnet 4.5 SDO6-EN   1         7         6    1.500      0.000     0.000          0.000        0.000       0.000       16       0.000       0.000        
+ Llama 4 Maverick  SDO6-EN   1         7         6    1.500      0.000     0.000          0.000        0.000       0.000       16       0.000       0.000        
+ GPT-OSS 20B       SDO6-ZH   1         7         6    2.100      0.302    14.366         14.366       27.426       5.028       16      93.750      68.750        
+ GPT-OSS 120B      SDO6-ZH   1         7         6    2.091      0.111     5.325          5.325       10.206       1.856       11      81.818      27.273        
+ Llama 3.1 8B      SDO6-ZH   1         7         6    3.707      0.373    10.062         10.062       13.780       6.216       15      73.333      53.333        
+ GPT-5             SDO6-ZH   1         7         6    1.725      0.196    11.342         11.342       26.987       3.261       16      56.250      25.000        
+ GPT-5.2           SDO6-ZH   1         7         6    2.075      0.068     3.300          3.300        6.369       1.141       16      50.000      37.500        
+ GPT-4o            SDO6-ZH   1         7         6    1.375      0.062     4.545          4.545       16.667       1.042       16      31.250       6.250        
+  ... 48 more rows in R2_cv_by_model.csv
+wrote 1.36kB in  0s, 711.98MB/swrote 1.00TB in  0s, 709.22TB/s                                                                                                                                                                                                      
+Table R2.2. Median CV by instrument, and models that look stable by CV yet changed items
+------------------------------------------------------------------------------------------
+ instrument                        models median_cv_as_analysed models_cv_undefined_as_analysed median_cv_from_one median_cv_from_zero max_cv_from_zero median_sd_pct_range models_cv_at_or_below_8.03
+ SDO6-EN                            27    3.112                  0                              3.112              10.203              108.653          0.571               22                        
+ SDO6-ZH                            27    2.905                  0                              2.905               6.577               40.745          0.872               24                        
+ SDO7s                              27    3.790                  0                              3.790              11.769               56.844          0.932               20                        
+ VSA                                27       NA                 21                              4.384               6.211               13.418          2.282               19                        
+ All model-instrument combinations 108       NA                 21                              3.378               8.251              108.653          0.932               85                        
+ of_which_items_changed_20plus of_which_items_changed_30plus median_pct_items_changed max_pct_items_changed
+  3                             2                             6.250                    62.500              
+  6                             4                            12.500                    93.750              
+  2                             0                            12.500                    71.429              
+ 10                            10                            33.333                   100.000              
+ 21                            16                            12.500                   100.000              
+wrote 1.00TB in  0s, 349.53PB/s                                                                                                                                                                                                        Note. The 8.03% comparison uses the 1-based coding (identical to the analysed coding
+  for SDO; 1 to 9 for VSA, whose analysed coding is centred on 0 and can give a zero or
+  negative mean, which makes the CV undefined). Rozado's tests, his 10 retakes and his
+  randomised prompt wrappers differ from this design, so the comparison shows how the
+  statistic behaves; it does not replicate his numbers.
+
+
+==========================================================================================
+R3.  Per-model agreement across runs vs the 0.80 benchmark (prompt stability score analogue)
+==========================================================================================
+  Note. For each model and instrument, Krippendorff's alpha is computed with the
+  model's items as units and its 5 runs as coders, as the intra-prompt stability score
+  does for repeated runs of one prompt. Interval alpha is the primary version (nominal
+  alpha, which counts every change as a full disagreement, is shown as a sensitivity
+  check). alpha is undefined when every response is identical: such a model is
+  perfectly repeatable, but the coefficient cannot say so.
+
+Table R3.1. Per-model alpha across runs and item changes
+------------------------------------------------------------------------------------------
+ display           inst_lang n_items all_identical alpha_interval alpha_nominal profile_icc n_changed pct_changed pct_changed_by_1pt_only max_range pct_at_floor
+ GPT-OSS 20B       SDO7s      7      FALSE         0.676          0.479         0.703        5        71.429       60.000                 3          28.571     
+ Llama 3.1 8B      SDO7s      8      FALSE         0.618          0.462         0.643        5        62.500       40.000                 6          37.500     
+ GPT-OSS 120B      SDO7s      8      FALSE         0.222          0.143         0.241        4        50.000       25.000                 4          50.000     
+ Qwen3.5 122B      SDO7s      5      FALSE         0.656          0.598         0.696        2        40.000        0.000                 3          20.000     
+ GPT-5             SDO7s      8      FALSE         0.715          0.619         0.737        3        37.500        0.000                 3          50.000     
+ GPT-5.2           SDO7s      8      FALSE         0.615          0.525         0.641        3        37.500        0.000                 3          50.000     
+ Claude Opus 5     SDO7s      8      FALSE         0.923          0.781         0.930        2        25.000      100.000                 1          50.000     
+ Claude Sonnet 5   SDO7s      8      FALSE         0.961          0.795         0.965        2        25.000      100.000                 1          50.000     
+ Llama 3.3 70B     SDO7s      8      FALSE         0.821          0.765         0.837        2        25.000        0.000                 4          75.000     
+ GPT-4o            SDO7s      8      FALSE         0.975          0.813         0.978        1        12.500      100.000                 1          75.000     
+ GPT-5.1           SDO7s      8      FALSE         0.743          0.762         0.764        1        12.500        0.000                 2          75.000     
+ GPT-5.4           SDO7s      8      FALSE         0.894          0.864         0.903        1        12.500        0.000                 2          62.500     
+ Claude Haiku 4.5  SDO7s      8      FALSE         0.809          0.809         0.825        1        12.500      100.000                 1          75.000     
+ Claude Opus 4.1   SDO7s      8      FALSE         0.946          0.907         0.951        1        12.500      100.000                 1          62.500     
+ GPT-4.1           SDO7s      8      FALSE         1.000          1.000         1.000        0         0.000           NA                 0          87.500     
+ GPT-5.5           SDO7s      8      FALSE         1.000          1.000         1.000        0         0.000           NA                 0          75.000     
+ GPT-5.6-sol       SDO7s      8      FALSE         1.000          1.000         1.000        0         0.000           NA                 0          87.500     
+ Claude Fable 5    SDO7s      8      FALSE         1.000          1.000         1.000        0         0.000           NA                 0          62.500     
+ Claude Opus 4.5   SDO7s      8      FALSE         1.000          1.000         1.000        0         0.000           NA                 0          62.500     
+ Claude Opus 4.6   SDO7s      8      FALSE         1.000          1.000         1.000        0         0.000           NA                 0          62.500     
+ Claude Opus 4.7   SDO7s      8      FALSE         1.000          1.000         1.000        0         0.000           NA                 0          62.500     
+ Claude Opus 4.8   SDO7s      8      FALSE         1.000          1.000         1.000        0         0.000           NA                 0          50.000     
+ Claude Sonnet 4.5 SDO7s      8      FALSE         1.000          1.000         1.000        0         0.000           NA                 0          62.500     
+ Claude Sonnet 4.6 SDO7s      8      FALSE         1.000          1.000         1.000        0         0.000           NA                 0          62.500     
+ Gemma 3 12B       SDO7s      8      FALSE         1.000          1.000         1.000        0         0.000           NA                 0          75.000     
+ Llama 4 Maverick  SDO7s      8      FALSE         1.000          1.000         1.000        0         0.000           NA                 0          62.500     
+ Qwen3-Next 80B    SDO7s      8       TRUE            NA             NA            NA        0         0.000           NA                 0         100.000     
+ GPT-OSS 20B       SDO6-EN   16      FALSE         0.399          0.395         0.412       10        62.500       40.000                 4          31.250     
+ Llama 3.1 8B      SDO6-EN   16      FALSE         0.431          0.336         0.444        9        56.250       22.222                 6          43.750     
+ GPT-OSS 120B      SDO6-EN   14      FALSE         0.073          0.420         0.078        7        50.000       71.429                 5          42.857     
+ GPT-5.2           SDO6-EN   16      FALSE         0.788          0.601         0.796        7        43.750       28.571                 3          43.750     
+ Qwen3.5 122B      SDO6-EN   15      FALSE         0.586          0.537         0.599        5        33.333       20.000                 3          60.000     
+ GPT-5.4           SDO6-EN   16      FALSE         0.827          0.552         0.834        5        31.250      100.000                 1          62.500     
+ GPT-5             SDO6-EN   16      FALSE         0.645          0.691         0.657        4        25.000       25.000                 3          68.750     
+ Claude Opus 5     SDO6-EN   16      FALSE         0.912          0.758         0.916        4        25.000      100.000                 1          50.000     
+ GPT-5.1           SDO6-EN   16      FALSE         0.848          0.673         0.855        3        18.750      100.000                 1          81.250     
+ Claude Sonnet 5   SDO6-EN   16      FALSE         0.912          0.828         0.916        3        18.750      100.000                 1          50.000     
+ GPT-4.1           SDO6-EN   16      FALSE         0.885          0.700         0.891        2        12.500      100.000                 1          81.250     
+ Claude Fable 5    SDO6-EN   16      FALSE         0.951          0.880         0.953        2        12.500      100.000                 1          56.250     
+ Llama 3.3 70B     SDO6-EN   16      FALSE         0.732          0.618         0.742        2        12.500      100.000                 1          87.500     
+ GPT-5.5           SDO6-EN   16      FALSE         0.867          0.838         0.873        1         6.250        0.000                 2          87.500     
+ GPT-5.6-sol       SDO6-EN   16      FALSE         0.944          0.638         0.947        1         6.250        0.000                 2          93.750     
+ Claude Haiku 4.5  SDO6-EN   16      FALSE         0.950          0.925         0.952        1         6.250      100.000                 1          62.500     
+ Claude Opus 4.1   SDO6-EN   16      FALSE         0.975          0.933         0.976        1         6.250      100.000                 1          56.250     
+ Claude Sonnet 4.6 SDO6-EN   16      FALSE         0.987          0.956         0.988        1         6.250      100.000                 1          43.750     
+ Gemma 3 12B       SDO6-EN   16      FALSE         0.981          0.901         0.982        1         6.250      100.000                 1          75.000     
+ Qwen3-Next 80B    SDO6-EN   16      FALSE         0.381          0.240         0.393        1         6.250        0.000                 3          93.750     
+ GPT-4o            SDO6-EN   16      FALSE         1.000          1.000         1.000        0         0.000           NA                 0          93.750     
+ Claude Opus 4.5   SDO6-EN   16      FALSE         1.000          1.000         1.000        0         0.000           NA                 0          62.500     
+ Claude Opus 4.6   SDO6-EN   16      FALSE         1.000          1.000         1.000        0         0.000           NA                 0          68.750     
+ Claude Opus 4.7   SDO6-EN   16      FALSE         1.000          1.000         1.000        0         0.000           NA                 0          62.500     
+ Claude Opus 4.8   SDO6-EN   16      FALSE         1.000          1.000         1.000        0         0.000           NA                 0          50.000     
+ Claude Sonnet 4.5 SDO6-EN   16      FALSE         1.000          1.000         1.000        0         0.000           NA                 0          75.000     
+ Llama 4 Maverick  SDO6-EN   16      FALSE         1.000          1.000         1.000        0         0.000           NA                 0          62.500     
+ GPT-OSS 20B       SDO6-ZH   16      FALSE         0.183          0.162         0.191       15        93.750       26.667                 3           6.250     
+ GPT-OSS 120B      SDO6-ZH   11      FALSE         0.233          0.201         0.247        9        81.818       66.667                 5           0.000     
+ Llama 3.1 8B      SDO6-ZH   15      FALSE         0.721          0.349         0.732       11        73.333       27.273                 6          13.333     
+ GPT-5             SDO6-ZH   16      FALSE         0.576          0.455         0.588        9        56.250       55.556                 3          43.750     
+ GPT-5.2           SDO6-ZH   16      FALSE         0.542          0.591         0.554        8        50.000       25.000                 3          31.250     
+ GPT-4o            SDO6-ZH   16      FALSE         0.713          0.518         0.723        5        31.250       80.000                 3          68.750     
+  ... 48 more rows in R3_agreement_by_model.csv
+wrote 986.00B in  0s, 344.63MB/s                                                                                                                                                                                                      wrote 1.00TB in  0s, 797.55TB/s                                                                                                                                                                                                      
+Table R3.2. Models that pass the 0.80 benchmark, and how many of them still changed items
+------------------------------------------------------------------------------------------
+ instrument combinations alpha_undefined_all_same alpha_defined pass_080 pass_and_changed_20plus pass_and_changed_30plus fail_but_changed_under20 pass_080_nominal median_alpha_interval
+ SDO6-EN     27          0                         27           19        2                      1                       2                        14               0.912                
+ SDO6-ZH     27          0                         27           20        2                      0                       0                        16               0.956                
+ SDO7s       27          1                         26           19        3                      0                       2                        16               0.968                
+ VSA         27          1                         26           12        5                      5                       2                         7               0.753                
+ All        108          2                        106           70       12                      6                       6                        53               0.935                
+ median_alpha_nominal
+ 0.828               
+ 0.874               
+ 0.886               
+ 0.721               
+ 0.799               
+wrote 1.00TB in  0s, 262.14PB/s                                                                                                                                                                                                      
+Table R3.3. alpha >= 0.8 but 20%+ of items changed: how big were the changes?
+------------------------------------------------------------------------------------------
+ display          inst_lang n_items alpha_interval alpha_nominal n_changed pct_changed pct_changed_by_1pt_only max_range
+ GPT-5.5          VSA        6      0.944          0.694         3         50.000      100                     1        
+ Claude Haiku 4.5 VSA        6      0.931          0.804         2         33.333       50                     2        
+ Claude Sonnet 5  VSA        6      0.952          0.792         2         33.333      100                     1        
+ Llama 4 Maverick VSA        6      0.972          0.718         2         33.333      100                     1        
+ Qwen3-Next 80B   VSA        6      0.874          0.794         2         33.333        0                     4        
+ GPT-5.4          SDO6-EN   16      0.827          0.552         5         31.250      100                     1        
+ GPT-5.4          SDO6-ZH   16      0.861          0.779         4         25.000       75                     3        
+ GPT-5.6-sol      SDO6-ZH   16      0.834          0.512         4         25.000      100                     1        
+ Claude Opus 5    SDO7s      8      0.923          0.781         2         25.000      100                     1        
+ Claude Opus 5    SDO6-EN   16      0.912          0.758         4         25.000      100                     1        
+ Claude Sonnet 5  SDO7s      8      0.961          0.795         2         25.000      100                     1        
+ Llama 3.3 70B    SDO7s      8      0.821          0.765         2         25.000        0                     4        
+wrote 759.00B in  0s, 397.93MB/s                                                                                                                                                                                                      wrote 1.00TB in  0s, 20.87PB/s                                                                                                                                                                                                        In these 12 model-instrument combinations, 34 item responses changed across runs: 28 by 1 point only, 6 by 2+ points (largest change: 4 points).
+  Note. fail_but_changed_under20 counts the opposite error: models below 0.80 even
+  though fewer than 20% of their items changed. This happens when a model's answers are
+  similar across items (little between-item spread), so a single change weighs heavily.
+
+
+==========================================================================================
+R4.  One-shot test: would a single run have led to a different conclusion?
+==========================================================================================
+  Note. Each of the 5 runs is treated as if it were the only one a researcher had
+  collected. 02 already reports rank-order agreement between runs (Table S7.3); this
+  section adds classification, extremes and the language comparison.
+
+Table R4.1. Models whose classification differs between runs
+------------------------------------------------------------------------------------------
+ display       inst_lang min_score max_score sides                                         thirds                     side_flips third_flips
+ GPT-4.1       VSA       -2.000    -1.333    below midpoint                                lower third / middle third FALSE       TRUE      
+ GPT-4o        VSA       -0.667     0.333    above midpoint / below midpoint               middle third                TRUE      FALSE      
+ GPT-5.1       VSA       -1.500    -0.500    below midpoint                                lower third / middle third FALSE       TRUE      
+ GPT-5.4       VSA       -0.333     0.167    above midpoint / below midpoint               middle third                TRUE      FALSE      
+ Gemma 3 12B   VSA       -1.833    -1.333    below midpoint                                lower third / middle third FALSE       TRUE      
+ GPT-OSS 20B   VSA       -0.333     0.667    above midpoint / at midpoint / below midpoint middle third                TRUE      FALSE      
+ Llama 3.1 8B  SDO7s      1.875     4.000    at midpoint / below midpoint                  lower third / middle third  TRUE       TRUE      
+ Llama 3.1 8B  SDO6-ZH    3.333     4.200    above midpoint / below midpoint               middle third                TRUE      FALSE      
+ Llama 3.1 8B  VSA       -0.833     0.167    above midpoint / below midpoint               middle third                TRUE      FALSE      
+ Llama 3.3 70B VSA       -1.667    -0.833    below midpoint                                lower third / middle third FALSE       TRUE      
+ Qwen3.5 122B  SDO7s      2.200     3.400    below midpoint                                lower third / middle third FALSE       TRUE      
+wrote 942.00B in  0s, 439.00MB/s                                                                                                                                                                                                      wrote 1.00TB in  0s, 20.76PB/s                                                                                                                                                                                                      
+Table R4.2. Classification by a single run: how often it flips
+------------------------------------------------------------------------------------------
+ instrument models below_midpoint_every_run above_midpoint_every_run side_of_midpoint_flips third_of_range_flips
+ SDO6-EN    27     27                       0                        0                      0                   
+ SDO6-ZH    27     26                       0                        1                      0                   
+ SDO7s      27     26                       0                        1                      2                   
+ VSA        27     22                       0                        4                      4                   
+wrote 1.00TB in  0s, 466.03PB/s                                                                                                                                                                                                      
+Table R4.3. Highest-scoring model in each run (and ties at the bottom)
+------------------------------------------------------------------------------------------
+ instrument run top_model                          top_score runner_up_gap models_tied_at_bottom bottom_score
+ SDO6-EN    1   Llama 3.1 8B                       2.875     0.875         1                      1.062      
+ SDO6-EN    2   Llama 3.1 8B                       2.688     0.750         1                      1.000      
+ SDO6-EN    3   Llama 3.1 8B                       2.062     0.062         1                      1.000      
+ SDO6-EN    4   GPT-5.2; Llama 3.1 8B              2.250     0.000         2                      1.062      
+ SDO6-EN    5   Llama 3.1 8B                       2.812     0.688         3                      1.062      
+ SDO6-ZH    1   Llama 3.1 8B                       3.333     1.061         2                      1.188      
+ SDO6-ZH    2   Llama 3.1 8B                       4.200     2.013         2                      1.125      
+ SDO6-ZH    3   Llama 3.1 8B                       3.800     1.675         2                      1.125      
+ SDO6-ZH    4   Llama 3.1 8B                       3.333     0.833         1                      1.125      
+ SDO6-ZH    5   Llama 3.1 8B                       3.867     1.554         2                      1.188      
+ SDO7s      1   Llama 3.1 8B                       4.000     1.200         1                      1.000      
+ SDO7s      2   Llama 3.1 8B                       2.500     0.300         1                      1.000      
+ SDO7s      3   Llama 3.1 8B                       3.375     0.575         1                      1.000      
+ SDO7s      4   Qwen3.5 122B                       2.400     0.114         1                      1.000      
+ SDO7s      5   Qwen3.5 122B                       3.400     0.150         1                      1.000      
+ VSA        1   GPT-5.4; GPT-OSS 20B; Llama 3.1 8B 0.167     0.000         1                     -1.833      
+ VSA        2   GPT-OSS 20B                        0.667     0.333         1                     -1.833      
+ VSA        3   GPT-4o                             0.333     0.167         2                     -1.833      
+ VSA        4   GPT-4o                             0.333     0.167         1                     -2.000      
+ VSA        5   GPT-OSS 20B; Qwen3.5 122B          0.000     0.000         1                     -1.833      
+wrote 493.00B in  0s, 258.47MB/s                                                                                                                                                                                                      wrote 1.00TB in  0s, 20.36PB/s                                                                                                                                                                                                      
+Table R4.4. How far models move in the ranking between runs (rank 1 = highest score)
+------------------------------------------------------------------------------------------
+ instrument models same_top_model_every_run median_rank_span max_rank_span models_moving_3plus_places models_moving_5plus_places median_score_range_pct_of_movers_5plus
+ SDO6-EN    27     FALSE                    3                17            14                          8                          4.688                                
+ SDO6-ZH    27      TRUE                    3                14            14                          7                          4.167                                
+ SDO7s      27     FALSE                    2                16            12                          6                          6.250                                
+ VSA        27     FALSE                    5                16            24                         15                         10.417                                
+wrote 1.00TB in  0s, 466.03PB/s                                                                                                                                                                                                      
+Table R4.5. Best and worst rank of each model across the 5 runs
+------------------------------------------------------------------------------------------
+ display           inst_lang best_rank worst_rank min_score max_score rank_span score_range_pct
+ GPT-OSS 120B      SDO7s      7        23         1.125     1.875     16        12.500         
+ Llama 3.3 70B     SDO7s      4        14         1.500     2.000     10         8.333         
+ GPT-5.2           SDO7s      4        13         1.500     2.375      9        14.583         
+ GPT-5.1           SDO7s     17        23         1.125     1.375      6         4.167         
+ Claude Opus 5     SDO7s      8        14         1.500     1.750      6         4.167         
+ Claude Sonnet 5   SDO7s      4         9         1.750     2.000      5         4.167         
+ GPT-5.4           SDO7s      5         9         1.625     1.875      4         4.167         
+ Llama 3.1 8B      SDO7s      1         5         1.875     4.000      4        35.417         
+ GPT-4.1           SDO7s     23        26         1.125     1.125      3         0.000         
+ GPT-4o            SDO7s     14        17         1.375     1.500      3         2.083         
+ Claude Opus 4.1   SDO7s     13        16         1.375     1.500      3         2.083         
+ Claude Opus 4.8   SDO7s      3         6         2.125     2.125      3         0.000         
+ GPT-5             SDO7s      4         6         1.875     2.500      2        10.417         
+ GPT-5.5           SDO7s     22        24         1.250     1.250      2         0.000         
+ GPT-5.6-sol       SDO7s     16        18         1.375     1.375      2         0.000         
+ Claude Fable 5    SDO7s     16        18         1.375     1.375      2         0.000         
+ Claude Haiku 4.5  SDO7s     23        25         1.125     1.250      2         2.083         
+ Claude Opus 4.5   SDO7s     16        18         1.375     1.375      2         0.000         
+ Claude Opus 4.7   SDO7s      9        11         1.625     1.625      2         0.000         
+ Claude Sonnet 4.5 SDO7s      9        11         1.625     1.625      2         0.000         
+ Claude Sonnet 4.6 SDO7s      9        11         1.625     1.625      2         0.000         
+ Gemma 3 12B       SDO7s     16        18         1.375     1.375      2         0.000         
+ GPT-OSS 20B       SDO7s      2         4         2.000     2.571      2         9.524         
+ Llama 4 Maverick  SDO7s     16        18         1.375     1.375      2         0.000         
+ Claude Opus 4.6   SDO7s     13        14         1.500     1.500      1         0.000         
+ Qwen3.5 122B      SDO7s      1         2         2.200     3.400      1        20.000         
+ Qwen3-Next 80B    SDO7s     27        27         1.000     1.000      0         0.000         
+ GPT-OSS 120B      SDO6-EN    5        22         1.143     1.643     17         8.333         
+ Qwen3.5 122B      SDO6-EN    3        19         1.400     1.800     16         6.667         
+ GPT-5             SDO6-EN    8        21         1.250     1.625     13         6.250         
+ GPT-OSS 20B       SDO6-EN    2        10         1.500     2.000      8         8.333         
+ Claude Opus 5     SDO6-EN    6        13         1.438     1.562      7         2.083         
+ Claude Haiku 4.5  SDO6-EN   13        19         1.375     1.438      6         1.042         
+ GPT-5.4           SDO6-EN   15        20         1.250     1.438      5         3.125         
+ Gemma 3 12B       SDO6-EN   10        15         1.438     1.500      5         1.042         
+ Claude Fable 5    SDO6-EN    7        11         1.500     1.562      4         1.042         
+ Qwen3-Next 80B    SDO6-EN   23        27         1.000     1.188      4         3.125         
+ GPT-5.6-sol       SDO6-EN   20        23         1.125     1.250      3         2.083         
+ Claude Opus 4.1   SDO6-EN    6         9         1.562     1.625      3         1.042         
+ Claude Opus 4.7   SDO6-EN    6         9         1.562     1.562      3         0.000         
+ Claude Opus 4.8   SDO6-EN    3         6         1.688     1.688      3         0.000         
+ GPT-4.1           SDO6-EN   21        23         1.125     1.188      2         1.042         
+ GPT-4o            SDO6-EN   25        27         1.062     1.062      2         0.000         
+ GPT-5.1           SDO6-EN   21        23         1.125     1.250      2         2.083         
+ GPT-5.2           SDO6-EN    1         3         1.938     2.250      2         5.208         
+ GPT-5.5           SDO6-EN   19        21         1.188     1.312      2         2.083         
+ Claude Opus 4.5   SDO6-EN   13        15         1.438     1.438      2         0.000         
+ Claude Opus 4.6   SDO6-EN   13        15         1.438     1.438      2         0.000         
+ Claude Sonnet 4.6 SDO6-EN    3         5         1.688     1.750      2         1.042         
+ Claude Sonnet 4.5 SDO6-EN   10        11         1.500     1.500      1         0.000         
+ Claude Sonnet 5   SDO6-EN    6         7         1.562     1.688      1         2.083         
+ Llama 4 Maverick  SDO6-EN   10        11         1.500     1.500      1         0.000         
+ Llama 3.3 70B     SDO6-EN   25        26         1.062     1.125      1         1.042         
+ Llama 3.1 8B      SDO6-EN    1         1         2.062     2.875      0        13.542         
+ GPT-5             SDO6-ZH    7        21         1.438     1.938     14         8.333         
+ GPT-OSS 20B       SDO6-ZH    2        14         1.750     2.500     12        12.500         
+ Qwen3.5 122B      SDO6-ZH   13        20         1.500     1.786      7         4.762         
+ GPT-5.4           SDO6-ZH    5        11         1.750     2.000      6         4.167         
+ Claude Opus 4.7   SDO6-ZH    9        15         1.750     1.812      6         1.042         
+ Claude Opus 4.8   SDO6-ZH    9        14         1.750     1.875      5         2.083         
+  ... 48 more rows in R4b_rank_span_by_model.csv
+wrote 493.00B in  0s, 159.06MB/s                                                                                                                                                                                                      wrote 1.00TB in  0s, 756.41TB/s                                                                                                                                                                                                        Note. Ties share the best available rank, so models tied at the floor share the same
+  (lowest) rank; with many models at the floor, the 'least dominant model' is usually a
+  tie rather than a single model. Because most scale scores are bunched near the floor,
+  a small change in score can move a model several places: score_range_pct gives the
+  size of the score change (as % of the scale range) behind each rank movement.
+
+Table R4.6. ZH - EN SDO6 shift (scale points), all runs vs each run on its own
+------------------------------------------------------------------------------------------
+ analysis              models paired_mean_diff paired_ci_low paired_ci_high paired_p wilcoxon_p models_higher_in_zh models_lower_in_zh meta_k meta_shift meta_ci_low meta_ci_high meta_p meta_I2
+ All 5 runs (as in 02) 27     0.313            0.209         0.417          0        0          26                  1                  27     0.245      0.168       0.322        0      43.852 
+ Run 1 only            27     0.273            0.181         0.365          0        0          23                  2                  27     0.214      0.146       0.281        0      20.577 
+ Run 2 only            27     0.349            0.210         0.487          0        0          23                  3                  27     0.237      0.141       0.334        0      62.243 
+ Run 3 only            27     0.312            0.178         0.446          0        0          23                  4                  27     0.235      0.154       0.316        0      35.454 
+ Run 4 only            27     0.316            0.196         0.435          0        0          24                  3                  27     0.212      0.136       0.289        0      40.279 
+ Run 5 only            27     0.317            0.219         0.414          0        0          25                  1                  27     0.245      0.175       0.316        0      31.643 
+wrote 1.00TB in  0s, 349.53PB/s                                                                                                                                                                                                      
+Table R4.7. Direction of each model's ZH - EN difference in each single run
+------------------------------------------------------------------------------------------
+ display           runs runs_zh_higher runs_zh_lower runs_no_difference min_diff max_diff same_direction_every_run
+ GPT-5.5           5    0              4             1                  -0.188   0.000    FALSE                   
+ GPT-5.2           5    3              2             0                  -0.188   0.250    FALSE                   
+ GPT-5.6-sol       5    2              2             1                  -0.062   0.125    FALSE                   
+ GPT-OSS 20B       5    3              2             0                  -0.250   0.812    FALSE                   
+ Qwen3.5 122B      5    2              2             1                  -0.125   0.312    FALSE                   
+ GPT-5             5    4              1             0                  -0.062   0.625    FALSE                   
+ GPT-5.1           5    4              0             1                   0.000   0.188    FALSE                   
+ GPT-4.1           5    5              0             0                   0.250   0.250     TRUE                   
+ GPT-4o            5    5              0             0                   0.250   0.375     TRUE                   
+ GPT-5.4           5    5              0             0                   0.312   0.688     TRUE                   
+ Claude Fable 5    5    5              0             0                   0.312   0.375     TRUE                   
+ Claude Haiku 4.5  5    5              0             0                   0.312   0.375     TRUE                   
+ Claude Opus 4.1   5    5              0             0                   0.125   0.250     TRUE                   
+ Claude Opus 4.5   5    5              0             0                   0.125   0.250     TRUE                   
+ Claude Opus 4.6   5    5              0             0                   0.312   0.312     TRUE                   
+ Claude Opus 4.7   5    5              0             0                   0.188   0.250     TRUE                   
+ Claude Opus 4.8   5    5              0             0                   0.062   0.188     TRUE                   
+ Claude Opus 5     5    5              0             0                   0.188   0.312     TRUE                   
+ Claude Sonnet 4.5 5    5              0             0                   0.375   0.375     TRUE                   
+ Claude Sonnet 4.6 5    5              0             0                   0.188   0.250     TRUE                   
+ Claude Sonnet 5   5    5              0             0                   0.312   0.438     TRUE                   
+ Gemma 3 12B       5    5              0             0                   0.375   0.500     TRUE                   
+ GPT-OSS 120B      5    5              0             0                   0.238   0.812     TRUE                   
+ Llama 4 Maverick  5    5              0             0                   0.625   0.625     TRUE                   
+ Llama 3.1 8B      5    5              0             0                   0.688   1.688     TRUE                   
+ Llama 3.3 70B     5    5              0             0                   0.375   0.625     TRUE                   
+ Qwen3-Next 80B    5    5              0             0                   0.125   0.375     TRUE                   
+wrote 349.00B in  0s, 86.11MB/s                                                                                                                                                                                                      wrote 1.00TB in  0s, 6.45PB/s                                                                                                                                                                                                        ZH > EN and significant at alpha = 0.05: meta-analysis in 5 of 5 single runs; paired t-test in 5 of 5.
+  Single-run shift ranges from 0.212 to 0.245 (all runs: 0.245).
+  Models whose ZH - EN difference has the same sign in all 5 runs: 20 of 27.
+  Note. The pooled language result can hold in every run while individual models'
+  differences change sign between runs; claims about a particular model need more than
+  one run.
+
+
+==========================================================================================
+R5.  Key numbers for the manuscript
+==========================================================================================
+  R1  Cross-check: 51 of 51 headline numbers match 02.
+  R2  Median scale-score CV across all model-instrument combinations: 3.38% (1-based coding) vs 8.25% (0-based coding) for the same answers. 85 combinations sit at or below Rozado's 8.03%; 21 of them changed 20%+ of their items.
+  R3  70 of 106 combinations with a defined alpha reach 0.8 (2 more had identical answers throughout); 12 of those passing changed 20%+ of items, 6 changed 30%+.
+  R4  Side of the midpoint flips for 6 model-instrument combinations; third of the range flips for 6. Highest-scoring model is the same in every run for 1 of 4 instruments; 36 model-instrument combinations move 5+ places. ZH > EN holds in 5 of 5 single runs, but only 20 of 27 models keep the same direction in every run.
+
+
+==========================================================================================
+R6.  Manuscript Table 2 and figures
+==========================================================================================
+
+Table R6.1 (manuscript Table 2). Summary statistics vs answers that changed, by instrument
+------------------------------------------------------------------------------------------
+ instrument icc_item_raw icc_item_recoded icc_scale median_alpha_per_model pct_models_alpha_080 median_cv_1based median_cv_0based n_pairs pct_pairs_changed pct_pairs_changed_2plus
+ SDO7s      0.961        0.805            0.809     0.968                  73.077               3.790            11.769           212     15.566             9.434                 
+ SDO6-EN    0.967        0.748            0.887     0.912                  70.370               3.112            10.203           429     16.317             6.993                 
+ SDO6-ZH    0.967        0.848            0.945     0.956                  74.074               2.905             6.577           424     21.462             8.726                 
+ VSA        0.806        0.756            0.790     0.753                  46.154               4.384             6.211           162     37.037            24.074                 
+wrote 1.00TB in  0s, 322.64PB/s                                                                                                                                                                                                        FigR1: 106 model-instrument combinations plotted; 2 with identical answers in every run (alpha undefined) are not shown.
+  FigR2: coloured rows are models whose rank moved 5 or more places between runs.
+
+==========================================================================================
+R version: R version 4.6.0 (2026-04-24)
+Outputs  : /Users/delphine/Documents/research_projects/AI Bias paper/MS_AAI_ToM/Analysis_output/Reframing_checks
+==========================================================================================

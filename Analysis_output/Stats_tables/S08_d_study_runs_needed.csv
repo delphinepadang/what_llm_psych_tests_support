@@ -1,0 +1,31 @@
+instrument,coefficient,runs_for_080,runs_for_090,runs_for_095,single_run
+RMET (definitions),item_rel_models,1,3,5,0.8139906862572392
+RMET (definitions),pair_phi,1,2,4,0.8506215529174175
+RMET (definitions),scale_phi_items_fixed,1,1,2,0.9187266354011919
+RMET (definitions),scale_rel_items_fixed,1,1,2,0.9224264954650732
+RMET (definitions),scale_rel_items_random,,,,0.6122749570343883
+RMET (no definitions),item_rel_models,1,2,4,0.8573687015734823
+RMET (no definitions),pair_phi,1,2,3,0.8882993090814483
+RMET (no definitions),scale_phi_items_fixed,1,1,2,0.9451378886045799
+RMET (no definitions),scale_rel_items_fixed,1,1,2,0.9471092465381276
+RMET (no definitions),scale_rel_items_random,,,,0.6650017390878599
+SDO6-EN,item_rel_models,3,6,12,0.6208749227386803
+SDO6-EN,pair_phi,2,3,7,0.7541319824506515
+SDO6-EN,scale_phi_items_fixed,1,2,3,0.8656579367921329
+SDO6-EN,scale_rel_items_fixed,1,2,3,0.8656579367921329
+SDO6-EN,scale_rel_items_random,,,,0.6886958877611947
+SDO6-ZH,item_rel_models,2,3,6,0.7854875801466906
+SDO6-ZH,pair_phi,1,2,4,0.8507921111643388
+SDO6-ZH,scale_phi_items_fixed,1,1,2,0.9423104445531306
+SDO6-ZH,scale_rel_items_fixed,1,1,2,0.9432781022054312
+SDO6-ZH,scale_rel_items_random,2,,,0.7846160640242968
+SDO7s,item_rel_models,2,5,9,0.680127085604594
+SDO7s,pair_phi,1,3,5,0.8143528363974857
+SDO7s,scale_phi_items_fixed,2,3,5,0.7957810378630988
+SDO7s,scale_rel_items_fixed,1,3,5,0.8056854317078304
+SDO7s,scale_rel_items_random,,,,0.5691524936154196
+VSA,item_rel_models,3,5,10,0.6647509196971663
+VSA,pair_phi,2,3,6,0.7684721050549382
+VSA,scale_phi_items_fixed,2,4,8,0.7090648968671212
+VSA,scale_rel_items_fixed,2,4,8,0.7090648968671212
+VSA,scale_rel_items_random,,,,0.15861869794217132

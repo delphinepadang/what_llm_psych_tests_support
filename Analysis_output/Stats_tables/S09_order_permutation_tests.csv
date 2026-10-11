@@ -1,0 +1,7 @@
+data,statistic,observed,null_mean,p_value
+SDO/VSA (position 0-1),Lag-1 autocorrelation (stickiness),-0.20777964848882916,-0.19927960742444076,0.41051789642071584
+SDO/VSA (position 0-1),Share of within-pair variance on a linear trend (drift),0.26910520696451923,0.25056547511497945,0.2631473705258948
+SDO/VSA (position 0-1),First run minus mean of later runs (warm-up),0.0017063977180114217,2.877954360228377e-5,0.5126974605078984
+RMET (correct 0/1),Lag-1 autocorrelation (stickiness),-0.20682414698162738,-0.20008845144355575,0.40251949610077986
+RMET (correct 0/1),Share of within-pair variance on a linear trend (drift),0.2440944881889759,0.2502838582677157,0.6250749850029994
+RMET (correct 0/1),First run minus mean of later runs (warm-up),-0.011136968085106422,1.8118351063832957e-5,0.022195560887822437

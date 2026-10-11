@@ -1,5 +1,0 @@
-instrument,language,n_obs,scale_min,scale_max,n_items
-SDO,en,1120,1,7,8
-SDO6,en,2240,1,7,16
-SDO6,zh,2240,1,7,16
-VSA,en,840,-4,4,6

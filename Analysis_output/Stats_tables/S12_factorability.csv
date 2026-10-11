@@ -1,0 +1,4 @@
+instrument,n_models,n_items,cor_matrix_singular,KMO,bartlett_chisq,bartlett_df,bartlett_p,efa_run,parallel_nfactors,var_explained_1f
+SDO6-EN,27,16,TRUE,,,,,FALSE,,
+SDO6-ZH,27,16,FALSE,0.5107419904114447,514.5575665670106,120,2.815397516765644e-50,FALSE,,
+SDO7s,27,7,FALSE,0.6832431889440715,88.44444904660095,21,2.9896999603540294e-10,TRUE,2,0.38696678292823405

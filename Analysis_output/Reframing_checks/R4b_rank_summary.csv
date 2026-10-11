@@ -1,0 +1,5 @@
+instrument,models,same_top_model_every_run,median_rank_span,max_rank_span,models_moving_3plus_places,models_moving_5plus_places,median_score_range_pct_of_movers_5plus
+SDO6-EN,27,FALSE,3,17,14,8,4.6875
+SDO6-ZH,27,TRUE,3,14,14,7,4.166666666666667
+SDO7s,27,FALSE,2,16,12,6,6.25
+VSA,27,FALSE,5,16,24,15,10.416666666249998

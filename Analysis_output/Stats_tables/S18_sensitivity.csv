@@ -1,0 +1,7 @@
+test,n,d80,d90,raw_sd,raw_unit,min_detectable_raw_80
+"RMET definitions, paired over models",21 models,0.6427534712951155,0.7439550737326243,3.168545808361075,% points,2.036593817281669
+"SDO6 language, paired over models",27 models,0.560115747327352,0.6482284997266766,0.26203186403503254,scale points,0.14676817334756134
+Correlation across SDO models,27 models,0.510256214851446,0.5727814526019773,,r,
+Correlation across RMET models,21 models,0.5700016908690394,0.634906625264442,,r,
+"OpenAI vs Anthropic, RMET instability",8 vs 11 models,1.3813911961748162,1.5991019648434155,9.731193895227221,% points,13.442585575137
+LLM models vs human RMET controls,21 models vs 122 humans,0.6664341020313214,0.7710902133610945,3.6,items (human SD),2.399162767312757

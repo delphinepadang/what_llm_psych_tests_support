@@ -1,0 +1,15 @@
+# Private drafts, notes and superseded files (kept locally, not published)
+_private/
+
+# System and editor files
+.DS_Store
+**/.DS_Store
+.Rhistory
+**/.Rhistory
+.RData
+**/.RData
+.Rproj.user/
+Rplots.pdf
+~$*
+__pycache__/
+.ipynb_checkpoints/

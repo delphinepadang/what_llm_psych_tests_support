@@ -1,0 +1,24 @@
+family,tests,sig_raw,sig_bh,sig_holm
+S01 Missingness,2,2,2,2
+S02 RMET benchmark,4,0,0,0
+S03 RMET definitions,10,2,2,1
+S04 RMET reliability,7,6,5,5
+S05 RMET items,1,1,1,1
+S05 RMET items (per item),31,12,10,7
+S06 RMET error consistency,3,3,3,3
+S07 SDO/VSA reliability,5,3,3,3
+S09 Exchangeability,13,5,2,1
+S10 Scale position,4,3,3,2
+S11 Response styles,8,3,3,3
+S11 Subdimensions,3,3,3,3
+S11 Subdimensions (per model),81,11,3,1
+S12 Structural validity,6,4,4,3
+S13 Language,14,12,12,12
+S13 Language (per item),16,8,8,5
+S13 Language DIF (per item),16,8,7,2
+S13 Language invariance,2,2,2,2
+S14 Drift,6,2,0,0
+S14 Drift (per model),17,3,2,1
+S15 Alignment proxy,5,2,2,2
+S16 Model profiles,1,1,1,1
+S17 Cross-instrument,36,10,7,4

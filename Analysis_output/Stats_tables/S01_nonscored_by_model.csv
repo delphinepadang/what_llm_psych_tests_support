@@ -1,0 +1,12 @@
+dataset,model_label,scored,refusal,empty_response,unparseable,api_error,n_calls
+RMET Jun,azure-gpt-4o,71,0,0,1,0,72
+RMET Sep,databricks-claude-sonnet-4,0,0,0,0,360,360
+RMET Sep,azure-gpt-4.1,356,0,0,4,0,360
+RMET Sep,azure-gpt-4o,356,0,0,4,0,360
+SDO/VSA Aug,databricks-claude-sonnet-4,0,0,0,0,230,230
+SDO/VSA Aug,databricks-gpt-oss-120b,216,14,0,0,0,230
+SDO/VSA Aug,databricks-qwen35-122b-a10b,222,0,6,0,2,230
+SDO/VSA Aug,databricks-gpt-oss-20b,229,1,0,0,0,230
+SDO/VSA Aug,databricks-meta-llama-3-1-8b-instruct,229,1,0,0,0,230
+SDO/VSA Jun,databricks-qwen35-122b-a10b,67,0,3,0,0,70
+SDO/VSA Jun,databricks-gpt-oss-120b,69,0,0,1,0,70

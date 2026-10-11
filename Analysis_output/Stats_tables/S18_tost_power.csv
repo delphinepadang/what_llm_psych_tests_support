@@ -1,0 +1,3 @@
+equivalence_test,sesoi,se,df,power_if_true_diff_is_0,models_needed_for_80pct
+LLM vs human benchmark (+/-1.8 items),1.8,0.8667899089698492,27.008190153333945,0.2882031514587937,53
+Definitions null (+/-5 pp),5,0.6914333814190285,20,0.9999783033982199,6
