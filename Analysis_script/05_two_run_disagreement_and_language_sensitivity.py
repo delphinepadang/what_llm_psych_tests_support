@@ -121,3 +121,38 @@ print(f"  per model x instrument: min {min(vals):.1f}%, median {st.median(vals):
 print(f"  answers differing from their pair's modal answer: {modal_pct:.1f}%")
 for l in lang:
     print(f"Language shift ({l['analysis']}): {l['mean_shift']:.3f}, t = {l['t']}, {l['models_higher_in_zh']} of {l['n_models']} higher in Chinese")
+
+# Response validity in Chinese: does the label the model wrote (in raw_response;
+# the `label` column is filled in from the numeric value) match the label of the
+# chosen number on the Chinese favour-oppose scale?
+import json, re
+ZH_LABELS = {1: "非常反对", 2: "比较反对", 3: "稍微反对", 4: "中立",
+             5: "稍微赞成", 6: "比较赞成", 7: "非常赞成"}
+
+
+def written_label(raw):
+    try:
+        obj = json.loads(raw)
+        if isinstance(obj, dict) and "label" in obj:
+            return str(obj["label"]).strip()
+    except (ValueError, TypeError):
+        pass
+    m = re.search(r'"label"\s*:\s*"([^"]*)"', raw)
+    return m.group(1).strip() if m else None
+
+
+check = defaultdict(lambda: [0, 0])          # model -> [scored, label not matching value]
+for r in rows:
+    if r["instrument"] == "SDO6" and r["language"] == "zh" and r["value"] != "":
+        c = check[r["model_label"]]
+        c[0] += 1
+        if written_label(r["raw_response"]) != ZH_LABELS.get(int(float(r["value"])), ""):
+            c[1] += 1
+label_rows = [{"model_label": m, "scored_zh_answers": s, "label_mismatch": k,
+               "pct_mismatch": round(100 * k / s, 2)} for m, (s, k) in sorted(check.items())]
+with open(os.path.join(OUT, "chinese_label_check.csv"), "w", newline="") as f:
+    w = csv.DictWriter(f, fieldnames=list(label_rows[0])); w.writeheader(); w.writerows(label_rows)
+print("Chinese label check, models with any written label not matching the chosen value:")
+for r in label_rows:
+    if r["label_mismatch"] > 0:
+        print(f"  {r['model_label']}: {r['label_mismatch']} of {r['scored_zh_answers']} scored answers")

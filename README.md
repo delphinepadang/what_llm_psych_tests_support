@@ -102,7 +102,7 @@ Notes on reproducibility:
 | Fig. 5 | `Figures/FigR2_rank_range_across_runs` |
 | Fig. 6 | `Figures/Fig05_language_models_and_items` |
 | CV and α ≥ .80 checks | `Reframing_checks/R2_*.csv`, `R3_*.csv` |
-| Language analyses | `Stats_tables/S13_*.csv`, `Reframing_checks/R4c_*.csv`, `Additional_checks/language_shift_sensitivity.csv` |
+| Language analyses | `Stats_tables/S13_*.csv`, `Reframing_checks/R4c_*.csv`, `Additional_checks/language_shift_sensitivity.csv`, `Additional_checks/chinese_label_check.csv` |
 | Test registry (Supplementary Table S9) | `Stats_tables/S19_test_registry.csv`, `S19_registry_summary.csv` |
 | Supplementary Figs S1–S15 | `Figures/` (Fig02, Fig03, Fig06, FigS2, Fig07, Fig01, Fig09, Fig10, Fig12, Fig08, FigS1, Fig11, FigS3, FigS4, Fig13, in that order) |
 
@@ -114,7 +114,7 @@ The notebooks in `Notebooks/` are the data-collection code from the June 2026 co
 - `LLM Benchmarks.ipynb`: attitude questionnaires;
 - `LLM Benchmarks - Images.ipynb`: RMET.
 
-They show how prompts were built, how requests were sent and how responses were parsed. API keys and internal storage paths have been removed. **[The code used for the August and September collections should be added here before publication.]** The June notebooks set no temperature, top-p or seed, so endpoints ran at provider defaults.
+They show how prompts were built, how requests were sent and how responses were parsed. API keys and internal storage paths have been removed. The June notebooks set no temperature, top-p or seed, so endpoints ran at provider defaults. The code executed for the August and September collections was not archived; the same settings are assumed for those collections. The RMET notebook excludes text-only endpoints.
 
 ## Materials not included
 
