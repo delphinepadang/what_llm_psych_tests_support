@@ -1,0 +1,147 @@
+ATTITUDE: models 27 | calls 6210 | scored 6186 (99.6%)
+Complete pairs 1227 of 1242
+Pairs changed: 20.701%; by >=2 points: 10.269%
+  SDO6-EN: pairs 429, changed 16.3%, >=2pt 7.0%
+  SDO6-ZH: pairs 424, changed 21.5%, >=2pt 8.7%
+  SDO7s: pairs 212, changed 15.6%, >=2pt 9.4%
+  VSA: pairs 162, changed 37.0%, >=2pt 24.1%
+Per-model instability (all attitude items): min 0.0% (Claude Opus 4.6), max 80.0% (GPT-OSS 20B), median 15.2%
+  models with 0 changes: Claude Opus 4.6
+
+ZOOM OUT: pooled mean scale score across models, by run
+  SDO6-EN: 1.505, 1.480, 1.482, 1.471, 1.478 | range 0.034 | overall 1.483
+  SDO6-ZH: 1.781, 1.823, 1.795, 1.779, 1.805 | range 0.044 | overall 1.796
+  SDO7s: 1.664, 1.596, 1.722, 1.572, 1.726 | range 0.154 | overall 1.656
+  VSA: -0.772, -0.796, -0.852, -0.821, -0.883 | range 0.111 | overall -0.825
+
+Scale scores by model (mean of 5 runs) and side of midpoint
+  SDO6-EN: mean of model means 1.483 (model range 1.062 to 2.538); below midpoint every run 27, above every run 0, both sides across runs 0, touching midpoint in some run 0; model means above midpoint: 0
+  SDO6-ZH: mean of model means 1.796 (model range 1.150 to 3.707); below midpoint every run 26, above every run 0, both sides across runs 1, touching midpoint in some run 0; model means above midpoint: 0
+  SDO7s: mean of model means 1.656 (model range 1.000 to 3.000); below midpoint every run 26, above every run 0, both sides across runs 0, touching midpoint in some run 1; model means above midpoint: 0
+  VSA: mean of model means -0.825 (model range -1.767 to 0.133); below midpoint every run 22, above every run 0, both sides across runs 4, touching midpoint in some run 2; model means above midpoint: 1
+     VSA not below every run: GPT-4o: runs [-0.5, 0.333, 0.333, 0.333, -0.667]
+     VSA not below every run: GPT-5.4: runs [0.167, 0.167, -0.333, -0.167, -0.333]
+     VSA not below every run: GPT-OSS 20B: runs [0.167, 0.667, 0.167, -0.333, 0.0]
+     VSA not below every run: Llama 3.1 8B: runs [0.167, -0.833, -0.667, 0.167, -0.167]
+     VSA not below every run: Qwen3.5 122B: runs [0.0, 0.0, 0.0, 0.0, 0.0]
+
+TABLE 2: attitude answers by instrument
+  SDO7s: n_scored 1074, mean_response 1.632, model_mean_min 1.000, model_mean_min_model Qwen3-Next 80B, model_mean_max 3.000, model_mean_max_model Llama 3.1 8B, models_mean_above_midpoint 0, models_below_midpoint_every_run 26, models_both_sides_across_runs 0, models_at_midpoint_in_some_run 1, pct_answers_at_floor 67.970, pct_answers_at_midpoint 8.845, complete_pairs 212, pct_pairs_changed 15.566, pct_pairs_changed_2plus 9.434
+     not below midpoint in every run: Llama 3.1 8B: runs [4.0, 2.5, 3.375, 1.875, 3.25]
+  SDO6-EN: n_scored 2156, mean_response 1.483, model_mean_min 1.062, model_mean_min_model GPT-4o, model_mean_max 2.538, model_mean_max_model Llama 3.1 8B, models_mean_above_midpoint 0, models_below_midpoint_every_run 27, models_both_sides_across_runs 0, models_at_midpoint_in_some_run 0, pct_answers_at_floor 71.382, pct_answers_at_midpoint 4.685, complete_pairs 429, pct_pairs_changed 16.317, pct_pairs_changed_2plus 6.993
+  SDO6-ZH: n_scored 2146, mean_response 1.794, model_mean_min 1.150, model_mean_min_model GPT-5.5, model_mean_max 3.797, model_mean_max_model Llama 3.1 8B, models_mean_above_midpoint 0, models_below_midpoint_every_run 26, models_both_sides_across_runs 1, models_at_midpoint_in_some_run 0, pct_answers_at_floor 53.262, pct_answers_at_midpoint 7.363, complete_pairs 424, pct_pairs_changed 21.462, pct_pairs_changed_2plus 8.726
+     not below midpoint in every run: Llama 3.1 8B: runs [3.333, 4.2, 3.8, 3.333, 3.867]
+  VSA: n_scored 810, mean_response -0.825, model_mean_min -1.767, model_mean_min_model GPT-4.1, model_mean_max 0.133, model_mean_max_model GPT-OSS 20B, models_mean_above_midpoint 1, models_below_midpoint_every_run 22, models_both_sides_across_runs 4, models_at_midpoint_in_some_run 2, pct_answers_at_floor 5.432, pct_answers_at_midpoint 40.123, complete_pairs 162, pct_pairs_changed 37.037, pct_pairs_changed_2plus 24.074
+     not below midpoint in every run: GPT-4o: runs [-0.5, 0.333, 0.333, 0.333, -0.667]
+     not below midpoint in every run: GPT-5.4: runs [0.167, 0.167, -0.333, -0.167, -0.333]
+     not below midpoint in every run: GPT-OSS 20B: runs [0.167, 0.667, 0.167, -0.333, 0.0]
+     not below midpoint in every run: Llama 3.1 8B: runs [0.167, -0.833, -0.667, 0.167, -0.167]
+     not below midpoint in every run: Qwen3.5 122B: runs [0.0, 0.0, 0.0, 0.0, 0.0]
+
+ITEM-LEVEL ANSWERS (raw response scale; keyed mean = after reverse-keying)
+  SDO6-EN  1 rev=0 n=135: raw mean 1.09, keyed 1.09; lowest 98.5%, below mid 98.5%, mid 0.0%, above mid 1.5%, highest 1.5%; models mean below/above mid 27/0 | Some groups of people are simply inferior to other groups.
+  SDO6-EN  2 rev=0 n=135: raw mean 1.47, keyed 1.47; lowest 68.9%, below mid 97.8%, mid 0.0%, above mid 2.2%, highest 2.2%; models mean below/above mid 26/1 | In getting what you want, it is sometimes necessary to use force again
+  SDO6-EN  3 rev=0 n=135: raw mean 1.66, keyed 1.66; lowest 62.2%, below mid 90.4%, mid 5.9%, above mid 3.7%, highest 1.5%; models mean below/above mid 26/1 | It's OK if some groups have more of a chance in life than others.
+  SDO6-EN  4 rev=0 n=135: raw mean 1.12, keyed 1.12; lowest 91.1%, below mid 98.5%, mid 1.5%, above mid 0.0%, highest 0.0%; models mean below/above mid 27/0 | To get ahead in life, it is sometimes necessary to step on other group
+  SDO6-EN  5 rev=0 n=133: raw mean 1.14, keyed 1.14; lowest 97.7%, below mid 97.7%, mid 0.0%, above mid 2.3%, highest 2.3%; models mean below/above mid 26/1 | If certain groups stayed in their place, we would have fewer problems.
+  SDO6-EN  6 rev=0 n=135: raw mean 1.36, keyed 1.36; lowest 86.7%, below mid 93.3%, mid 4.4%, above mid 2.2%, highest 2.2%; models mean below/above mid 26/1 | It's probably a good thing that certain groups are at the top and othe
+  SDO6-EN  7 rev=0 n=134: raw mean 1.04, keyed 1.04; lowest 99.3%, below mid 99.3%, mid 0.0%, above mid 0.7%, highest 0.7%; models mean below/above mid 27/0 | Inferior groups should stay in their place.
+  SDO6-EN  8 rev=0 n=135: raw mean 1.24, keyed 1.24; lowest 92.6%, below mid 96.3%, mid 0.7%, above mid 3.0%, highest 3.0%; models mean below/above mid 26/1 | Sometimes other groups must be kept in their place.
+  SDO6-EN  9 rev=1 n=135: raw mean 6.73, keyed 1.27; lowest 0.0%, below mid 0.0%, mid 0.0%, above mid 100.0%, highest 74.8%; models mean below/above mid 0/27 | It would be good if groups could be equal.
+  SDO6-EN 10 rev=1 n=134: raw mean 6.16, keyed 1.84; lowest 0.0%, below mid 0.0%, mid 8.2%, above mid 91.8%, highest 36.6%; models mean below/above mid 0/25 | Group equality should be our ideal.
+  SDO6-EN 11 rev=1 n=135: raw mean 6.96, keyed 1.04; lowest 0.0%, below mid 0.0%, mid 0.0%, above mid 100.0%, highest 97.0%; models mean below/above mid 0/27 | All groups should be given an equal chance in life.
+  SDO6-EN 12 rev=1 n=135: raw mean 6.03, keyed 1.97; lowest 0.0%, below mid 0.0%, mid 5.9%, above mid 94.1%, highest 28.1%; models mean below/above mid 0/27 | We should do what we can to equalize conditions for different groups.
+  SDO6-EN 13 rev=1 n=135: raw mean 6.69, keyed 1.31; lowest 0.0%, below mid 0.0%, mid 0.0%, above mid 100.0%, highest 68.9%; models mean below/above mid 0/27 | Increased social equality is beneficial to society.
+  SDO6-EN 14 rev=1 n=135: raw mean 6.52, keyed 1.48; lowest 0.0%, below mid 0.0%, mid 0.7%, above mid 99.3%, highest 54.1%; models mean below/above mid 0/27 | We would have fewer problems if we treated people more equally.
+  SDO6-EN 15 rev=1 n=135: raw mean 4.53, keyed 3.47; lowest 0.0%, below mid 11.1%, mid 46.7%, above mid 42.2%, highest 4.4%; models mean below/above mid 3/14 | We should strive to make incomes as equal as possible.
+  SDO6-EN 16 rev=1 n=135: raw mean 6.80, keyed 1.20; lowest 0.0%, below mid 0.0%, mid 0.7%, above mid 99.3%, highest 81.5%; models mean below/above mid 0/27 | No group should dominate in society.
+  SDO6-ZH  1 rev=0 n=131: raw mean 1.16, keyed 1.16; lowest 96.9%, below mid 96.9%, mid 0.8%, above mid 2.3%, highest 2.3%; models mean below/above mid 26/1 | Some groups of people are simply inferior to other groups.
+  SDO6-ZH  2 rev=0 n=132: raw mean 1.65, keyed 1.65; lowest 61.4%, below mid 92.4%, mid 3.8%, above mid 3.8%, highest 3.8%; models mean below/above mid 26/1 | In getting what you want, it is sometimes necessary to use force again
+  SDO6-ZH  3 rev=0 n=135: raw mean 2.39, keyed 2.39; lowest 23.0%, below mid 76.3%, mid 20.7%, above mid 3.0%, highest 2.2%; models mean below/above mid 22/1 | It's OK if some groups have more of a chance in life than others.
+  SDO6-ZH  4 rev=0 n=134: raw mean 1.99, keyed 1.99; lowest 28.4%, below mid 90.3%, mid 7.5%, above mid 2.2%, highest 2.2%; models mean below/above mid 25/1 | To get ahead in life, it is sometimes necessary to step on other group
+  SDO6-ZH  5 rev=0 n=132: raw mean 1.41, keyed 1.41; lowest 84.1%, below mid 93.2%, mid 3.0%, above mid 3.8%, highest 2.3%; models mean below/above mid 26/1 | If certain groups stayed in their place, we would have fewer problems.
+  SDO6-ZH  6 rev=0 n=135: raw mean 2.00, keyed 2.00; lowest 52.6%, below mid 81.5%, mid 14.1%, above mid 4.4%, highest 3.7%; models mean below/above mid 24/1 | It's probably a good thing that certain groups are at the top and othe
+  SDO6-ZH  7 rev=0 n=134: raw mean 1.22, keyed 1.22; lowest 94.8%, below mid 96.3%, mid 0.0%, above mid 3.7%, highest 2.2%; models mean below/above mid 26/1 | Inferior groups should stay in their place.
+  SDO6-ZH  8 rev=0 n=134: raw mean 1.94, keyed 1.94; lowest 56.7%, below mid 79.1%, mid 18.7%, above mid 2.2%, highest 2.2%; models mean below/above mid 24/1 | Sometimes other groups must be kept in their place.
+  SDO6-ZH  9 rev=1 n=135: raw mean 6.77, keyed 1.23; lowest 0.0%, below mid 0.0%, mid 0.0%, above mid 100.0%, highest 79.3%; models mean below/above mid 0/27 | It would be good if groups could be equal.
+  SDO6-ZH 10 rev=1 n=134: raw mean 6.31, keyed 1.69; lowest 0.0%, below mid 0.0%, mid 3.0%, above mid 97.0%, highest 38.1%; models mean below/above mid 0/27 | Group equality should be our ideal.
+  SDO6-ZH 11 rev=1 n=135: raw mean 6.89, keyed 1.11; lowest 0.0%, below mid 0.0%, mid 0.7%, above mid 99.3%, highest 91.1%; models mean below/above mid 0/27 | All groups should be given an equal chance in life.
+  SDO6-ZH 12 rev=1 n=135: raw mean 5.67, keyed 2.33; lowest 0.0%, below mid 1.5%, mid 2.2%, above mid 96.3%, highest 9.6%; models mean below/above mid 0/26 | We should do what we can to equalize conditions for different groups.
+  SDO6-ZH 13 rev=1 n=135: raw mean 6.36, keyed 1.64; lowest 0.0%, below mid 0.0%, mid 0.0%, above mid 100.0%, highest 37.0%; models mean below/above mid 0/27 | Increased social equality is beneficial to society.
+  SDO6-ZH 14 rev=1 n=135: raw mean 6.32, keyed 1.68; lowest 0.0%, below mid 0.0%, mid 0.7%, above mid 99.3%, highest 34.1%; models mean below/above mid 0/27 | We would have fewer problems if we treated people more equally.
+  SDO6-ZH 15 rev=1 n=135: raw mean 4.18, keyed 3.82; lowest 0.0%, below mid 25.2%, mid 40.7%, above mid 34.1%, highest 1.5%; models mean below/above mid 7/12 | We should strive to make incomes as equal as possible.
+  SDO6-ZH 16 rev=1 n=135: raw mean 6.59, keyed 1.41; lowest 0.7%, below mid 0.7%, mid 1.5%, above mid 97.8%, highest 65.9%; models mean below/above mid 0/27 | No group should dominate in society.
+  SDO7s  1 rev=0 n=135: raw mean 1.23, keyed 1.23; lowest 94.1%, below mid 94.8%, mid 3.0%, above mid 2.2%, highest 2.2%; models mean below/above mid 26/1 | An ideal society requires some groups to be on top and others to be on
+  SDO7s  2 rev=0 n=134: raw mean 1.04, keyed 1.04; lowest 99.3%, below mid 99.3%, mid 0.0%, above mid 0.7%, highest 0.7%; models mean below/above mid 27/0 | Some groups of people are simply inferior to other groups.
+  SDO7s  3 rev=1 n=133: raw mean 6.89, keyed 1.11; lowest 0.0%, below mid 0.0%, mid 0.0%, above mid 100.0%, highest 91.7%; models mean below/above mid 0/27 | No one group should dominate in society.
+  SDO7s  4 rev=1 n=133: raw mean 6.83, keyed 1.17; lowest 0.0%, below mid 0.0%, mid 2.3%, above mid 97.7%, highest 91.0%; models mean below/above mid 0/27 | Groups at the bottom are just as deserving as groups at the top.
+  SDO7s  5 rev=0 n=135: raw mean 3.15, keyed 3.15; lowest 12.6%, below mid 52.6%, mid 37.0%, above mid 10.4%, highest 3.0%; models mean below/above mid 15/4 | Group equality should not be our primary goal.
+  SDO7s  6 rev=0 n=135: raw mean 2.43, keyed 2.43; lowest 25.9%, below mid 72.6%, mid 23.7%, above mid 3.7%, highest 3.0%; models mean below/above mid 23/1 | It is unjust to try to make groups equal.
+  SDO7s  7 rev=1 n=135: raw mean 6.09, keyed 1.91; lowest 0.0%, below mid 0.0%, mid 4.4%, above mid 95.6%, highest 30.4%; models mean below/above mid 0/27 | We should do what we can to equalize conditions for different groups.
+  SDO7s  8 rev=1 n=134: raw mean 7.00, keyed 1.00; lowest 0.0%, below mid 0.0%, mid 0.0%, above mid 100.0%, highest 100.0%; models mean below/above mid 0/27 | We should work to give all groups an equal chance to succeed.
+  VSA  1 rev=1 n=135: raw mean 0.99, keyed -0.99; lowest 0.0%, below mid 3.7%, mid 20.0%, above mid 76.3%, highest 0.7%; models mean below/above mid 1/23 | It’s great that many young people today are prepared to defy authority
+  VSA  2 rev=0 n=135: raw mean -2.22, keyed -2.22; lowest 12.6%, below mid 82.2%, mid 16.3%, above mid 1.5%, highest 0.0%; models mean below/above mid 24/0 | What our country needs most is discipline, with everyone following our
+  VSA  3 rev=0 n=135: raw mean -1.00, keyed -1.00; lowest 10.4%, below mid 40.0%, mid 56.3%, above mid 3.7%, highest 1.5%; models mean below/above mid 13/2 | God’s laws about abortion, pornography, and marriage must be strictly 
+  VSA  4 rev=1 n=135: raw mean 1.23, keyed -1.23; lowest 0.0%, below mid 0.0%, mid 48.1%, above mid 51.9%, highest 4.4%; models mean below/above mid 0/19 | There is nothing wrong with premarital sexual intercourse.
+  VSA  5 rev=1 n=135: raw mean -0.18, keyed 0.18; lowest 4.4%, below mid 22.2%, mid 52.6%, above mid 25.2%, highest 0.7%; models mean below/above mid 8/9 | Our society does NOT need tougher government and stricter laws.
+  VSA  6 rev=0 n=135: raw mean 0.31, keyed 0.31; lowest 3.7%, below mid 17.0%, mid 47.4%, above mid 35.6%, highest 3.0%; models mean below/above mid 6/12 | The facts on crime and the recent public disorders show we have to cra
+  SDO7(s) dominance 1.139 vs anti-egalitarianism 2.122 (mean of model means)
+  models answering 0 (Unsure/neutral) to every VSA request: Qwen3.5 122B
+
+VSA keyed responses: share at 0 (neutral) 40.1%, below 0 48.8%, above 0 11.1%
+   VSA item 1 (rev=True): mean keyed -0.99; neutral 20.0%
+   VSA item 2 (rev=False): mean keyed -2.22; neutral 16.3%
+   VSA item 3 (rev=False): mean keyed -1.00; neutral 56.3%
+   VSA item 4 (rev=True): mean keyed -1.23; neutral 48.1%
+   VSA item 5 (rev=True): mean keyed 0.18; neutral 52.6%
+   VSA item 6 (rev=False): mean keyed 0.31; neutral 47.4%
+
+LANGUAGE (SDO6)
+  model-level mean EN 1.483, ZH 1.796; diff 0.313; higher in ZH 26 of 27
+  paired t(26) = 6.21, p = 1.5e-06
+  response-level mean EN 1.483 ZH 1.794
+
+RMET: models 21 | calls 7560 | scored 7552
+  accuracy No definitions: 74.21% = 26.71/36
+  accuracy Definitions: 74.13% = 26.69/36
+  accuracy pooled: 74.17% = 26.70/36
+  model range pooled: 46.1% to 87.2%
+  human general-population mean 26.2/36 = 72.8%
+  models within 1 human SD of the human mean: 14 of 21; above +1 SD: 4; below -1 SD: 3
+  definitions minus none: mean -0.08 pp; range -5.6 to 7.8; higher with defs 10, lower 10, equal 1
+  pairs changed (%): none 11.24, defs 14.42, pooled 12.83
+  pooled RMET accuracy by sitting (%%): 73.3, 75.3, 73.9, 74.4, 73.9
+  item accuracy range: 9.0% (item 35) to 100.0%; items >= 90%: 7; items < 50%: 6
+
+OLDER vs NEWER GENERATION (GPT-4 vs GPT-5; Claude 4 vs Claude 5)
+  RMET accuracy (%): older 75.39 (n=10), newer 78.02 (n=9); developer-balanced diff +1.67; stratified permutation p = 0.648; by developer {'Anthropic': (np.float64(73.785), np.float64(83.796), 8, 3), 'OpenAI': (np.float64(81.806), np.float64(75.139), 2, 6)}
+  RMET items changed (%): older 6.53 (n=10), newer 20.22 (n=9); developer-balanced diff +8.36; stratified permutation p = 0.003; by developer {'Anthropic': (np.float64(5.035), np.float64(7.87), 8, 3), 'OpenAI': (np.float64(12.5), np.float64(26.389), 2, 6)}
+  Attitude items changed (%): older 7.17 (n=10), newer 24.88 (n=9); developer-balanced diff +12.00; stratified permutation p = 0.025; by developer {'Anthropic': (np.float64(4.62), np.float64(17.391), 8, 3), 'OpenAI': (np.float64(17.391), np.float64(28.623), 2, 6)}
+  SDO7(s) score: older 1.50 (n=10), newer 1.61 (n=9); developer-balanced diff +0.20; stratified permutation p = 0.258; by developer {'Anthropic': (np.float64(1.562), np.float64(1.608), 8, 3), 'OpenAI': (np.float64(1.262), np.float64(1.617), 2, 6)}
+  SDO6 English score: older 1.46 (n=10), newer 1.45 (n=9); developer-balanced diff +0.14; stratified permutation p = 0.312; by developer {'Anthropic': (np.float64(1.545), np.float64(1.546), 8, 3), 'OpenAI': (np.float64(1.119), np.float64(1.402), 2, 6)}
+  SDO6 Chinese score: older 1.71 (n=10), newer 1.65 (n=9); developer-balanced diff +0.11; stratified permutation p = 0.493; by developer {'Anthropic': (np.float64(1.789), np.float64(1.862), 8, 3), 'OpenAI': (np.float64(1.4), np.float64(1.546), 2, 6)}
+  VSA score: older -0.93 (n=10), newer -0.76 (n=9); developer-balanced diff +0.10; stratified permutation p = 0.730; by developer {'Anthropic': (np.float64(-0.933), np.float64(-0.978), 8, 3), 'OpenAI': (np.float64(-0.9), np.float64(-0.656), 2, 6)}
+  Chinese minus English SDO6: older 0.25 (n=10), newer 0.20 (n=9); developer-balanced diff -0.03; stratified permutation p = 0.730; by developer {'Anthropic': (np.float64(0.244), np.float64(0.317), 8, 3), 'OpenAI': (np.float64(0.281), np.float64(0.144), 2, 6)}
+  BH-adjusted p, RMET accuracy (%): 0.730
+  BH-adjusted p, RMET items changed (%): 0.024
+  BH-adjusted p, Attitude items changed (%): 0.100
+  BH-adjusted p, SDO7(s) score: 0.624
+  BH-adjusted p, SDO6 English score: 0.624
+  BH-adjusted p, SDO6 Chinese score: 0.730
+  BH-adjusted p, VSA score: 0.730
+  BH-adjusted p, Chinese minus English SDO6: 0.730
+
+Version order within lines (Spearman rho, exact permutation p)
+  GPT (4o<4.1<5<5.1<5.2<5.4<5.5<5.6-sol) | RMET accuracy: rho = -0.40, exact p = 0.327; values 83.1, 80.6, 73.6, 81.1, 62.8, 75.0, 78.6, 79.7
+  GPT (4o<4.1<5<5.1<5.2<5.4<5.5<5.6-sol) | RMET changed: rho = 0.47, exact p = 0.245; values 11.1, 13.9, 33.3, 22.2, 30.6, 22.2, 25.0, 25.0
+  GPT (4o<4.1<5<5.1<5.2<5.4<5.5<5.6-sol) | attitude changed: rho = -0.29, exact p = 0.485; values 19.6, 15.2, 43.5, 30.4, 43.5, 26.1, 13.0, 15.2
+  Claude Opus (4.1<4.5<4.6<4.7<4.8<5) | RMET accuracy: rho = 0.43, exact p = 0.419; values 79.7, 76.4, 70.6, 71.4, 83.6, 80.6
+  Claude Opus (4.1<4.5<4.6<4.7<4.8<5) | RMET changed: rho = 0.70, exact p = 0.139; values 5.6, 2.8, 1.4, 5.6, 6.9, 8.3
+  Claude Opus (4.1<4.5<4.6<4.7<4.8<5) | attitude changed: rho = 0.09, exact p = 0.919; values 10.9, 6.5, 0.0, 2.2, 4.3, 17.4
+
+Llama and Qwen (descriptive only)
+  Llama 3.1 8B: attitude changed 68.9%; SDO6 lang shift 1.260; RMET acc n/a
+  Llama 3.3 70B: attitude changed 21.7%; SDO6 lang shift 0.512; RMET acc n/a
+  Llama 4 Maverick: attitude changed 4.3%; SDO6 lang shift 0.625; RMET acc 55.27777777777777
+  Qwen3-Next 80B: attitude changed 8.7%; SDO6 lang shift 0.250; RMET acc n/a
+  Qwen3.5 122B: attitude changed 22.5%; SDO6 lang shift 0.059; RMET acc n/a

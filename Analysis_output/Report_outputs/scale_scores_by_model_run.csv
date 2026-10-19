@@ -1,0 +1,541 @@
+display,developer,family,inst,run,score,mid
+Claude Fable 5,Anthropic,Claude 5,SDO6-EN,0,1.5,4
+Claude Fable 5,Anthropic,Claude 5,SDO6-EN,1,1.5,4
+Claude Fable 5,Anthropic,Claude 5,SDO6-EN,2,1.5,4
+Claude Fable 5,Anthropic,Claude 5,SDO6-EN,3,1.5625,4
+Claude Fable 5,Anthropic,Claude 5,SDO6-EN,4,1.5,4
+Claude Fable 5,Anthropic,Claude 5,SDO6-ZH,0,1.8125,4
+Claude Fable 5,Anthropic,Claude 5,SDO6-ZH,1,1.875,4
+Claude Fable 5,Anthropic,Claude 5,SDO6-ZH,2,1.875,4
+Claude Fable 5,Anthropic,Claude 5,SDO6-ZH,3,1.875,4
+Claude Fable 5,Anthropic,Claude 5,SDO6-ZH,4,1.875,4
+Claude Fable 5,Anthropic,Claude 5,SDO7s,0,1.375,4
+Claude Fable 5,Anthropic,Claude 5,SDO7s,1,1.375,4
+Claude Fable 5,Anthropic,Claude 5,SDO7s,2,1.375,4
+Claude Fable 5,Anthropic,Claude 5,SDO7s,3,1.375,4
+Claude Fable 5,Anthropic,Claude 5,SDO7s,4,1.375,4
+Claude Fable 5,Anthropic,Claude 5,VSA,0,-0.8333333333333334,0
+Claude Fable 5,Anthropic,Claude 5,VSA,1,-1.0,0
+Claude Fable 5,Anthropic,Claude 5,VSA,2,-0.6666666666666666,0
+Claude Fable 5,Anthropic,Claude 5,VSA,3,-0.6666666666666666,0
+Claude Fable 5,Anthropic,Claude 5,VSA,4,-1.0,0
+Claude Haiku 4.5,Anthropic,Claude 4,SDO6-EN,0,1.4375,4
+Claude Haiku 4.5,Anthropic,Claude 4,SDO6-EN,1,1.4375,4
+Claude Haiku 4.5,Anthropic,Claude 4,SDO6-EN,2,1.375,4
+Claude Haiku 4.5,Anthropic,Claude 4,SDO6-EN,3,1.375,4
+Claude Haiku 4.5,Anthropic,Claude 4,SDO6-EN,4,1.4375,4
+Claude Haiku 4.5,Anthropic,Claude 4,SDO6-ZH,0,1.75,4
+Claude Haiku 4.5,Anthropic,Claude 4,SDO6-ZH,1,1.75,4
+Claude Haiku 4.5,Anthropic,Claude 4,SDO6-ZH,2,1.75,4
+Claude Haiku 4.5,Anthropic,Claude 4,SDO6-ZH,3,1.75,4
+Claude Haiku 4.5,Anthropic,Claude 4,SDO6-ZH,4,1.75,4
+Claude Haiku 4.5,Anthropic,Claude 4,SDO7s,0,1.125,4
+Claude Haiku 4.5,Anthropic,Claude 4,SDO7s,1,1.125,4
+Claude Haiku 4.5,Anthropic,Claude 4,SDO7s,2,1.25,4
+Claude Haiku 4.5,Anthropic,Claude 4,SDO7s,3,1.125,4
+Claude Haiku 4.5,Anthropic,Claude 4,SDO7s,4,1.125,4
+Claude Haiku 4.5,Anthropic,Claude 4,VSA,0,-0.3333333333333333,0
+Claude Haiku 4.5,Anthropic,Claude 4,VSA,1,-0.16666666666666666,0
+Claude Haiku 4.5,Anthropic,Claude 4,VSA,2,-0.16666666666666666,0
+Claude Haiku 4.5,Anthropic,Claude 4,VSA,3,-0.5,0
+Claude Haiku 4.5,Anthropic,Claude 4,VSA,4,-0.5,0
+Claude Opus 4.1,Anthropic,Claude 4,SDO6-EN,0,1.5625,4
+Claude Opus 4.1,Anthropic,Claude 4,SDO6-EN,1,1.625,4
+Claude Opus 4.1,Anthropic,Claude 4,SDO6-EN,2,1.5625,4
+Claude Opus 4.1,Anthropic,Claude 4,SDO6-EN,3,1.625,4
+Claude Opus 4.1,Anthropic,Claude 4,SDO6-EN,4,1.5625,4
+Claude Opus 4.1,Anthropic,Claude 4,SDO6-ZH,0,1.75,4
+Claude Opus 4.1,Anthropic,Claude 4,SDO6-ZH,1,1.875,4
+Claude Opus 4.1,Anthropic,Claude 4,SDO6-ZH,2,1.8125,4
+Claude Opus 4.1,Anthropic,Claude 4,SDO6-ZH,3,1.75,4
+Claude Opus 4.1,Anthropic,Claude 4,SDO6-ZH,4,1.8125,4
+Claude Opus 4.1,Anthropic,Claude 4,SDO7s,0,1.375,4
+Claude Opus 4.1,Anthropic,Claude 4,SDO7s,1,1.5,4
+Claude Opus 4.1,Anthropic,Claude 4,SDO7s,2,1.5,4
+Claude Opus 4.1,Anthropic,Claude 4,SDO7s,3,1.5,4
+Claude Opus 4.1,Anthropic,Claude 4,SDO7s,4,1.5,4
+Claude Opus 4.1,Anthropic,Claude 4,VSA,0,-0.3333333333333333,0
+Claude Opus 4.1,Anthropic,Claude 4,VSA,1,-0.3333333333333333,0
+Claude Opus 4.1,Anthropic,Claude 4,VSA,2,-0.6666666666666666,0
+Claude Opus 4.1,Anthropic,Claude 4,VSA,3,-0.6666666666666666,0
+Claude Opus 4.1,Anthropic,Claude 4,VSA,4,-0.6666666666666666,0
+Claude Opus 4.5,Anthropic,Claude 4,SDO6-EN,0,1.4375,4
+Claude Opus 4.5,Anthropic,Claude 4,SDO6-EN,1,1.4375,4
+Claude Opus 4.5,Anthropic,Claude 4,SDO6-EN,2,1.4375,4
+Claude Opus 4.5,Anthropic,Claude 4,SDO6-EN,3,1.4375,4
+Claude Opus 4.5,Anthropic,Claude 4,SDO6-EN,4,1.4375,4
+Claude Opus 4.5,Anthropic,Claude 4,SDO6-ZH,0,1.6875,4
+Claude Opus 4.5,Anthropic,Claude 4,SDO6-ZH,1,1.5625,4
+Claude Opus 4.5,Anthropic,Claude 4,SDO6-ZH,2,1.6875,4
+Claude Opus 4.5,Anthropic,Claude 4,SDO6-ZH,3,1.625,4
+Claude Opus 4.5,Anthropic,Claude 4,SDO6-ZH,4,1.625,4
+Claude Opus 4.5,Anthropic,Claude 4,SDO7s,0,1.375,4
+Claude Opus 4.5,Anthropic,Claude 4,SDO7s,1,1.375,4
+Claude Opus 4.5,Anthropic,Claude 4,SDO7s,2,1.375,4
+Claude Opus 4.5,Anthropic,Claude 4,SDO7s,3,1.375,4
+Claude Opus 4.5,Anthropic,Claude 4,SDO7s,4,1.375,4
+Claude Opus 4.5,Anthropic,Claude 4,VSA,0,-1.3333333333333333,0
+Claude Opus 4.5,Anthropic,Claude 4,VSA,1,-1.1666666666666667,0
+Claude Opus 4.5,Anthropic,Claude 4,VSA,2,-1.1666666666666667,0
+Claude Opus 4.5,Anthropic,Claude 4,VSA,3,-1.1666666666666667,0
+Claude Opus 4.5,Anthropic,Claude 4,VSA,4,-1.1666666666666667,0
+Claude Opus 4.6,Anthropic,Claude 4,SDO6-EN,0,1.4375,4
+Claude Opus 4.6,Anthropic,Claude 4,SDO6-EN,1,1.4375,4
+Claude Opus 4.6,Anthropic,Claude 4,SDO6-EN,2,1.4375,4
+Claude Opus 4.6,Anthropic,Claude 4,SDO6-EN,3,1.4375,4
+Claude Opus 4.6,Anthropic,Claude 4,SDO6-EN,4,1.4375,4
+Claude Opus 4.6,Anthropic,Claude 4,SDO6-ZH,0,1.75,4
+Claude Opus 4.6,Anthropic,Claude 4,SDO6-ZH,1,1.75,4
+Claude Opus 4.6,Anthropic,Claude 4,SDO6-ZH,2,1.75,4
+Claude Opus 4.6,Anthropic,Claude 4,SDO6-ZH,3,1.75,4
+Claude Opus 4.6,Anthropic,Claude 4,SDO6-ZH,4,1.75,4
+Claude Opus 4.6,Anthropic,Claude 4,SDO7s,0,1.5,4
+Claude Opus 4.6,Anthropic,Claude 4,SDO7s,1,1.5,4
+Claude Opus 4.6,Anthropic,Claude 4,SDO7s,2,1.5,4
+Claude Opus 4.6,Anthropic,Claude 4,SDO7s,3,1.5,4
+Claude Opus 4.6,Anthropic,Claude 4,SDO7s,4,1.5,4
+Claude Opus 4.6,Anthropic,Claude 4,VSA,0,-1.6666666666666667,0
+Claude Opus 4.6,Anthropic,Claude 4,VSA,1,-1.6666666666666667,0
+Claude Opus 4.6,Anthropic,Claude 4,VSA,2,-1.6666666666666667,0
+Claude Opus 4.6,Anthropic,Claude 4,VSA,3,-1.6666666666666667,0
+Claude Opus 4.6,Anthropic,Claude 4,VSA,4,-1.6666666666666667,0
+Claude Opus 4.7,Anthropic,Claude 4,SDO6-EN,0,1.5625,4
+Claude Opus 4.7,Anthropic,Claude 4,SDO6-EN,1,1.5625,4
+Claude Opus 4.7,Anthropic,Claude 4,SDO6-EN,2,1.5625,4
+Claude Opus 4.7,Anthropic,Claude 4,SDO6-EN,3,1.5625,4
+Claude Opus 4.7,Anthropic,Claude 4,SDO6-EN,4,1.5625,4
+Claude Opus 4.7,Anthropic,Claude 4,SDO6-ZH,0,1.8125,4
+Claude Opus 4.7,Anthropic,Claude 4,SDO6-ZH,1,1.75,4
+Claude Opus 4.7,Anthropic,Claude 4,SDO6-ZH,2,1.75,4
+Claude Opus 4.7,Anthropic,Claude 4,SDO6-ZH,3,1.75,4
+Claude Opus 4.7,Anthropic,Claude 4,SDO6-ZH,4,1.75,4
+Claude Opus 4.7,Anthropic,Claude 4,SDO7s,0,1.625,4
+Claude Opus 4.7,Anthropic,Claude 4,SDO7s,1,1.625,4
+Claude Opus 4.7,Anthropic,Claude 4,SDO7s,2,1.625,4
+Claude Opus 4.7,Anthropic,Claude 4,SDO7s,3,1.625,4
+Claude Opus 4.7,Anthropic,Claude 4,SDO7s,4,1.625,4
+Claude Opus 4.7,Anthropic,Claude 4,VSA,0,-1.3333333333333333,0
+Claude Opus 4.7,Anthropic,Claude 4,VSA,1,-1.3333333333333333,0
+Claude Opus 4.7,Anthropic,Claude 4,VSA,2,-1.3333333333333333,0
+Claude Opus 4.7,Anthropic,Claude 4,VSA,3,-1.3333333333333333,0
+Claude Opus 4.7,Anthropic,Claude 4,VSA,4,-1.3333333333333333,0
+Claude Opus 4.8,Anthropic,Claude 4,SDO6-EN,0,1.6875,4
+Claude Opus 4.8,Anthropic,Claude 4,SDO6-EN,1,1.6875,4
+Claude Opus 4.8,Anthropic,Claude 4,SDO6-EN,2,1.6875,4
+Claude Opus 4.8,Anthropic,Claude 4,SDO6-EN,3,1.6875,4
+Claude Opus 4.8,Anthropic,Claude 4,SDO6-EN,4,1.6875,4
+Claude Opus 4.8,Anthropic,Claude 4,SDO6-ZH,0,1.8125,4
+Claude Opus 4.8,Anthropic,Claude 4,SDO6-ZH,1,1.75,4
+Claude Opus 4.8,Anthropic,Claude 4,SDO6-ZH,2,1.875,4
+Claude Opus 4.8,Anthropic,Claude 4,SDO6-ZH,3,1.75,4
+Claude Opus 4.8,Anthropic,Claude 4,SDO6-ZH,4,1.8125,4
+Claude Opus 4.8,Anthropic,Claude 4,SDO7s,0,2.125,4
+Claude Opus 4.8,Anthropic,Claude 4,SDO7s,1,2.125,4
+Claude Opus 4.8,Anthropic,Claude 4,SDO7s,2,2.125,4
+Claude Opus 4.8,Anthropic,Claude 4,SDO7s,3,2.125,4
+Claude Opus 4.8,Anthropic,Claude 4,SDO7s,4,2.125,4
+Claude Opus 4.8,Anthropic,Claude 4,VSA,0,-0.6666666666666666,0
+Claude Opus 4.8,Anthropic,Claude 4,VSA,1,-0.6666666666666666,0
+Claude Opus 4.8,Anthropic,Claude 4,VSA,2,-0.6666666666666666,0
+Claude Opus 4.8,Anthropic,Claude 4,VSA,3,-0.6666666666666666,0
+Claude Opus 4.8,Anthropic,Claude 4,VSA,4,-0.6666666666666666,0
+Claude Opus 5,Anthropic,Claude 5,SDO6-EN,0,1.4375,4
+Claude Opus 5,Anthropic,Claude 5,SDO6-EN,1,1.5,4
+Claude Opus 5,Anthropic,Claude 5,SDO6-EN,2,1.5,4
+Claude Opus 5,Anthropic,Claude 5,SDO6-EN,3,1.5625,4
+Claude Opus 5,Anthropic,Claude 5,SDO6-EN,4,1.5625,4
+Claude Opus 5,Anthropic,Claude 5,SDO6-ZH,0,1.75,4
+Claude Opus 5,Anthropic,Claude 5,SDO6-ZH,1,1.75,4
+Claude Opus 5,Anthropic,Claude 5,SDO6-ZH,2,1.75,4
+Claude Opus 5,Anthropic,Claude 5,SDO6-ZH,3,1.75,4
+Claude Opus 5,Anthropic,Claude 5,SDO6-ZH,4,1.75,4
+Claude Opus 5,Anthropic,Claude 5,SDO7s,0,1.75,4
+Claude Opus 5,Anthropic,Claude 5,SDO7s,1,1.625,4
+Claude Opus 5,Anthropic,Claude 5,SDO7s,2,1.5,4
+Claude Opus 5,Anthropic,Claude 5,SDO7s,3,1.5,4
+Claude Opus 5,Anthropic,Claude 5,SDO7s,4,1.625,4
+Claude Opus 5,Anthropic,Claude 5,VSA,0,-0.6666666666666666,0
+Claude Opus 5,Anthropic,Claude 5,VSA,1,-1.3333333333333333,0
+Claude Opus 5,Anthropic,Claude 5,VSA,2,-0.6666666666666666,0
+Claude Opus 5,Anthropic,Claude 5,VSA,3,-1.1666666666666667,0
+Claude Opus 5,Anthropic,Claude 5,VSA,4,-0.6666666666666666,0
+Claude Sonnet 4.5,Anthropic,Claude 4,SDO6-EN,0,1.5,4
+Claude Sonnet 4.5,Anthropic,Claude 4,SDO6-EN,1,1.5,4
+Claude Sonnet 4.5,Anthropic,Claude 4,SDO6-EN,2,1.5,4
+Claude Sonnet 4.5,Anthropic,Claude 4,SDO6-EN,3,1.5,4
+Claude Sonnet 4.5,Anthropic,Claude 4,SDO6-EN,4,1.5,4
+Claude Sonnet 4.5,Anthropic,Claude 4,SDO6-ZH,0,1.875,4
+Claude Sonnet 4.5,Anthropic,Claude 4,SDO6-ZH,1,1.875,4
+Claude Sonnet 4.5,Anthropic,Claude 4,SDO6-ZH,2,1.875,4
+Claude Sonnet 4.5,Anthropic,Claude 4,SDO6-ZH,3,1.875,4
+Claude Sonnet 4.5,Anthropic,Claude 4,SDO6-ZH,4,1.875,4
+Claude Sonnet 4.5,Anthropic,Claude 4,SDO7s,0,1.625,4
+Claude Sonnet 4.5,Anthropic,Claude 4,SDO7s,1,1.625,4
+Claude Sonnet 4.5,Anthropic,Claude 4,SDO7s,2,1.625,4
+Claude Sonnet 4.5,Anthropic,Claude 4,SDO7s,3,1.625,4
+Claude Sonnet 4.5,Anthropic,Claude 4,SDO7s,4,1.625,4
+Claude Sonnet 4.5,Anthropic,Claude 4,VSA,0,-0.5,0
+Claude Sonnet 4.5,Anthropic,Claude 4,VSA,1,-0.6666666666666666,0
+Claude Sonnet 4.5,Anthropic,Claude 4,VSA,2,-0.6666666666666666,0
+Claude Sonnet 4.5,Anthropic,Claude 4,VSA,3,-0.5,0
+Claude Sonnet 4.5,Anthropic,Claude 4,VSA,4,-0.5,0
+Claude Sonnet 4.6,Anthropic,Claude 4,SDO6-EN,0,1.75,4
+Claude Sonnet 4.6,Anthropic,Claude 4,SDO6-EN,1,1.75,4
+Claude Sonnet 4.6,Anthropic,Claude 4,SDO6-EN,2,1.75,4
+Claude Sonnet 4.6,Anthropic,Claude 4,SDO6-EN,3,1.75,4
+Claude Sonnet 4.6,Anthropic,Claude 4,SDO6-EN,4,1.6875,4
+Claude Sonnet 4.6,Anthropic,Claude 4,SDO6-ZH,0,1.9375,4
+Claude Sonnet 4.6,Anthropic,Claude 4,SDO6-ZH,1,1.9375,4
+Claude Sonnet 4.6,Anthropic,Claude 4,SDO6-ZH,2,1.9375,4
+Claude Sonnet 4.6,Anthropic,Claude 4,SDO6-ZH,3,1.9375,4
+Claude Sonnet 4.6,Anthropic,Claude 4,SDO6-ZH,4,1.9375,4
+Claude Sonnet 4.6,Anthropic,Claude 4,SDO7s,0,1.625,4
+Claude Sonnet 4.6,Anthropic,Claude 4,SDO7s,1,1.625,4
+Claude Sonnet 4.6,Anthropic,Claude 4,SDO7s,2,1.625,4
+Claude Sonnet 4.6,Anthropic,Claude 4,SDO7s,3,1.625,4
+Claude Sonnet 4.6,Anthropic,Claude 4,SDO7s,4,1.625,4
+Claude Sonnet 4.6,Anthropic,Claude 4,VSA,0,-1.1666666666666667,0
+Claude Sonnet 4.6,Anthropic,Claude 4,VSA,1,-1.1666666666666667,0
+Claude Sonnet 4.6,Anthropic,Claude 4,VSA,2,-1.1666666666666667,0
+Claude Sonnet 4.6,Anthropic,Claude 4,VSA,3,-1.1666666666666667,0
+Claude Sonnet 4.6,Anthropic,Claude 4,VSA,4,-1.1666666666666667,0
+Claude Sonnet 5,Anthropic,Claude 5,SDO6-EN,0,1.625,4
+Claude Sonnet 5,Anthropic,Claude 5,SDO6-EN,1,1.625,4
+Claude Sonnet 5,Anthropic,Claude 5,SDO6-EN,2,1.6875,4
+Claude Sonnet 5,Anthropic,Claude 5,SDO6-EN,3,1.5625,4
+Claude Sonnet 5,Anthropic,Claude 5,SDO6-EN,4,1.5625,4
+Claude Sonnet 5,Anthropic,Claude 5,SDO6-ZH,0,1.9375,4
+Claude Sonnet 5,Anthropic,Claude 5,SDO6-ZH,1,2.0,4
+Claude Sonnet 5,Anthropic,Claude 5,SDO6-ZH,2,2.0,4
+Claude Sonnet 5,Anthropic,Claude 5,SDO6-ZH,3,1.9375,4
+Claude Sonnet 5,Anthropic,Claude 5,SDO6-ZH,4,2.0,4
+Claude Sonnet 5,Anthropic,Claude 5,SDO7s,0,2.0,4
+Claude Sonnet 5,Anthropic,Claude 5,SDO7s,1,1.875,4
+Claude Sonnet 5,Anthropic,Claude 5,SDO7s,2,1.875,4
+Claude Sonnet 5,Anthropic,Claude 5,SDO7s,3,1.75,4
+Claude Sonnet 5,Anthropic,Claude 5,SDO7s,4,1.75,4
+Claude Sonnet 5,Anthropic,Claude 5,VSA,0,-1.3333333333333333,0
+Claude Sonnet 5,Anthropic,Claude 5,VSA,1,-1.1666666666666667,0
+Claude Sonnet 5,Anthropic,Claude 5,VSA,2,-1.1666666666666667,0
+Claude Sonnet 5,Anthropic,Claude 5,VSA,3,-1.1666666666666667,0
+Claude Sonnet 5,Anthropic,Claude 5,VSA,4,-1.1666666666666667,0
+GPT-4.1,OpenAI,GPT-4,SDO6-EN,0,1.1875,4
+GPT-4.1,OpenAI,GPT-4,SDO6-EN,1,1.1875,4
+GPT-4.1,OpenAI,GPT-4,SDO6-EN,2,1.1875,4
+GPT-4.1,OpenAI,GPT-4,SDO6-EN,3,1.125,4
+GPT-4.1,OpenAI,GPT-4,SDO6-EN,4,1.1875,4
+GPT-4.1,OpenAI,GPT-4,SDO6-ZH,0,1.4375,4
+GPT-4.1,OpenAI,GPT-4,SDO6-ZH,1,1.4375,4
+GPT-4.1,OpenAI,GPT-4,SDO6-ZH,2,1.4375,4
+GPT-4.1,OpenAI,GPT-4,SDO6-ZH,3,1.375,4
+GPT-4.1,OpenAI,GPT-4,SDO6-ZH,4,1.4375,4
+GPT-4.1,OpenAI,GPT-4,SDO7s,0,1.125,4
+GPT-4.1,OpenAI,GPT-4,SDO7s,1,1.125,4
+GPT-4.1,OpenAI,GPT-4,SDO7s,2,1.125,4
+GPT-4.1,OpenAI,GPT-4,SDO7s,3,1.125,4
+GPT-4.1,OpenAI,GPT-4,SDO7s,4,1.125,4
+GPT-4.1,OpenAI,GPT-4,VSA,0,-1.3333333333333333,0
+GPT-4.1,OpenAI,GPT-4,VSA,1,-1.8333333333333333,0
+GPT-4.1,OpenAI,GPT-4,VSA,2,-1.8333333333333333,0
+GPT-4.1,OpenAI,GPT-4,VSA,3,-2.0,0
+GPT-4.1,OpenAI,GPT-4,VSA,4,-1.8333333333333333,0
+GPT-4o,OpenAI,GPT-4,SDO6-EN,0,1.0625,4
+GPT-4o,OpenAI,GPT-4,SDO6-EN,1,1.0625,4
+GPT-4o,OpenAI,GPT-4,SDO6-EN,2,1.0625,4
+GPT-4o,OpenAI,GPT-4,SDO6-EN,3,1.0625,4
+GPT-4o,OpenAI,GPT-4,SDO6-EN,4,1.0625,4
+GPT-4o,OpenAI,GPT-4,SDO6-ZH,0,1.375,4
+GPT-4o,OpenAI,GPT-4,SDO6-ZH,1,1.4375,4
+GPT-4o,OpenAI,GPT-4,SDO6-ZH,2,1.3125,4
+GPT-4o,OpenAI,GPT-4,SDO6-ZH,3,1.4375,4
+GPT-4o,OpenAI,GPT-4,SDO6-ZH,4,1.3125,4
+GPT-4o,OpenAI,GPT-4,SDO7s,0,1.375,4
+GPT-4o,OpenAI,GPT-4,SDO7s,1,1.375,4
+GPT-4o,OpenAI,GPT-4,SDO7s,2,1.375,4
+GPT-4o,OpenAI,GPT-4,SDO7s,3,1.375,4
+GPT-4o,OpenAI,GPT-4,SDO7s,4,1.5,4
+GPT-4o,OpenAI,GPT-4,VSA,0,-0.5,0
+GPT-4o,OpenAI,GPT-4,VSA,1,0.3333333333333333,0
+GPT-4o,OpenAI,GPT-4,VSA,2,0.3333333333333333,0
+GPT-4o,OpenAI,GPT-4,VSA,3,0.3333333333333333,0
+GPT-4o,OpenAI,GPT-4,VSA,4,-0.6666666666666666,0
+GPT-5,OpenAI,GPT-5,SDO6-EN,0,1.25,4
+GPT-5,OpenAI,GPT-5,SDO6-EN,1,1.3125,4
+GPT-5,OpenAI,GPT-5,SDO6-EN,2,1.625,4
+GPT-5,OpenAI,GPT-5,SDO6-EN,3,1.5,4
+GPT-5,OpenAI,GPT-5,SDO6-EN,4,1.4375,4
+GPT-5,OpenAI,GPT-5,SDO6-ZH,0,1.6875,4
+GPT-5,OpenAI,GPT-5,SDO6-ZH,1,1.9375,4
+GPT-5,OpenAI,GPT-5,SDO6-ZH,2,1.875,4
+GPT-5,OpenAI,GPT-5,SDO6-ZH,3,1.4375,4
+GPT-5,OpenAI,GPT-5,SDO6-ZH,4,1.6875,4
+GPT-5,OpenAI,GPT-5,SDO7s,0,1.875,4
+GPT-5,OpenAI,GPT-5,SDO7s,1,2.0,4
+GPT-5,OpenAI,GPT-5,SDO7s,2,2.25,4
+GPT-5,OpenAI,GPT-5,SDO7s,3,1.875,4
+GPT-5,OpenAI,GPT-5,SDO7s,4,2.5,4
+GPT-5,OpenAI,GPT-5,VSA,0,-0.16666666666666666,0
+GPT-5,OpenAI,GPT-5,VSA,1,-0.6666666666666666,0
+GPT-5,OpenAI,GPT-5,VSA,2,-1.0,0
+GPT-5,OpenAI,GPT-5,VSA,3,-1.1666666666666667,0
+GPT-5,OpenAI,GPT-5,VSA,4,-1.1666666666666667,0
+GPT-5.1,OpenAI,GPT-5,SDO6-EN,0,1.25,4
+GPT-5.1,OpenAI,GPT-5,SDO6-EN,1,1.1875,4
+GPT-5.1,OpenAI,GPT-5,SDO6-EN,2,1.1875,4
+GPT-5.1,OpenAI,GPT-5,SDO6-EN,3,1.125,4
+GPT-5.1,OpenAI,GPT-5,SDO6-EN,4,1.125,4
+GPT-5.1,OpenAI,GPT-5,SDO6-ZH,0,1.3125,4
+GPT-5.1,OpenAI,GPT-5,SDO6-ZH,1,1.1875,4
+GPT-5.1,OpenAI,GPT-5,SDO6-ZH,2,1.25,4
+GPT-5.1,OpenAI,GPT-5,SDO6-ZH,3,1.3125,4
+GPT-5.1,OpenAI,GPT-5,SDO6-ZH,4,1.1875,4
+GPT-5.1,OpenAI,GPT-5,SDO7s,0,1.25,4
+GPT-5.1,OpenAI,GPT-5,SDO7s,1,1.25,4
+GPT-5.1,OpenAI,GPT-5,SDO7s,2,1.375,4
+GPT-5.1,OpenAI,GPT-5,SDO7s,3,1.125,4
+GPT-5.1,OpenAI,GPT-5,SDO7s,4,1.25,4
+GPT-5.1,OpenAI,GPT-5,VSA,0,-0.5,0
+GPT-5.1,OpenAI,GPT-5,VSA,1,-0.6666666666666666,0
+GPT-5.1,OpenAI,GPT-5,VSA,2,-0.8333333333333334,0
+GPT-5.1,OpenAI,GPT-5,VSA,3,-1.5,0
+GPT-5.1,OpenAI,GPT-5,VSA,4,-1.0,0
+GPT-5.2,OpenAI,GPT-5,SDO6-EN,0,1.9375,4
+GPT-5.2,OpenAI,GPT-5,SDO6-EN,1,1.9375,4
+GPT-5.2,OpenAI,GPT-5,SDO6-EN,2,2.0,4
+GPT-5.2,OpenAI,GPT-5,SDO6-EN,3,2.25,4
+GPT-5.2,OpenAI,GPT-5,SDO6-EN,4,2.125,4
+GPT-5.2,OpenAI,GPT-5,SDO6-ZH,0,2.0625,4
+GPT-5.2,OpenAI,GPT-5,SDO6-ZH,1,2.1875,4
+GPT-5.2,OpenAI,GPT-5,SDO6-ZH,2,2.0625,4
+GPT-5.2,OpenAI,GPT-5,SDO6-ZH,3,2.0625,4
+GPT-5.2,OpenAI,GPT-5,SDO6-ZH,4,2.0,4
+GPT-5.2,OpenAI,GPT-5,SDO7s,0,1.5,4
+GPT-5.2,OpenAI,GPT-5,SDO7s,1,1.75,4
+GPT-5.2,OpenAI,GPT-5,SDO7s,2,2.25,4
+GPT-5.2,OpenAI,GPT-5,SDO7s,3,1.875,4
+GPT-5.2,OpenAI,GPT-5,SDO7s,4,2.375,4
+GPT-5.2,OpenAI,GPT-5,VSA,0,-0.16666666666666666,0
+GPT-5.2,OpenAI,GPT-5,VSA,1,-0.16666666666666666,0
+GPT-5.2,OpenAI,GPT-5,VSA,2,-0.16666666666666666,0
+GPT-5.2,OpenAI,GPT-5,VSA,3,-0.5,0
+GPT-5.2,OpenAI,GPT-5,VSA,4,-0.5,0
+GPT-5.4,OpenAI,GPT-5,SDO6-EN,0,1.375,4
+GPT-5.4,OpenAI,GPT-5,SDO6-EN,1,1.3125,4
+GPT-5.4,OpenAI,GPT-5,SDO6-EN,2,1.3125,4
+GPT-5.4,OpenAI,GPT-5,SDO6-EN,3,1.4375,4
+GPT-5.4,OpenAI,GPT-5,SDO6-EN,4,1.25,4
+GPT-5.4,OpenAI,GPT-5,SDO6-ZH,0,1.8125,4
+GPT-5.4,OpenAI,GPT-5,SDO6-ZH,1,1.9375,4
+GPT-5.4,OpenAI,GPT-5,SDO6-ZH,2,2.0,4
+GPT-5.4,OpenAI,GPT-5,SDO6-ZH,3,1.75,4
+GPT-5.4,OpenAI,GPT-5,SDO6-ZH,4,1.875,4
+GPT-5.4,OpenAI,GPT-5,SDO7s,0,1.875,4
+GPT-5.4,OpenAI,GPT-5,SDO7s,1,1.625,4
+GPT-5.4,OpenAI,GPT-5,SDO7s,2,1.875,4
+GPT-5.4,OpenAI,GPT-5,SDO7s,3,1.875,4
+GPT-5.4,OpenAI,GPT-5,SDO7s,4,1.625,4
+GPT-5.4,OpenAI,GPT-5,VSA,0,0.16666666666666666,0
+GPT-5.4,OpenAI,GPT-5,VSA,1,0.16666666666666666,0
+GPT-5.4,OpenAI,GPT-5,VSA,2,-0.3333333333333333,0
+GPT-5.4,OpenAI,GPT-5,VSA,3,-0.16666666666666666,0
+GPT-5.4,OpenAI,GPT-5,VSA,4,-0.3333333333333333,0
+GPT-5.5,OpenAI,GPT-5,SDO6-EN,0,1.3125,4
+GPT-5.5,OpenAI,GPT-5,SDO6-EN,1,1.1875,4
+GPT-5.5,OpenAI,GPT-5,SDO6-EN,2,1.3125,4
+GPT-5.5,OpenAI,GPT-5,SDO6-EN,3,1.1875,4
+GPT-5.5,OpenAI,GPT-5,SDO6-EN,4,1.1875,4
+GPT-5.5,OpenAI,GPT-5,SDO6-ZH,0,1.1875,4
+GPT-5.5,OpenAI,GPT-5,SDO6-ZH,1,1.125,4
+GPT-5.5,OpenAI,GPT-5,SDO6-ZH,2,1.125,4
+GPT-5.5,OpenAI,GPT-5,SDO6-ZH,3,1.125,4
+GPT-5.5,OpenAI,GPT-5,SDO6-ZH,4,1.1875,4
+GPT-5.5,OpenAI,GPT-5,SDO7s,0,1.25,4
+GPT-5.5,OpenAI,GPT-5,SDO7s,1,1.25,4
+GPT-5.5,OpenAI,GPT-5,SDO7s,2,1.25,4
+GPT-5.5,OpenAI,GPT-5,SDO7s,3,1.25,4
+GPT-5.5,OpenAI,GPT-5,SDO7s,4,1.25,4
+GPT-5.5,OpenAI,GPT-5,VSA,0,-1.1666666666666667,0
+GPT-5.5,OpenAI,GPT-5,VSA,1,-1.1666666666666667,0
+GPT-5.5,OpenAI,GPT-5,VSA,2,-1.1666666666666667,0
+GPT-5.5,OpenAI,GPT-5,VSA,3,-1.0,0
+GPT-5.5,OpenAI,GPT-5,VSA,4,-1.1666666666666667,0
+GPT-5.6-sol,OpenAI,GPT-5,SDO6-EN,0,1.1875,4
+GPT-5.6-sol,OpenAI,GPT-5,SDO6-EN,1,1.1875,4
+GPT-5.6-sol,OpenAI,GPT-5,SDO6-EN,2,1.1875,4
+GPT-5.6-sol,OpenAI,GPT-5,SDO6-EN,3,1.25,4
+GPT-5.6-sol,OpenAI,GPT-5,SDO6-EN,4,1.125,4
+GPT-5.6-sol,OpenAI,GPT-5,SDO6-ZH,0,1.1875,4
+GPT-5.6-sol,OpenAI,GPT-5,SDO6-ZH,1,1.125,4
+GPT-5.6-sol,OpenAI,GPT-5,SDO6-ZH,2,1.125,4
+GPT-5.6-sol,OpenAI,GPT-5,SDO6-ZH,3,1.3125,4
+GPT-5.6-sol,OpenAI,GPT-5,SDO6-ZH,4,1.25,4
+GPT-5.6-sol,OpenAI,GPT-5,SDO7s,0,1.375,4
+GPT-5.6-sol,OpenAI,GPT-5,SDO7s,1,1.375,4
+GPT-5.6-sol,OpenAI,GPT-5,SDO7s,2,1.375,4
+GPT-5.6-sol,OpenAI,GPT-5,SDO7s,3,1.375,4
+GPT-5.6-sol,OpenAI,GPT-5,SDO7s,4,1.375,4
+GPT-5.6-sol,OpenAI,GPT-5,VSA,0,-0.6666666666666666,0
+GPT-5.6-sol,OpenAI,GPT-5,VSA,1,-1.1666666666666667,0
+GPT-5.6-sol,OpenAI,GPT-5,VSA,2,-0.6666666666666666,0
+GPT-5.6-sol,OpenAI,GPT-5,VSA,3,-0.16666666666666666,0
+GPT-5.6-sol,OpenAI,GPT-5,VSA,4,-0.6666666666666666,0
+GPT-OSS 120B,OpenAI,GPT-OSS,SDO6-EN,0,1.2857142857142858,4
+GPT-OSS 120B,OpenAI,GPT-OSS,SDO6-EN,1,1.2142857142857142,4
+GPT-OSS 120B,OpenAI,GPT-OSS,SDO6-EN,2,1.2142857142857142,4
+GPT-OSS 120B,OpenAI,GPT-OSS,SDO6-EN,3,1.1428571428571428,4
+GPT-OSS 120B,OpenAI,GPT-OSS,SDO6-EN,4,1.6428571428571428,4
+GPT-OSS 120B,OpenAI,GPT-OSS,SDO6-ZH,0,2.272727272727273,4
+GPT-OSS 120B,OpenAI,GPT-OSS,SDO6-ZH,1,2.0,4
+GPT-OSS 120B,OpenAI,GPT-OSS,SDO6-ZH,2,2.090909090909091,4
+GPT-OSS 120B,OpenAI,GPT-OSS,SDO6-ZH,3,2.0,4
+GPT-OSS 120B,OpenAI,GPT-OSS,SDO6-ZH,4,2.090909090909091,4
+GPT-OSS 120B,OpenAI,GPT-OSS,SDO7s,0,1.5,4
+GPT-OSS 120B,OpenAI,GPT-OSS,SDO7s,1,1.375,4
+GPT-OSS 120B,OpenAI,GPT-OSS,SDO7s,2,1.75,4
+GPT-OSS 120B,OpenAI,GPT-OSS,SDO7s,3,1.125,4
+GPT-OSS 120B,OpenAI,GPT-OSS,SDO7s,4,1.875,4
+GPT-OSS 120B,OpenAI,GPT-OSS,VSA,0,-0.5,0
+GPT-OSS 120B,OpenAI,GPT-OSS,VSA,1,-1.0,0
+GPT-OSS 120B,OpenAI,GPT-OSS,VSA,2,-1.1666666666666667,0
+GPT-OSS 120B,OpenAI,GPT-OSS,VSA,3,-0.5,0
+GPT-OSS 120B,OpenAI,GPT-OSS,VSA,4,-1.3333333333333333,0
+GPT-OSS 20B,OpenAI,GPT-OSS,SDO6-EN,0,2.0,4
+GPT-OSS 20B,OpenAI,GPT-OSS,SDO6-EN,1,1.6875,4
+GPT-OSS 20B,OpenAI,GPT-OSS,SDO6-EN,2,2.0,4
+GPT-OSS 20B,OpenAI,GPT-OSS,SDO6-EN,3,1.75,4
+GPT-OSS 20B,OpenAI,GPT-OSS,SDO6-EN,4,1.5,4
+GPT-OSS 20B,OpenAI,GPT-OSS,SDO6-ZH,0,1.75,4
+GPT-OSS 20B,OpenAI,GPT-OSS,SDO6-ZH,1,2.0,4
+GPT-OSS 20B,OpenAI,GPT-OSS,SDO6-ZH,2,1.9375,4
+GPT-OSS 20B,OpenAI,GPT-OSS,SDO6-ZH,3,2.5,4
+GPT-OSS 20B,OpenAI,GPT-OSS,SDO6-ZH,4,2.3125,4
+GPT-OSS 20B,OpenAI,GPT-OSS,SDO7s,0,2.0,4
+GPT-OSS 20B,OpenAI,GPT-OSS,SDO7s,1,2.142857142857143,4
+GPT-OSS 20B,OpenAI,GPT-OSS,SDO7s,2,2.5714285714285716,4
+GPT-OSS 20B,OpenAI,GPT-OSS,SDO7s,3,2.2857142857142856,4
+GPT-OSS 20B,OpenAI,GPT-OSS,SDO7s,4,2.5714285714285716,4
+GPT-OSS 20B,OpenAI,GPT-OSS,VSA,0,0.16666666666666666,0
+GPT-OSS 20B,OpenAI,GPT-OSS,VSA,1,0.6666666666666666,0
+GPT-OSS 20B,OpenAI,GPT-OSS,VSA,2,0.16666666666666666,0
+GPT-OSS 20B,OpenAI,GPT-OSS,VSA,3,-0.3333333333333333,0
+GPT-OSS 20B,OpenAI,GPT-OSS,VSA,4,0.0,0
+Gemma 3 12B,Google,Gemma,SDO6-EN,0,1.4375,4
+Gemma 3 12B,Google,Gemma,SDO6-EN,1,1.5,4
+Gemma 3 12B,Google,Gemma,SDO6-EN,2,1.4375,4
+Gemma 3 12B,Google,Gemma,SDO6-EN,3,1.5,4
+Gemma 3 12B,Google,Gemma,SDO6-EN,4,1.5,4
+Gemma 3 12B,Google,Gemma,SDO6-ZH,0,1.9375,4
+Gemma 3 12B,Google,Gemma,SDO6-ZH,1,1.875,4
+Gemma 3 12B,Google,Gemma,SDO6-ZH,2,1.9375,4
+Gemma 3 12B,Google,Gemma,SDO6-ZH,3,1.9375,4
+Gemma 3 12B,Google,Gemma,SDO6-ZH,4,1.9375,4
+Gemma 3 12B,Google,Gemma,SDO7s,0,1.375,4
+Gemma 3 12B,Google,Gemma,SDO7s,1,1.375,4
+Gemma 3 12B,Google,Gemma,SDO7s,2,1.375,4
+Gemma 3 12B,Google,Gemma,SDO7s,3,1.375,4
+Gemma 3 12B,Google,Gemma,SDO7s,4,1.375,4
+Gemma 3 12B,Google,Gemma,VSA,0,-1.3333333333333333,0
+Gemma 3 12B,Google,Gemma,VSA,1,-1.3333333333333333,0
+Gemma 3 12B,Google,Gemma,VSA,2,-1.8333333333333333,0
+Gemma 3 12B,Google,Gemma,VSA,3,-1.3333333333333333,0
+Gemma 3 12B,Google,Gemma,VSA,4,-1.3333333333333333,0
+Llama 3.1 8B,Meta,Llama,SDO6-EN,0,2.875,4
+Llama 3.1 8B,Meta,Llama,SDO6-EN,1,2.6875,4
+Llama 3.1 8B,Meta,Llama,SDO6-EN,2,2.0625,4
+Llama 3.1 8B,Meta,Llama,SDO6-EN,3,2.25,4
+Llama 3.1 8B,Meta,Llama,SDO6-EN,4,2.8125,4
+Llama 3.1 8B,Meta,Llama,SDO6-ZH,0,3.3333333333333335,4
+Llama 3.1 8B,Meta,Llama,SDO6-ZH,1,4.2,4
+Llama 3.1 8B,Meta,Llama,SDO6-ZH,2,3.8,4
+Llama 3.1 8B,Meta,Llama,SDO6-ZH,3,3.3333333333333335,4
+Llama 3.1 8B,Meta,Llama,SDO6-ZH,4,3.8666666666666667,4
+Llama 3.1 8B,Meta,Llama,SDO7s,0,4.0,4
+Llama 3.1 8B,Meta,Llama,SDO7s,1,2.5,4
+Llama 3.1 8B,Meta,Llama,SDO7s,2,3.375,4
+Llama 3.1 8B,Meta,Llama,SDO7s,3,1.875,4
+Llama 3.1 8B,Meta,Llama,SDO7s,4,3.25,4
+Llama 3.1 8B,Meta,Llama,VSA,0,0.16666666666666666,0
+Llama 3.1 8B,Meta,Llama,VSA,1,-0.8333333333333334,0
+Llama 3.1 8B,Meta,Llama,VSA,2,-0.6666666666666666,0
+Llama 3.1 8B,Meta,Llama,VSA,3,0.16666666666666666,0
+Llama 3.1 8B,Meta,Llama,VSA,4,-0.16666666666666666,0
+Llama 3.3 70B,Meta,Llama,SDO6-EN,0,1.125,4
+Llama 3.3 70B,Meta,Llama,SDO6-EN,1,1.125,4
+Llama 3.3 70B,Meta,Llama,SDO6-EN,2,1.125,4
+Llama 3.3 70B,Meta,Llama,SDO6-EN,3,1.0625,4
+Llama 3.3 70B,Meta,Llama,SDO6-EN,4,1.0625,4
+Llama 3.3 70B,Meta,Llama,SDO6-ZH,0,1.625,4
+Llama 3.3 70B,Meta,Llama,SDO6-ZH,1,1.6875,4
+Llama 3.3 70B,Meta,Llama,SDO6-ZH,2,1.5,4
+Llama 3.3 70B,Meta,Llama,SDO6-ZH,3,1.6875,4
+Llama 3.3 70B,Meta,Llama,SDO6-ZH,4,1.5625,4
+Llama 3.3 70B,Meta,Llama,SDO7s,0,1.75,4
+Llama 3.3 70B,Meta,Llama,SDO7s,1,2.0,4
+Llama 3.3 70B,Meta,Llama,SDO7s,2,2.0,4
+Llama 3.3 70B,Meta,Llama,SDO7s,3,2.0,4
+Llama 3.3 70B,Meta,Llama,SDO7s,4,1.5,4
+Llama 3.3 70B,Meta,Llama,VSA,0,-1.6666666666666667,0
+Llama 3.3 70B,Meta,Llama,VSA,1,-1.0,0
+Llama 3.3 70B,Meta,Llama,VSA,2,-0.8333333333333334,0
+Llama 3.3 70B,Meta,Llama,VSA,3,-1.1666666666666667,0
+Llama 3.3 70B,Meta,Llama,VSA,4,-1.0,0
+Llama 4 Maverick,Meta,Llama,SDO6-EN,0,1.5,4
+Llama 4 Maverick,Meta,Llama,SDO6-EN,1,1.5,4
+Llama 4 Maverick,Meta,Llama,SDO6-EN,2,1.5,4
+Llama 4 Maverick,Meta,Llama,SDO6-EN,3,1.5,4
+Llama 4 Maverick,Meta,Llama,SDO6-EN,4,1.5,4
+Llama 4 Maverick,Meta,Llama,SDO6-ZH,0,2.125,4
+Llama 4 Maverick,Meta,Llama,SDO6-ZH,1,2.125,4
+Llama 4 Maverick,Meta,Llama,SDO6-ZH,2,2.125,4
+Llama 4 Maverick,Meta,Llama,SDO6-ZH,3,2.125,4
+Llama 4 Maverick,Meta,Llama,SDO6-ZH,4,2.125,4
+Llama 4 Maverick,Meta,Llama,SDO7s,0,1.375,4
+Llama 4 Maverick,Meta,Llama,SDO7s,1,1.375,4
+Llama 4 Maverick,Meta,Llama,SDO7s,2,1.375,4
+Llama 4 Maverick,Meta,Llama,SDO7s,3,1.375,4
+Llama 4 Maverick,Meta,Llama,SDO7s,4,1.375,4
+Llama 4 Maverick,Meta,Llama,VSA,0,-1.8333333333333333,0
+Llama 4 Maverick,Meta,Llama,VSA,1,-1.5,0
+Llama 4 Maverick,Meta,Llama,VSA,2,-1.6666666666666667,0
+Llama 4 Maverick,Meta,Llama,VSA,3,-1.5,0
+Llama 4 Maverick,Meta,Llama,VSA,4,-1.5,0
+Qwen3-Next 80B,Alibaba,Qwen,SDO6-EN,0,1.1875,4
+Qwen3-Next 80B,Alibaba,Qwen,SDO6-EN,1,1.0,4
+Qwen3-Next 80B,Alibaba,Qwen,SDO6-EN,2,1.0,4
+Qwen3-Next 80B,Alibaba,Qwen,SDO6-EN,3,1.125,4
+Qwen3-Next 80B,Alibaba,Qwen,SDO6-EN,4,1.0625,4
+Qwen3-Next 80B,Alibaba,Qwen,SDO6-ZH,0,1.3125,4
+Qwen3-Next 80B,Alibaba,Qwen,SDO6-ZH,1,1.375,4
+Qwen3-Next 80B,Alibaba,Qwen,SDO6-ZH,2,1.3125,4
+Qwen3-Next 80B,Alibaba,Qwen,SDO6-ZH,3,1.3125,4
+Qwen3-Next 80B,Alibaba,Qwen,SDO6-ZH,4,1.3125,4
+Qwen3-Next 80B,Alibaba,Qwen,SDO7s,0,1.0,4
+Qwen3-Next 80B,Alibaba,Qwen,SDO7s,1,1.0,4
+Qwen3-Next 80B,Alibaba,Qwen,SDO7s,2,1.0,4
+Qwen3-Next 80B,Alibaba,Qwen,SDO7s,3,1.0,4
+Qwen3-Next 80B,Alibaba,Qwen,SDO7s,4,1.0,4
+Qwen3-Next 80B,Alibaba,Qwen,VSA,0,-1.3333333333333333,0
+Qwen3-Next 80B,Alibaba,Qwen,VSA,1,-0.6666666666666666,0
+Qwen3-Next 80B,Alibaba,Qwen,VSA,2,-1.3333333333333333,0
+Qwen3-Next 80B,Alibaba,Qwen,VSA,3,-0.6666666666666666,0
+Qwen3-Next 80B,Alibaba,Qwen,VSA,4,-0.6666666666666666,0
+Qwen3.5 122B,Alibaba,Qwen,SDO6-EN,0,1.7333333333333334,4
+Qwen3.5 122B,Alibaba,Qwen,SDO6-EN,1,1.8,4
+Qwen3.5 122B,Alibaba,Qwen,SDO6-EN,2,1.8,4
+Qwen3.5 122B,Alibaba,Qwen,SDO6-EN,3,1.4,4
+Qwen3.5 122B,Alibaba,Qwen,SDO6-EN,4,1.4,4
+Qwen3.5 122B,Alibaba,Qwen,SDO6-ZH,0,1.7857142857142858,4
+Qwen3.5 122B,Alibaba,Qwen,SDO6-ZH,1,1.7142857142857142,4
+Qwen3.5 122B,Alibaba,Qwen,SDO6-ZH,2,1.5,4
+Qwen3.5 122B,Alibaba,Qwen,SDO6-ZH,3,1.5714285714285714,4
+Qwen3.5 122B,Alibaba,Qwen,SDO6-ZH,4,1.6428571428571428,4
+Qwen3.5 122B,Alibaba,Qwen,SDO7s,0,2.8,4
+Qwen3.5 122B,Alibaba,Qwen,SDO7s,1,2.2,4
+Qwen3.5 122B,Alibaba,Qwen,SDO7s,2,2.8,4
+Qwen3.5 122B,Alibaba,Qwen,SDO7s,3,2.4,4
+Qwen3.5 122B,Alibaba,Qwen,SDO7s,4,3.4,4
+Qwen3.5 122B,Alibaba,Qwen,VSA,0,0.0,0
+Qwen3.5 122B,Alibaba,Qwen,VSA,1,0.0,0
+Qwen3.5 122B,Alibaba,Qwen,VSA,2,0.0,0
+Qwen3.5 122B,Alibaba,Qwen,VSA,3,0.0,0
+Qwen3.5 122B,Alibaba,Qwen,VSA,4,0.0,0

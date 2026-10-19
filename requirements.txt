@@ -1,0 +1,6 @@
+# Python packages for Analysis_script/06_report_descriptives.py and 08_manuscript_figures.py
+# (05_two_run_disagreement_and_language_sensitivity.py uses only the standard library)
+pandas>=2.0
+numpy>=1.24
+matplotlib>=3.7
+scipy>=1.10
