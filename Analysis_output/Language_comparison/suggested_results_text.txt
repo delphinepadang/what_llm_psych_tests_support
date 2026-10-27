@@ -1,0 +1,5 @@
+SDO6 scores were higher in Chinese than in English for 26 of 27 models. The mean within-model difference was 0.31 scale points (Chinese minus English; 95% CI [0.21, 0.42]; two-sided paired t test across models, t(26) = 6.21, P < .001).
+
+In an exploratory comparison restricted to 2,144 model-item-run pairs with numeric answers in both languages, the seven-category response distributions differed (Pearson chi-square statistic = 153.46; 99,999 permutations swapping entire language profiles within models; unadjusted P < .001; Holm-adjusted P < .001 across five follow-up tests).
+
+Interpretation: the mean score comparison concerns these tested model endpoints and these two SDO6 versions. A language-version difference alone cannot distinguish response style, translation/label effects, or an attitude difference.

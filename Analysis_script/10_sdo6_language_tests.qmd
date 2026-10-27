@@ -1,0 +1,540 @@
+---
+title: "SDO6: English versus Chinese"
+subtitle: "Paired scores and answer distributions for Section 3.2"
+author: "Analysis of the MS_AAI_ToM data"
+date: today
+format:
+  html:
+    toc: true
+    number-sections: true
+    code-fold: true
+    code-tools: true
+    embed-resources: true
+    theme: cosmo
+output-file: SDO6_language_tests.html
+execute:
+  echo: true
+  warning: true
+  message: false
+  error: false
+---
+
+## Which test answers the question?
+
+**Use a two-sided paired t test across models for the main comparison.** These
+are the same models answering in two languages, rather than separate groups of
+English and Chinese models. For each model, calculate its mean reverse-keyed
+SDO6 score in each language and compare the 27 Chinese-minus-English differences
+with zero. This reproduces the test already quoted in Section 3.2.
+
+A two-way ANOVA is unnecessary for this hypothesis. There is one factor of
+interest, language, with two repeated levels. A one-factor repeated-measures
+ANOVA on the same model means gives exactly the same result: F = t squared.
+A language-by-run ANOVA would additionally ask whether the language difference
+varies by run number. Run labels identify replicate sets, not a chronological
+sequence for these parallel requests; that interaction is a different question.
+
+**The answer percentages in Fig. 2A are a second question.** A paired t test
+tests the mean score, not equality of all seven response frequencies. Below, an
+additional test uses Pearson's chi-square statistic but obtains its P value by
+swapping the two language profiles within entire models. All items and runs
+from a model move together. An ordinary pooled `chisq.test()` P value would
+ignore this dependence; `simulate.p.value = TRUE` does not repair it.
+
+The main score test is the existing H1 analysis. The added distribution and
+response-feature tests are **exploratory follow-ups**, with Holm adjustment
+across those five tests. Do not select a test according to which P value is
+smallest.
+
+## Setup and data checks
+
+Run this file with RStudio's **Render** button or, from the repository root:
+
+```bash
+quarto render Analysis_script/10_sdo6_language_tests.qmd --output-dir ../Analysis_output/Language_comparison
+```
+
+Required packages: `dplyr`, `tidyr`, `readr`, `ggplot2`, and `knitr`.
+The file does not install packages or rerun the existing large analysis script.
+It reads the August main collection and writes its own results under
+`Analysis_output/Language_comparison/`.
+
+```{r}
+#| label: setup
+#| include: false
+needed <- c("dplyr", "tidyr", "readr", "ggplot2", "knitr")
+missing <- needed[!vapply(needed, requireNamespace, logical(1), quietly = TRUE)]
+if (length(missing)) {
+  stop("Install these R packages before rendering: ", paste(missing, collapse = ", "))
+}
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(tidyr)
+  library(readr)
+  library(ggplot2)
+})
+
+# Locate the project from either the root or the Analysis_script directory.
+find_root <- function(start = getwd()) {
+  candidate <- normalizePath(start, mustWork = TRUE)
+  repeat {
+    if (file.exists(file.path(candidate, "Results", "SDO_VSA_Results_20260830.csv"))) {
+      return(candidate)
+    }
+    parent <- dirname(candidate)
+    if (identical(parent, candidate)) stop("Cannot locate the main Results folder.")
+    candidate <- parent
+  }
+}
+root <- find_root()
+out_dir <- file.path(root, "Analysis_output", "Language_comparison")
+dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
+set.seed(20261025)
+B_perm <- 99999L
+B_boot <- 20000L
+options(dplyr.summarise.inform = FALSE)
+
+save_csv <- function(x, name) write_csv(x, file.path(out_dir, name))
+show_table <- function(x, digits = 4) {
+  # Keep small P values visible instead of rounding them to zero in HTML.
+  for (name in grep("^p($|_)", names(x), value = TRUE)) {
+    if (is.numeric(x[[name]])) x[[name]] <- format.pval(x[[name]], digits = 3, eps = 1e-8)
+  }
+  knitr::kable(x, digits = digits)
+}
+p_text <- function(p) {
+  if (p < .001) "P < .001" else sprintf("P = %.3f", p)
+}
+```
+
+The exclusion rule matches the existing script: exclude an endpoint if more
+than 50% of its calls in the main attitude collection were API errors.
+Non-numeric answers from retained models are missing, never midpoint answers.
+The score is recalculated from the original numeric response: items 9-16 are
+reverse-keyed as `8 - value`. Thus 1 is most egalitarian and 7 most
+hierarchy-endorsing in both languages.
+
+```{r}
+#| label: import-and-audit
+input_file <- file.path(root, "Results", "SDO_VSA_Results_20260830.csv")
+raw <- read_csv(input_file, show_col_types = FALSE)
+required <- c("instrument", "language", "model_label", "item_no", "repeat",
+              "value", "parse_error", "value_recoded")
+stopifnot(all(required %in% names(raw)))
+
+api_audit <- raw |>
+  group_by(model_label) |>
+  summarise(calls = n(), api_errors = sum(parse_error == "API_ERROR", na.rm = TRUE),
+            .groups = "drop") |>
+  mutate(api_error_share = api_errors / calls,
+         excluded = api_error_share > .50)
+excluded_models <- api_audit |> filter(excluded)
+save_csv(api_audit, "endpoint_exclusion_audit.csv")
+show_table(excluded_models)
+
+sdo6 <- raw |>
+  filter(instrument == "SDO6", !model_label %in% excluded_models$model_label) |>
+  mutate(run = as.integer(.data[["repeat"]]) + 1L,
+         item_no = as.integer(item_no),
+         score = if_else(item_no >= 9L, 8 - value, value))
+
+# Stop on duplicate calls or unexpected scale values instead of averaging them.
+stopifnot(all(sdo6$language %in% c("en", "zh")),
+          all(sdo6$item_no %in% 1:16), all(sdo6$run %in% 1:5),
+          all(is.na(sdo6$score) | sdo6$score %in% 1:7))
+duplicates <- sdo6 |> count(model_label, language, item_no, run) |> filter(n != 1L)
+stopifnot(nrow(duplicates) == 0L)
+design <- sdo6 |> count(model_label, language, name = "attempts")
+stopifnot(all(design$attempts == 80L), nrow(design) == 2L * n_distinct(sdo6$model_label))
+key_check <- sdo6 |> filter(!is.na(score), !is.na(value_recoded))
+stopifnot(all(key_check$score == key_check$value_recoded))
+
+audit <- sdo6 |>
+  group_by(language) |>
+  summarise(models = n_distinct(model_label), attempts = n(),
+            valid_answers = sum(!is.na(score)),
+            missing_answers = sum(is.na(score)),
+            pooled_mean = mean(score, na.rm = TRUE), .groups = "drop")
+save_csv(audit, "data_audit.csv")
+show_table(audit)
+```
+
+There are `r sum(audit$attempts)` attempted SDO6 answers and
+`r sum(audit$valid_answers)` numeric answers. Missing answers include refusals
+and other unparseable responses; these counts are not refusal counts.
+All analyses below condition on having a numeric answer. They do not establish
+what the missing answers would have been.
+
+## Main test: mean SDO6 scores
+
+For continuity with the existing manuscript analysis, first average all available
+numeric answers within each model and language. Each model then contributes
+exactly one paired difference and receives equal weight. The five runs and
+16 items improve each score's measurement; they do not increase the number of
+independent models from 27 to thousands.
+
+```{r}
+#| label: paired-score-test
+model_scores <- sdo6 |>
+  group_by(model_label, language) |>
+  summarise(mean_score = mean(score, na.rm = TRUE),
+            n_valid = sum(!is.na(score)), .groups = "drop") |>
+  pivot_wider(names_from = language, values_from = c(mean_score, n_valid)) |>
+  mutate(difference = mean_score_zh - mean_score_en)
+stopifnot(all(is.finite(model_scores$difference)))
+
+paired_test <- t.test(model_scores$mean_score_zh, model_scores$mean_score_en,
+                      paired = TRUE, alternative = "two.sided", conf.level = .95)
+primary <- tibble(
+  analysis = "Available-answer model means (primary)",
+  n_models = nrow(model_scores),
+  mean_en = mean(model_scores$mean_score_en),
+  mean_zh = mean(model_scores$mean_score_zh),
+  difference_zh_minus_en = mean(model_scores$difference),
+  ci_low = paired_test$conf.int[1], ci_high = paired_test$conf.int[2],
+  t = unname(paired_test$statistic), df = unname(paired_test$parameter),
+  p = paired_test$p.value,
+  cohens_dz = mean(model_scores$difference) / sd(model_scores$difference),
+  higher_in_zh = sum(round(model_scores$difference, 10) > 0),
+  higher_in_en = sum(round(model_scores$difference, 10) < 0)
+)
+save_csv(model_scores, "scores_by_model.csv")
+save_csv(primary, "primary_paired_t_test.csv")
+show_table(primary |> transmute(
+  Models = n_models, English = mean_en, Chinese = mean_zh,
+  Difference = difference_zh_minus_en,
+  `95% CI` = sprintf("[%.3f, %.3f]", ci_low, ci_high),
+  `t (df)` = sprintf("%.2f (%d)", t, df), p = p))
+```
+
+The model-weighted mean difference is **`r sprintf("%.3f", primary$difference_zh_minus_en)`
+scale points**, 95% CI [`r sprintf("%.3f", primary$ci_low)`,
+`r sprintf("%.3f", primary$ci_high)`], t(`r primary$df`) =
+`r sprintf("%.2f", primary$t)`, `r p_text(primary$p)`.
+The pooled answer means and the means of model means are slightly different
+quantities when models have different numbers of valid answers. The paired
+test uses model means, not the two pooled means.
+
+### Check against repeated-measures ANOVA
+
+```{r}
+#| label: anova-equivalence
+anova_data <- model_scores |>
+  select(model_label, mean_score_en, mean_score_zh) |>
+  pivot_longer(starts_with("mean_score_"), names_to = "language", values_to = "score") |>
+  mutate(model_label = factor(model_label), language = factor(language))
+one_way_rm <- aov(score ~ language + Error(model_label / language), data = anova_data)
+anova_table <- summary(one_way_rm)[["Error: model_label:language"]][[1]]
+anova_check <- tibble(
+  F = anova_table["language", "F value"], t_squared = primary$t^2,
+  df1 = anova_table["language", "Df"], df2 = anova_table["Residuals", "Df"],
+  p_anova = anova_table["language", "Pr(>F)"], p_paired_t = primary$p)
+stopifnot(isTRUE(all.equal(anova_check$F, anova_check$t_squared, tolerance = 1e-8)))
+save_csv(anova_check, "one_factor_rm_anova_equivalence.csv")
+show_table(anova_check)
+```
+
+### Robustness and missing-answer checks
+
+The exact sign test asks whether more than half of the non-tied model differences
+are positive. It does not require normally distributed differences. It tests a
+directional tendency across models, rather than the mean difference itself.
+
+```{r}
+#| label: sign-and-sensitivity
+nonzero <- round(model_scores$difference, 10)
+nonzero <- nonzero[nonzero != 0]
+sign_test <- binom.test(sum(nonzero > 0), length(nonzero), p = .5,
+                       alternative = "two.sided")
+sign_result <- tibble(n_nonzero = length(nonzero), positive = sum(nonzero > 0),
+                      negative = sum(nonzero < 0), p = sign_test$p.value)
+save_csv(sign_result, "exact_sign_test.csv")
+show_table(sign_result)
+
+# Match numeric answers on model, item and replicate label. This is a
+# completeness restriction, not a claim of time-matched or seeded requests.
+paired_answers <- sdo6 |>
+  select(model_label, item_no, run, language, score) |>
+  pivot_wider(names_from = language, values_from = score) |>
+  filter(!is.na(en), !is.na(zh))
+pair_audit <- paired_answers |> count(model_label, name = "complete_pairs")
+save_csv(pair_audit, "complete_pairs_by_model.csv")
+
+complete_scores <- paired_answers |>
+  group_by(model_label) |>
+  summarise(en = mean(en), zh = mean(zh), .groups = "drop")
+
+# Equal item weights are a separate check when different items have different
+# numbers of valid repeats.
+equal_item_scores <- sdo6 |>
+  group_by(model_label, language, item_no) |>
+  summarise(item_mean = mean(score, na.rm = TRUE), .groups = "drop") |>
+  filter(is.finite(item_mean)) |>
+  group_by(model_label, language) |>
+  summarise(score = mean(item_mean), .groups = "drop") |>
+  pivot_wider(names_from = language, values_from = score)
+
+paired_summary <- function(data, label) {
+  fit <- t.test(data$zh, data$en, paired = TRUE)
+  tibble(analysis = label, n_models = nrow(data),
+         difference = mean(data$zh - data$en),
+         ci_low = fit$conf.int[1], ci_high = fit$conf.int[2],
+         t = unname(fit$statistic), df = unname(fit$parameter), p = fit$p.value)
+}
+sensitivity <- bind_rows(
+  paired_summary(complete_scores, "Only model-item-run pairs numeric in both languages"),
+  paired_summary(equal_item_scores, "Equal item weights after averaging repeats"),
+  paired_summary(model_scores |>
+    filter(model_label != "databricks-meta-llama-3-1-8b-instruct") |>
+    transmute(en = mean_score_en, zh = mean_score_zh),
+    "Primary scoring, excluding Llama 3.1 8B")
+)
+save_csv(sensitivity, "score_sensitivity_checks.csv")
+show_table(sensitivity)
+```
+
+These are robustness checks on the same hypothesis, not additional independent
+replications. All confidence intervals here are pointwise 95% intervals.
+
+## Fig. 2A: do the answer distributions differ?
+
+First reproduce the descriptive distribution using all available numeric
+answers. The denominator is the number of numeric answers in that language,
+not all attempted calls.
+
+```{r}
+#| label: answer-distribution
+distribution <- sdo6 |>
+  filter(!is.na(score)) |>
+  count(language, score, name = "n") |>
+  complete(language = c("en", "zh"), score = 1:7, fill = list(n = 0L)) |>
+  group_by(language) |>
+  mutate(percent = 100 * n / sum(n)) |>
+  ungroup()
+save_csv(distribution, "all_valid_answer_distribution.csv")
+show_table(distribution, digits = 2)
+
+ggplot(distribution, aes(factor(score), percent, fill = language)) +
+  geom_col(position = "dodge", width = .8) +
+  scale_fill_manual(values = c(en = "#2878A5", zh = "#CF683D"),
+                    labels = c(en = "English", zh = "Chinese")) +
+  labs(x = "Reverse-keyed SDO6 answer (1 = most egalitarian)",
+       y = "Numeric answers (%)", fill = NULL) +
+  theme_minimal(base_size = 12) + theme(legend.position = "top")
+```
+
+### Chi-square statistic with model-level language swaps
+
+To give the two languages identical item/run coverage, restrict this additional
+test to the **`r nrow(paired_answers)` complete pairs**. Within each model,
+count the answers at each of the seven scale points in each language. On every
+permutation, independently decide for each model whether to swap its **entire**
+English and Chinese profiles, retaining all dependence among its items and
+runs. Use `r format(B_perm, big.mark = ",")` random swaps with a fixed seed.
+
+For equal row totals, Pearson's statistic can be calculated as
+sum over categories of `(Chinese count - English count)^2 / combined count`.
+The code uses that identity for speed. Its P value comes from the model-level
+permutation distribution, **not a chi-square reference distribution with six
+degrees of freedom**. It is an omnibus test: a significant result establishes a
+distribution difference, not its direction.
+
+This procedure assumes that, under the null, each model's two complete language
+profiles are exchangeable and swaps can be chosen independently across models.
+It conditions on the fixed 16 items and complete numeric pairs. Missingness
+depending on language can still bias a complete-pair comparison. Related model
+families may also violate independence across endpoints; the test does not
+justify inference to all possible LLMs or all possible questionnaire items.
+
+```{r}
+#| label: clustered-distribution-test
+models <- sort(unique(paired_answers$model_label))
+M <- length(models)
+en_counts <- t(vapply(models, function(m) {
+  tabulate(as.integer(paired_answers$en[paired_answers$model_label == m]), nbins = 7L)
+}, integer(7)))
+zh_counts <- t(vapply(models, function(m) {
+  tabulate(as.integer(paired_answers$zh[paired_answers$model_label == m]), nbins = 7L)
+}, integer(7)))
+stopifnot(all(rowSums(en_counts) == rowSums(zh_counts)))
+dimnames(en_counts) <- dimnames(zh_counts) <- list(models, as.character(1:7))
+category_totals <- colSums(en_counts + zh_counts)
+present <- category_totals > 0
+count_differences <- zh_counts[, present, drop = FALSE] -
+                     en_counts[, present, drop = FALSE]
+observed_x2 <- sum(colSums(count_differences)^2 / category_totals[present])
+
+# Verify the statistic against R, but deliberately do not use its pooled P value.
+pooled_table <- rbind(en = colSums(en_counts), zh = colSums(zh_counts))[, present]
+reference_stat <- suppressWarnings(chisq.test(pooled_table, correct = FALSE)$statistic)
+stopifnot(isTRUE(all.equal(observed_x2, unname(reference_stat), tolerance = 1e-8)))
+
+# One sign per model per permutation; all of its answers move together.
+set.seed(20261025)
+swaps <- matrix(sample(c(-1, 1), B_perm * M, replace = TRUE), nrow = B_perm, ncol = M)
+permuted_count_differences <- swaps %*% count_differences
+permuted_x2 <- rowSums(sweep(permuted_count_differences^2, 2,
+                            category_totals[present], FUN = "/"))
+exceedances <- sum(permuted_x2 >= observed_x2 - 1e-10)
+omnibus_p <- (exceedances + 1) / (B_perm + 1)
+omnibus <- tibble(test = "Seven-category distribution: model-level swaps",
+                  complete_pairs = nrow(paired_answers), n_models = M,
+                  pearson_x2_statistic = observed_x2, permutations = B_perm,
+                  exceedances = exceedances, p = omnibus_p,
+                  monte_carlo_se_approx = sqrt(omnibus_p * (1 - omnibus_p) / (B_perm + 1)))
+save_csv(as.data.frame(as.table(pooled_table)), "complete_pair_distribution_counts.csv")
+show_table(omnibus |> select(-test, -monte_carlo_se_approx))
+```
+
+### Which features changed?
+
+Four follow-ups describe the interpretation in Section 3.2: choosing the most
+egalitarian option (1), using either endpoint (1 or 7), mean distance from the
+midpoint (`abs(score - 4)`), and choosing the hierarchy-endorsing side (5-7).
+For each model, calculate these summaries on the same complete pairs and then
+average their Chinese-minus-English differences across models. A negative
+endpoint or distance difference indicates less extreme responding in Chinese.
+
+Two-sided permutation P values use the same whole-model swaps. A bootstrap
+resamples entire models, preserving each English/Chinese pair, for basic
+bootstrap pointwise 95% confidence intervals. Proportion effects and their intervals are converted
+to percentage points. The Holm family contains the omnibus test plus these
+four follow-ups. It does not retrospectively replace the manuscript's existing
+multiple-testing registry.
+
+```{r}
+#| label: response-feature-tests
+features <- list(
+  most_egalitarian_option = function(x) as.numeric(x == 1),
+  either_endpoint = function(x) as.numeric(x %in% c(1, 7)),
+  distance_from_midpoint = function(x) abs(x - 4),
+  hierarchy_endorsing_side = function(x) as.numeric(x >= 5)
+)
+feature_data <- lapply(names(features), function(name) {
+  f <- features[[name]]
+  paired_answers |>
+    group_by(model_label) |>
+    summarise(en = mean(f(en)), zh = mean(f(zh)), .groups = "drop") |>
+    mutate(feature = name, difference = zh - en) |>
+    arrange(match(model_label, models))
+})
+names(feature_data) <- names(features)
+set.seed(20261026)
+boot_index <- matrix(sample.int(M, B_boot * M, replace = TRUE), nrow = B_boot, ncol = M)
+
+feature_results <- bind_rows(lapply(names(feature_data), function(name) {
+  d <- feature_data[[name]]
+  delta <- d$difference
+  stopifnot(identical(d$model_label, models))
+  estimate <- mean(delta)
+  permuted <- drop(swaps %*% delta) / M
+  p <- (1 + sum(abs(permuted) >= abs(estimate) - 1e-12)) / (B_perm + 1)
+  boot_means <- rowMeans(matrix(delta[boot_index], nrow = B_boot, ncol = M))
+  # Basic bootstrap interval: reflect the bootstrap quantiles around the estimate.
+  ci <- 2 * estimate - unname(quantile(boot_means, c(.975, .025)))
+  multiplier <- if (name == "distance_from_midpoint") 1 else 100
+  tibble(feature = name,
+         unit = if (multiplier == 100) "percentage points" else "scale points",
+         mean_en = multiplier * mean(d$en), mean_zh = multiplier * mean(d$zh),
+         difference_zh_minus_en = multiplier * estimate,
+         ci_low = multiplier * ci[1], ci_high = multiplier * ci[2], p = p)
+}))
+adjusted <- p.adjust(c(omnibus$p, feature_results$p), method = "holm")
+omnibus$p_holm <- adjusted[1]
+feature_results$p_holm <- adjusted[-1]
+save_csv(omnibus, "clustered_distribution_test.csv")
+save_csv(feature_results, "response_feature_tests.csv")
+save_csv(bind_rows(feature_data), "response_features_by_model.csv")
+show_table(feature_results |> transmute(
+  Feature = recode(feature,
+    most_egalitarian_option = "Most egalitarian option (%)",
+    either_endpoint = "Either endpoint (%)",
+    distance_from_midpoint = "Distance from midpoint (points)",
+    hierarchy_endorsing_side = "Hierarchy-endorsing side (%)"),
+  English = mean_en, Chinese = mean_zh, `ZH - EN` = difference_zh_minus_en,
+  `95% CI` = sprintf("[%.2f, %.2f]", ci_low, ci_high), p = p, p_holm = p_holm),
+  digits = 2)
+```
+
+An insignificant hierarchy-side comparison would **not** establish equivalence
+between languages. Describe those responses as rare if the percentages support
+that statement; do not write that they are statistically unchanged without a
+separately justified equivalence margin and test. Likewise, an aggregate shift
+does not imply that every model/item pair stayed on the same side.
+
+## Suggested reporting
+
+The following sentences are generated from this run. The first reports the
+existing score hypothesis; the second addresses the added Fig. 2A test.
+
+```{r}
+#| label: reporting-text
+#| results: asis
+main_sentence <- sprintf(
+  paste0("SDO6 scores were higher in Chinese than in English for %d of %d models. ",
+         "The mean within-model difference was %.2f scale points (Chinese minus English; ",
+         "95%% CI [%.2f, %.2f]; two-sided paired t test across models, t(%d) = %.2f, %s)."),
+  primary$higher_in_zh, primary$n_models, primary$difference_zh_minus_en,
+  primary$ci_low, primary$ci_high, primary$df, primary$t, p_text(primary$p))
+distribution_sentence <- sprintf(
+  paste0("In an exploratory comparison restricted to %s model-item-run pairs with numeric ",
+         "answers in both languages, the seven-category response distributions %s ",
+         "(Pearson chi-square statistic = %.2f; %s permutations swapping entire language ",
+         "profiles within models; unadjusted %s; Holm-adjusted %s across five follow-up tests)."),
+  format(nrow(paired_answers), big.mark = ","),
+  if (omnibus$p_holm < .05) "differed" else "did not differ significantly",
+  omnibus$pearson_x2_statistic, format(B_perm, big.mark = ","),
+  p_text(omnibus$p), p_text(omnibus$p_holm))
+reporting_text <- c(main_sentence, "", distribution_sentence, "",
+  paste0("Interpretation: the mean score comparison concerns these tested model endpoints ",
+         "and these two SDO6 versions. A language-version difference alone cannot distinguish ",
+         "response style, translation/label effects, or an attitude difference."))
+writeLines(reporting_text, file.path(out_dir, "suggested_results_text.txt"))
+cat(paste(reporting_text, collapse = "\n\n"))
+```
+
+The score test already supplies statistical support for a lower English SDO6
+score. Prefer **"the models gave more egalitarian responses in English"** to a
+claim about an intrinsic attitude. Only one Chinese translation was tested.
+
+The supplied supplementary information already reports the paired score test
+in Supplementary Table S4, together with analyses of distance from the midpoint
+and endpoint responding. The present notebook reproduces the score comparison
+from the raw data and adds a direct seven-category distribution comparison.
+Its new follow-up tests use complete run/item pairs and whole-model swaps,
+so they need not numerically match those earlier analyses.
+
+## Assumptions and reproducibility
+
+- The paired t test assumes independent model differences and approximately
+  normal sampling behavior for their mean. The sign test and complete-pair
+  distribution test provide complementary checks with different null hypotheses.
+- The endpoints were selected rather than randomly sampled. Models from the
+  same developer may be related. Report the result for this tested set; these
+  analyses do not model dependence between related endpoints.
+- Items and language versions are fixed here. Generalizing to a population of
+  items would require an appropriate crossed model and measurement assumptions.
+- The runs are replicate labels, not paired random seeds or matched time points.
+- A change in observed scale scores is not sufficient evidence that the latent
+  attitude is measured equivalently across the two versions.
+- The permutation P values include the observed configuration through the
+  `(exceedances + 1)/(B + 1)` correction and are never reported as zero.
+- The bootstrap intervals are pointwise, not simultaneous intervals. Follow-up
+  conclusions use the Holm-adjusted P values in the exported tables.
+
+Method references: [R paired t-test documentation](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/t.test.html),
+[R chi-square documentation](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/chisq.test.html),
+and [Winkler et al. (2014), permutation inference and exchangeability blocks](https://doi.org/10.1016/j.neuroimage.2014.01.060).
+
+```{r}
+#| label: reproducibility
+#| echo: false
+provenance <- tibble(input = "Results/SDO_VSA_Results_20260830.csv",
+                     md5 = unname(tools::md5sum(input_file)),
+                     permutation_seed = 20261025L, bootstrap_seed = 20261026L,
+                     permutations = B_perm, bootstrap_resamples = B_boot)
+save_csv(provenance, "analysis_provenance.csv")
+capture.output(sessionInfo(), file = file.path(out_dir, "sessionInfo.txt"))
+show_table(provenance)
+sessionInfo()
+```

@@ -1,0 +1,2 @@
+test,complete_pairs,n_models,pearson_x2_statistic,permutations,exceedances,p,monte_carlo_se_approx,p_holm
+Seven-category distribution: model-level swaps,2144,27,153.45792679407893,99999,0,1e-5,9.999949999874999e-6,5e-5

@@ -1,0 +1,2 @@
+analysis,n_models,mean_en,mean_zh,difference_zh_minus_en,ci_low,ci_high,t,df,p,cohens_dz,higher_in_zh,higher_in_en
+Available-answer model means (primary),27,1.4826162468567532,1.795548602911931,0.3129323560551777,0.20927600293651455,0.4165887091738409,6.205520943216322,26,1.4521078991004418e-6,1.1942530623426013,26,1

@@ -1,160 +1,173 @@
 # Data and code: Do large language models respond like human participants?
 
-This repository contains the data, analysis code and figures for the manuscript
+This folder holds the data, analysis code and figures for the manuscript
 
-> **Do large language models respond like human participants? Evidence from social attitude and mental-state measures in two languages.**
-> [Authors]. Submitted to *Humanities and Social Sciences Communications*, Collection "Large language models in psychological science".
+> **Do large language models respond like human participants? Stability and language effects in responses to social attitude and mental-state measures.**
+> Submitted to *Humanities and Social Sciences Communications*, collection "Large language models in psychological science".
 
-Twenty-seven instruction-tuned large language models (LLMs) answered three attitude questionnaires:
-- the short form of the SDO₇ scale, SDO₇(s);
-- SDO₆, in English and in Chinese;
-- the Very Short Authoritarianism scale (VSA).
+**The study in brief**
+- 27 large language models (LLMs) answered three attitude questionnaires:
+  - two social dominance orientation scales (SDO7(s), and SDO6 in English and in Chinese);
+  - the Very Short Authoritarianism scale (VSA).
+- 21 of these models also took the revised Reading the Mind in the Eyes Test (RMET), with and without word definitions.
+- Every item was asked five times, each time as a separate request with no conversation history.
 
-Twenty-one of them also took the revised Reading the Mind in the Eyes Test (RMET), with and without definitions of the response words. Every item was presented five times in separate requests without conversation history.
+---
 
-The analyses ask three things:
-- whether the models' scores resemble human data;
-- whether they differ between English and Chinese;
-- whether individual answers and the conclusions drawn from them repeat across identical administrations.
-
-## Repository structure
+## What is in this folder
 
 ```
-Results/                     Raw response data, one row per API call
-Analysis_script/             Analysis code, run in numerical order
-Analysis_output/             Statistical outputs
-  ├── stats_log.txt          Full log of every statistic, section by section (script 02)
-  ├── Stats_README.md        Index of the tables in Stats_tables/
-  ├── Stats_tables/          Every table in the log as CSV (S01–S19)
-  ├── Reframing_checks/      Summary statistics vs answer changes (R1–R6, script 04)
-  ├── Additional_checks/     Two-run disagreement and language sensitivity (script 05)
-  ├── Report_outputs/        Descriptives and the earlier-vs-later release comparison (script 06)
-  ├── Figures/               Analysis and supplementary figures (scripts 03 and 04)
-  └── analysis_results.rds   Objects read by 03_figures.R
-Manuscript_figures/          Figs 1–4 of the manuscript, PNG (600 dpi) and PDF (script 08)
-  └── source_data/           The numbers plotted in each figure panel, as CSV
-Notebooks/                   Data-collection notebooks
-requirements.txt             Python packages for scripts 06 and 08
+README.md                    This file
+requirements.txt             Python packages needed
+Results/                     The data: every answer the models gave (one row per request)
+Notebooks/                   The code used to send the questions to the models
+Analysis_script/             The analysis code, numbered in the order to run it
+Analysis_output/             Everything the analysis code produces (tables and logs)
+Figures/
+  ├── Main_figures/          Figures 1–4 of the manuscript
+  └── Supplementary_figures/ Supplementary Figures S1–S13
 ```
 
-## Data (`Results/`)
+If you only want to check a number in the paper, start with
+`Analysis_output/stats_log.txt`. It lists every statistic in the order the analysis runs.
+The table "Where to find each result" below says where everything else is.
 
-| File | Contents | Used for |
+---
+
+## The data (`Results/`)
+
+| File | What it contains | Used for |
 |---|---|---|
-| `SDO_VSA_Results_20260830.csv` | Attitude questionnaires, 30 August 2026: 28 endpoints × 46 items (SDO₇(s) 8, SDO₆ English 16, SDO₆ Chinese 16, VSA 6) × 5 runs | Main analyses |
-| `RMET_Results_20260912.csv` | RMET, 11–12 September 2026: 22 endpoints × 36 items × 2 conditions × 5 runs | Main analyses |
-| `SDO_VSA_Results.csv` | SDO₇(s) and VSA, 14 June 2026 (24 endpoints, 5 runs) | Supplementary comparison over time only |
-| `RMET_Results.csv` | RMET, 14 June 2026 (18 endpoints, 1 run per condition) | Supplementary comparison over time only |
+| `SDO_VSA_Results_20260830.csv` | Attitude questionnaires, 30 August 2026: 28 models × 46 items × 5 runs | Main analyses |
+| `RMET_Results_20260912.csv` | RMET, 11–12 September 2026: 22 models × 36 items × 2 conditions × 5 runs | Main analyses |
+| `SDO_VSA_Results.csv` | SDO7(s) and VSA, June 2026 (earlier session) | Supplementary Fig. S2 only |
+| `RMET_Results.csv` | RMET, June 2026 (earlier session) | Supplementary Fig. S2 only |
 
-Claude Sonnet 4 returned an API error on every call in both main collections. It is excluded in the analysis code, leaving 27 attitude endpoints and 21 RMET endpoints.
+One model, Claude Sonnet 4, returned an error on every request. The analysis code removes it, which leaves 27 models for the attitude scales and 21 for the RMET.
 
-**Columns, attitude files:**
-- `question_id`, `question_text`: item identifier and wording as presented.
-- `instrument` (`SDO` = SDO₇(s), `SDO6`, `VSA`) and `language` (`en`, `zh`).
-- `item_no`.
-- `model_label`: access route and serving name, e.g. `azure-gpt-4.1`.
-- `repeat`: run 0–4.
-- `value`: the numeric answer.
-- `label`: the label the model returned.
-- `raw_response`: the full model output.
-- `parse_error`, `timestamp`.
+**Main columns**
+- `model_label`: which model answered.
+- `repeat`: which of the five runs (0–4).
+- `question_text`, or `image` for the RMET: the item. Only the file names of the RMET photographs are included.
+- `value` (attitude) or `choice` and `is_correct` (RMET): the answer.
+- `raw_response`: the model's full reply.
+- `timestamp`: when the reply was received.
 
-**Columns, RMET files:**
-- `question_id`.
-- `image`: stimulus file name only; the photographs are not included.
-- `options`, `correct_answer`.
-- `definitions_shown`: condition.
-- `model_label`, `repeat`.
-- `choice`, `is_correct`.
-- `raw_response`, `parse_error`, `timestamp`.
+**Note on reverse-scored items.** In the attitude file, the `reverse_scored` and `value_recoded` columns are correct for SDO6 only. The analysis code applies the published scoring keys itself:
+- SDO7(s) items 3, 4, 7 and 8, and SDO6 items 9–16, are scored as 8 − answer.
+- VSA items 1, 4 and 5 have their sign reversed.
 
-> **Note on keying.** In the attitude files, the `reverse_scored` and `value_recoded` columns are correct for SDO₆ only. The analysis code applies the published keys itself:
-> - SDO₇(s) items 3, 4, 7 and 8 are reverse-keyed (8 − x).
-> - SDO₆ items 9–16 are reverse-keyed (8 − x).
-> - VSA items 1, 4 and 5 are reverse-keyed (sign reversal).
+---
 
-## Code (`Analysis_script/`)
+## How the data were collected (`Notebooks/`)
 
-| Script | What it does | Writes to |
-|---|---|---|
-| `02_statistical_analysis.R` | All statistical tests | `Analysis_output/stats_log.txt`, `Stats_tables/`, `analysis_results.rds` |
-| `03_figures.R` | Analysis and supplementary figures | `Analysis_output/Figures/` |
-| `04_reframing_checks.R` | Summary statistics (ICC, Krippendorff's α, coefficient of variation) compared with answer changes; single-run conclusions (R1–R6) | `Analysis_output/Reframing_checks/`, `Figures/FigR1_*`, `FigR2_*` |
-| `05_two_run_disagreement_and_language_sensitivity.py` | Two-run disagreement; the language shift without Llama 3.1 8B | `Analysis_output/Additional_checks/` |
-| `06_report_descriptives.py` | Descriptive tables; comparison of earlier and later releases from the same developers | `Analysis_output/Report_outputs/` |
-| `08_manuscript_figures.py` | **Figs 1–4 of the manuscript** and their source data | `Manuscript_figures/` |
+| Notebook | Collection |
+|---|---|
+| `LLM Benchmarks with Chinese.ipynb` | Attitude questionnaires, August 2026, in English and Chinese (main data) |
+| `LLM Benchmarks.ipynb` | Attitude questionnaires, June 2026 |
+| `LLM Benchmarks - Images.ipynb` | RMET, June 2026. The September run used the same procedure; its code was not saved separately. |
 
-## Reproducing the analyses
+The notebooks show:
+- the exact prompts;
+- how requests were sent;
+- how replies were turned into answers.
 
-**Requirements:**
-- R 4.6.0, with these packages:
-  - dplyr, tidyr, readr, purrr, stringr, tibble, forcats;
-  - lme4, lmerTest, afex, ordinal, metafor, psych, pwr, performance, cluster;
-  - ggplot2, ggrepel, patchwork, ragg, systemfonts.
-- Python 3.8 or later, with the packages in `requirements.txt`. Script 05 needs only the standard library.
+API keys and storage paths have been removed. No temperature, top-p or random seed was set, so every model ran at its provider's default settings.
 
-The R package versions used are listed under SESSION INFORMATION at the end of `Analysis_output/stats_log.txt`.
+---
 
-Run from the repository root, in order:
+## How to reproduce the results
+
+**You need:**
+- **R 4.6.0.** The package versions used are listed at the end of `Analysis_output/stats_log.txt`.
+- **Python 3.8 or later**, with the packages in `requirements.txt`.
+- **Quarto**, only for script 10.
+
+**Steps.** Run everything from this folder (the repository root), in this order:
 
 ```r
-source("Analysis_script/02_statistical_analysis.R")   # statistics
-source("Analysis_script/03_figures.R")                # analysis figures
-source("Analysis_script/04_reframing_checks.R")       # R1–R6 checks (needed by script 08)
+source("Analysis_script/02_statistical_analysis.R")   # all statistical tests
+source("Analysis_script/03_figures.R")                # Supplementary Figs S1, S2, S4–S7, S9–S13
+source("Analysis_script/04_reframing_checks.R")       # reliability statistics vs answer changes; single-run checks
 ```
 ```bash
 pip install -r requirements.txt
 python3 Analysis_script/05_two_run_disagreement_and_language_sensitivity.py
-python3 Analysis_script/06_report_descriptives.py
-python3 Analysis_script/08_manuscript_figures.py        # Figs 1–4 -> Manuscript_figures/
+python3 Analysis_script/06_report_descriptives.py      # descriptive tables; earlier vs later model generations
+python3 Analysis_script/07_report_figures.py           # Supplementary Fig. S8
+python3 Analysis_script/08_manuscript_figures.py       # Figures 2–4
+python3 Analysis_script/11_supplementary_fig_s3.py     # Supplementary Fig. S3
+quarto render Analysis_script/10_sdo6_language_tests.qmd --output-dir ../Analysis_output/Language_comparison
 ```
 
-Script 08 needs only the two main data files and `Analysis_output/Reframing_checks/R3_agreement_by_model.csv`, which is included, so it can be run on its own. It prints the numbers quoted in the text next to each figure, so they can be checked.
+**Where new figures are written.** Scripts 03, 07 and 08 write to `Analysis_output/Figures/` and `Manuscript_figures/` under the scripts' own working names. The copies in `Figures/` are the final versions used in the paper, renamed to match its numbering. The table below gives the working name of each one.
 
-**Notes on reproducibility:**
-- **Seed.** Random procedures use seed 20260922, with 2,000 bootstrap and 5,000 permutation resamples.
-- **Ties.** Values that enter ties (ranks, signs, thresholds) are rounded to 10 decimal places, so results do not depend on the computer's floating-point precision.
-- **Wilcoxon tests.** R 4.6.0 handles zero differences in Wilcoxon signed-rank tests differently from earlier R versions, so a few Wilcoxon p-values can differ under other versions. The reported values come from R 4.6.0.
-- **Cross-check.** Script 04 cross-checks its headline numbers against the outputs of script 02 (R1).
+**Random numbers.** Random procedures use seed 20260922, with 2,000 bootstrap and 5,000 permutation resamples, so results repeat exactly.
 
-## Where each manuscript result comes from
+---
 
-| Manuscript | Source in this repository |
+## Where to find each result
+
+### Main figures (`Figures/Main_figures/`)
+
+| Figure | File | Made by |
+|---|---|---|
+| Fig. 1 Study design | `Fig1_study_design.png` | Drawn in Canva (no code) |
+| Fig. 2 English vs Chinese SDO6 | `Fig2_language.png` | Script 08 (working name `Fig2_language_simple`) |
+| Fig. 3 Reliability vs answer changes | `Fig3_answer_changes.png` | Script 08 |
+| Fig. 4 RMET accuracy and consistency | `Fig4_rmet.png` | Script 08 |
+
+### Supplementary figures (`Figures/Supplementary_figures/`)
+
+| Figure | File | Made by (working name) |
+|---|---|---|
+| S1 Answers across the five runs | `FigS01_run_order.png` | Script 03 (`FigS1_run_order`) |
+| S2 Answers given months apart | `FigS02_june_vs_later_answers.png` | Script 03 (`Fig11_longitudinal_drift`) |
+| S3 How SDO6 answers changed between languages | `FigS03_language_mechanism.png` | Script 11 |
+| S4 Answers at an end of the scale, by language | `FigS04_scale_endpoints_by_language.png` | Script 03 (`FigS2_extreme_responding_by_language`) |
+| S5 Model-level effects of definitions and language | `FigS05_model_level_effects.png` | Script 03 (`Fig07_forest_definitions_and_language`) |
+| S6 Answer change by scale position | `FigS06_change_by_scale_position.png` | Script 03 (`Fig04_instability_by_scale_position`) |
+| S7 Answer changes by model and scale | `FigS07_change_by_model_and_scale.png` | Script 03 (`Fig02_instability_heatmap`) |
+| S8 Earlier vs later model generations | `FigS08_earlier_vs_later_generations.png` | Script 07 (`Report_Fig5_older_vs_newer`) |
+| S9 RMET accuracy and answer changes by model | `FigS09_rmet_by_model.png` | Script 03 (`Fig01_rmet_accuracy_and_stability`) |
+| S10 RMET item responses | `FigS10_rmet_items.png` | Script 03 (`Fig09_rmet_items_consensus`) |
+| S11 Which RMET items models get wrong together | `FigS11_rmet_error_agreement.png` | Script 03 (`Fig10_rmet_error_consistency`) |
+| S12 Correlations across models | `FigS12_correlations_across_models.png` | Script 03 (`FigS3_cross_instrument_correlations`) |
+| S13 SDO subscale scores | `FigS13_sdo_subscales.png` | Script 03 (`Fig12_subscale_divergence`) |
+
+### Supplementary tables (built from these files in `Analysis_output/`)
+
+| Table | Source files |
 |---|---|
-| Fig. 1 (study design) | `Manuscript_figures/Fig1_study_design` |
-| Fig. 2 (English vs Chinese SDO₆) | `Manuscript_figures/Fig2_language`; data in `source_data/Fig2a_*.csv`, `Fig2b_*.csv` |
-| Fig. 3a (agreement vs items changed) | `Manuscript_figures/Fig3_answer_changes`; per-model α from `Reframing_checks/R3_agreement_by_model.csv` |
-| Fig. 3b (changes by first answer) | `Manuscript_figures/Fig3_answer_changes`; `source_data/Fig3b_change_by_first_answer.csv`. Changes are counted only in runs 2–5, so the grouping by run-1 answer cannot create them through regression to the mean; the all-five-runs version is in the same file. |
-| Fig. 4 (RMET accuracy vs consistency) | `Manuscript_figures/Fig4_rmet`; `source_data/Fig4_rmet_by_model.csv` |
-| Table 1 (what each level of claim supported) | `Additional_checks/two_run_disagreement_summary.csv`; `Reframing_checks/R4a_classification_summary.csv`, `R4b_rank_summary.csv`, `R4c_*.csv`; `Stats_tables/S02_rmet_vs_human.csv` |
-| Attitude scores and human comparison | `Report_outputs/table2_attitude_by_instrument.csv`; `Stats_tables/S13_language_descriptives.csv` |
-| Answers changed (20.7%) and two-run disagreement (11.4%) | `Additional_checks/two_run_disagreement_summary.csv` |
-| ICCs, α ≥ .80, coefficient of variation | `Reframing_checks/R6_table2_summary_vs_change.csv`, `R3_agreement_summary.csv`, `R2_cv_summary.csv` |
-| Conclusions from single runs | `Reframing_checks/R4a_*.csv`, `R4b_*.csv`, `R4c_*.csv` |
-| Language analyses | `Stats_tables/S13_*.csv`; `Additional_checks/language_shift_sensitivity.csv`, `chinese_label_check.csv` |
-| RMET accuracy, definitions, answer changes, item criteria | `Stats_tables/S02_*.csv`, `S03_*.csv`, `S04_*.csv`, `S05_rmet_items.csv` |
-| Earlier vs later releases (Supplementary Results) | `Report_outputs/generation_comparison.csv` |
-| Test registry with multiplicity adjustment | `Stats_tables/S19_test_registry.csv`, `S19_registry_summary.csv` |
+| S1 Prompts and items | `Notebooks/` (prompts) and `Results/` (item wording as asked) |
+| S2 Models | `Stats_tables/S01_nonscored_by_model.csv`, `Report_outputs/generation_table.csv` |
+| S3 Design and completeness | `Stats_tables/S01_design.csv`, `S07_instability_by_instrument.csv` |
+| S4 Every statistical test | `Stats_tables/S19_test_registry.csv` (test, sample size, statistic, exact and adjusted P) |
+| S5 Language differences by item | `Stats_tables/S13_language_by_item.csv`, `S13_dif_robust_linking.csv` |
+| S6 Answer stability by scale | `Stats_tables/S07_reliability_by_aggregation_level.csv`, `S10_*.csv`; `Additional_checks/two_run_disagreement_*.csv`; `Reframing_checks/R2_*`, `R3_*`, `R6_*` |
+| S7 Earlier vs later generations | `Report_outputs/generation_comparison.csv` |
+| S8 Conclusions from single runs | `Reframing_checks/R4a_*`, `R4b_*`, `R4c_*` |
+| S9 RMET by model | `Stats_tables/S02_rmet_accuracy_by_model.csv`, `S04_rmet_reliability_by_model.csv` |
+| S10 SDO subscales | `Stats_tables/S11_subscale_summary.csv`, `S11_rank_reversals.csv`, `S12_internal_structure.csv` |
 
-## Data collection (`Notebooks/`)
+**A note on numbering.** The files in `Analysis_output/Stats_tables/` start with S01–S19. These numbers are the sections of the analysis log; they are *not* the Supplementary Table numbers in the paper. `Analysis_output/Stats_README.md` describes each of these files.
 
-| Notebook | Collection |
+### Other key results
+
+| Result in the paper | File |
 |---|---|
-| `LLM Benchmarks with Chinese.ipynb` | Attitude questionnaires, August 2026 (main data): SDO₇(s), SDO₆ in English and Chinese, and VSA, with parallel requests |
-| `LLM Benchmarks.ipynb` | Attitude questionnaires, June 2026 |
-| `LLM Benchmarks - Images.ipynb` | RMET, June 2026. The code run for the September collection was not archived; the same procedure and settings are assumed. |
+| SDO6 higher in Chinese (paired t test, Section 3.2) | `Analysis_output/Language_comparison/primary_paired_t_test.csv` |
+| Share of items changing across runs; two-run disagreement | `Analysis_output/Additional_checks/two_run_disagreement_summary.csv` |
+| Language result without Llama 3.1 8B | `Analysis_output/Additional_checks/language_shift_sensitivity.csv` |
+| RMET item selection criteria applied to model answers (Section 3.5) | `Analysis_output/Stats_tables/S05_rmet_items.csv` (column `retained`) |
+| Attitude scores by model and scale | `Analysis_output/Report_outputs/scale_scores_by_model.csv` |
 
-The notebooks show how prompts were built, how requests were sent and how responses were parsed. API keys and internal storage paths have been removed. No temperature, top-p or seed was set, so endpoints ran at provider defaults. Text-only endpoints were excluded from the RMET.
+---
 
 ## Materials not included
 
-- **RMET photographs.** The revised RMET photographs (Baron-Cohen et al., 2001) are not redistributed; the data files contain stimulus file names only.
-- **Questionnaire sources.** The questionnaire items are reproduced in the data files as presented to the models:
-  - English items: Pratto et al. (1994), Ho et al. (2015) and Bizumic and Duckitt (2018).
-  - Chinese SDO₆ items: Lin (2017). The favour–oppose response labels were translated for this study.
-
-## Licence and citation
-
-[Choose a licence, for example CC BY 4.0 for the data and MIT for the code, and add a LICENSE file.]
-
-Please cite the article once it is published. [Add citation or DOI.]
+- **RMET photographs.** These belong to the published test (Baron-Cohen et al., 2001) and are not shared here. The data files give file names only.
+- **Questionnaire items.** The items appear in the data files exactly as asked. Sources:
+  - SDO6: Pratto et al., 1994; Chinese version from Lin, 2017.
+  - SDO7(s): Ho et al., 2015.
+  - VSA: Bizumic and Duckitt, 2018.
