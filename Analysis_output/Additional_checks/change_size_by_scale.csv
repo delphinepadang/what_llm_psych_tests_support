@@ -1,0 +1,6 @@
+scale,complete_model_item_pairs,run_comparisons,mean_abs_difference,mean_abs_difference_among_disagreements,pct_disagreements_1_point,pct_disagreements_2plus_points
+SDO7(s),212,2120,0.177,2.09,46.1,53.9
+SDO6 English,429,4290,0.162,1.85,64.1,35.9
+SDO6 Chinese,424,4240,0.187,1.56,66.9,33.1
+VSA,162,1620,0.427,2.07,46.1,53.9
+All SDO versions,1065,10650,0.175,1.75,62.4,37.6

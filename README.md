@@ -97,6 +97,7 @@ python3 Analysis_script/06_report_descriptives.py      # descriptive tables; ear
 python3 Analysis_script/07_report_figures.py           # Supplementary Fig. S8
 python3 Analysis_script/08_manuscript_figures.py       # Figures 2–4
 python3 Analysis_script/11_supplementary_fig_s3.py     # Supplementary Fig. S3
+python3 Analysis_script/12_change_size_and_rank_agreement.py   # size of answer changes; ranking agreement across runs
 quarto render Analysis_script/10_sdo6_language_tests.qmd --output-dir ../Analysis_output/Language_comparison
 ```
 
@@ -144,9 +145,9 @@ quarto render Analysis_script/10_sdo6_language_tests.qmd --output-dir ../Analysi
 | S3 Design and completeness | `Stats_tables/S01_design.csv`, `S07_instability_by_instrument.csv` |
 | S4 Every statistical test | `Stats_tables/S19_test_registry.csv` (test, sample size, statistic, exact and adjusted P) |
 | S5 Language differences by item | `Stats_tables/S13_language_by_item.csv`, `S13_dif_robust_linking.csv` |
-| S6 Answer stability by scale | `Stats_tables/S07_reliability_by_aggregation_level.csv`, `S10_*.csv`; `Additional_checks/two_run_disagreement_*.csv`; `Reframing_checks/R2_*`, `R3_*`, `R6_*` |
+| S6 Answer stability by scale | `Stats_tables/S07_reliability_by_aggregation_level.csv`, `S10_*.csv`; `Additional_checks/two_run_disagreement_*.csv`, `change_size_by_scale.csv`; `Reframing_checks/R2_*`, `R3_*`, `R6_*` |
 | S7 Earlier vs later generations | `Report_outputs/generation_comparison.csv` |
-| S8 Conclusions from single runs | `Reframing_checks/R4a_*`, `R4b_*`, `R4c_*` |
+| S8 Conclusions from single runs | `Reframing_checks/R4a_*`, `R4b_*`, `R4c_*`; part C: `Additional_checks/rank_agreement_by_scale.csv` |
 | S9 RMET by model | `Stats_tables/S02_rmet_accuracy_by_model.csv`, `S04_rmet_reliability_by_model.csv` |
 | S10 SDO subscales | `Stats_tables/S11_subscale_summary.csv`, `S11_rank_reversals.csv`, `S12_internal_structure.csv` |
 
@@ -158,6 +159,9 @@ quarto render Analysis_script/10_sdo6_language_tests.qmd --output-dir ../Analysi
 |---|---|
 | SDO6 higher in Chinese (paired t test, Section 3.2) | `Analysis_output/Language_comparison/primary_paired_t_test.csv` |
 | Share of items changing across runs; two-run disagreement | `Analysis_output/Additional_checks/two_run_disagreement_summary.csv` |
+| Size of answer changes (e.g. 0.175 points; 62% of disagreements one point) | `Analysis_output/Additional_checks/change_size_by_scale.csv` (script 12) |
+| Reliability benchmark met but answers changed (41 and 12 of 70); GPT-5.5 example | `Analysis_output/Reframing_checks/R3_agreement_by_model.csv`, `R3_agreement_summary.csv` |
+| Ranking agreement across runs (Kendall's τb; 36 of 108 spanning five or more ranks) | `Analysis_output/Additional_checks/rank_agreement_by_scale.csv` (script 12); `Reframing_checks/R4b_*` |
 | Language result without Llama 3.1 8B | `Analysis_output/Additional_checks/language_shift_sensitivity.csv` |
 | RMET item selection criteria applied to model answers (Section 3.5) | `Analysis_output/Stats_tables/S05_rmet_items.csv` (column `retained`) |
 | Attitude scores by model and scale | `Analysis_output/Report_outputs/scale_scores_by_model.csv` |

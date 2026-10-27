@@ -1,0 +1,5 @@
+scale,models,mean_kendall_tau_b,model_pairs_reversing_mean_pct,model_pairs_reversing_max_pct,models_spanning_5plus_ranks,largest_rank_span,highest_scoring_model_by_run
+SDO7(s),27,0.85,5.0,8.5,6,16,databricks-meta-llama-3-1-8b-instruct | databricks-meta-llama-3-1-8b-instruct | databricks-meta-llama-3-1-8b-instruct | databricks-qwen35-122b-a10b | databricks-qwen35-122b-a10b
+SDO6 English,27,0.8,7.3,12.3,8,17,databricks-meta-llama-3-1-8b-instruct | databricks-meta-llama-3-1-8b-instruct | databricks-meta-llama-3-1-8b-instruct | azure-gpt-5.2+databricks-meta-llama-3-1-8b-instruct | databricks-meta-llama-3-1-8b-instruct
+SDO6 Chinese,27,0.85,5.1,8.5,7,14,databricks-meta-llama-3-1-8b-instruct | databricks-meta-llama-3-1-8b-instruct | databricks-meta-llama-3-1-8b-instruct | databricks-meta-llama-3-1-8b-instruct | databricks-meta-llama-3-1-8b-instruct
+VSA,27,0.68,11.1,14.2,15,16,azure-gpt-5.4+databricks-gpt-oss-20b+databricks-meta-llama-3-1-8b-instruct | databricks-gpt-oss-20b | azure-gpt-4o | azure-gpt-4o | databricks-gpt-oss-20b+databricks-qwen35-122b-a10b
