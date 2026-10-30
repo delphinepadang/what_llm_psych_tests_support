@@ -1,0 +1,109 @@
+"model","display","inst_lang","n_items","all_identical","alpha_interval","n_changed","pct_changed"
+"azure-gpt-4.1","GPT-4.1","SDO6-EN",16,FALSE,0.885440835266821,2,12.5
+"azure-gpt-4.1","GPT-4.1","SDO6-ZH",16,FALSE,0.980070635721493,1,6.25
+"azure-gpt-4.1","GPT-4.1","SDO7s",8,FALSE,1,0,0
+"azure-gpt-4.1","GPT-4.1","VSA",6,FALSE,0.75300195476124,4,66.6666666666667
+"azure-gpt-4o","GPT-4o","SDO6-EN",16,FALSE,1,0,0
+"azure-gpt-4o","GPT-4o","SDO6-ZH",16,FALSE,0.712885462555066,5,31.25
+"azure-gpt-4o","GPT-4o","SDO7s",8,FALSE,0.975378787878788,1,12.5
+"azure-gpt-4o","GPT-4o","VSA",6,FALSE,0.309053778080327,3,50
+"azure-gpt-5.1","GPT-5.1","SDO6-EN",16,FALSE,0.84846547314578,3,18.75
+"azure-gpt-5.1","GPT-5.1","SDO6-ZH",16,FALSE,0.651470588235294,5,31.25
+"azure-gpt-5.1","GPT-5.1","SDO7s",8,FALSE,0.743421052631579,1,12.5
+"azure-gpt-5.1","GPT-5.1","VSA",6,FALSE,0.676854504934734,5,83.3333333333333
+"azure-gpt-5.2","GPT-5.2","SDO6-EN",16,FALSE,0.787509780907668,7,43.75
+"azure-gpt-5.2","GPT-5.2","SDO6-ZH",16,FALSE,0.541567977261961,8,50
+"azure-gpt-5.2","GPT-5.2","SDO7s",8,FALSE,0.615326251896813,3,37.5
+"azure-gpt-5.2","GPT-5.2","VSA",6,FALSE,0.471766848816029,2,33.3333333333333
+"azure-gpt-5.4","GPT-5.4","SDO6-EN",16,FALSE,0.826700094014415,5,31.25
+"azure-gpt-5.4","GPT-5.4","SDO6-ZH",16,FALSE,0.860915492957746,4,25
+"azure-gpt-5.4","GPT-5.4","SDO7s",8,FALSE,0.893587994542974,1,12.5
+"azure-gpt-5.4","GPT-5.4","VSA",6,FALSE,0.612299465240642,2,33.3333333333333
+"azure-gpt-5.5","GPT-5.5","SDO6-EN",16,FALSE,0.866816521494802,1,6.25
+"azure-gpt-5.5","GPT-5.5","SDO6-ZH",16,FALSE,0.838114754098361,2,12.5
+"azure-gpt-5.5","GPT-5.5","SDO7s",8,FALSE,1,0,0
+"azure-gpt-5.5","GPT-5.5","VSA",6,FALSE,0.943652849740933,3,50
+"azure-gpt-5.6-sol","GPT-5.6-sol","SDO6-EN",16,FALSE,0.944130127298444,1,6.25
+"azure-gpt-5.6-sol","GPT-5.6-sol","SDO6-ZH",16,FALSE,0.834188432835821,4,25
+"azure-gpt-5.6-sol","GPT-5.6-sol","SDO7s",8,FALSE,1,0,0
+"azure-gpt-5.6-sol","GPT-5.6-sol","VSA",6,FALSE,0.525454545454545,2,33.3333333333333
+"azure-gpt-5","GPT-5","SDO6-EN",16,FALSE,0.645039539899353,4,25
+"azure-gpt-5","GPT-5","SDO6-ZH",16,FALSE,0.57578847199565,9,56.25
+"azure-gpt-5","GPT-5","SDO7s",8,FALSE,0.715183423913043,3,37.5
+"azure-gpt-5","GPT-5","VSA",6,FALSE,0.518272425249169,4,66.6666666666667
+"databricks-claude-fable-5","Claude Fable 5","SDO6-EN",16,FALSE,0.950612653163291,2,12.5
+"databricks-claude-fable-5","Claude Fable 5","SDO6-ZH",16,FALSE,0.985788810937219,1,6.25
+"databricks-claude-fable-5","Claude Fable 5","SDO7s",8,FALSE,1,0,0
+"databricks-claude-fable-5","Claude Fable 5","VSA",6,FALSE,0.607518796992481,3,50
+"databricks-claude-haiku-4-5","Claude Haiku 4.5","SDO6-EN",16,FALSE,0.949595916631221,1,6.25
+"databricks-claude-haiku-4-5","Claude Haiku 4.5","SDO6-ZH",16,FALSE,1,0,0
+"databricks-claude-haiku-4-5","Claude Haiku 4.5","SDO7s",8,FALSE,0.808823529411765,1,12.5
+"databricks-claude-haiku-4-5","Claude Haiku 4.5","VSA",6,FALSE,0.931418918918919,2,33.3333333333333
+"databricks-claude-opus-4-1","Claude Opus 4.1","SDO6-EN",16,FALSE,0.975057882551042,1,6.25
+"databricks-claude-opus-4-1","Claude Opus 4.1","SDO6-ZH",16,FALSE,0.970184178743961,2,12.5
+"databricks-claude-opus-4-1","Claude Opus 4.1","SDO7s",8,FALSE,0.945757997218359,1,12.5
+"databricks-claude-opus-4-1","Claude Opus 4.1","VSA",6,FALSE,0.752840909090909,1,16.6666666666667
+"databricks-claude-opus-4-5","Claude Opus 4.5","SDO6-EN",16,FALSE,1,0,0
+"databricks-claude-opus-4-5","Claude Opus 4.5","SDO6-ZH",16,FALSE,0.970071222912563,2,12.5
+"databricks-claude-opus-4-5","Claude Opus 4.5","SDO7s",8,FALSE,1,0,0
+"databricks-claude-opus-4-5","Claude Opus 4.5","VSA",6,FALSE,0.981691919191919,1,16.6666666666667
+"databricks-claude-opus-4-6","Claude Opus 4.6","SDO6-EN",16,FALSE,1,0,0
+"databricks-claude-opus-4-6","Claude Opus 4.6","SDO6-ZH",16,FALSE,1,0,0
+"databricks-claude-opus-4-6","Claude Opus 4.6","SDO7s",8,FALSE,1,0,0
+"databricks-claude-opus-4-6","Claude Opus 4.6","VSA",6,FALSE,1,0,0
+"databricks-claude-opus-4-7","Claude Opus 4.7","SDO6-EN",16,FALSE,1,0,0
+"databricks-claude-opus-4-7","Claude Opus 4.7","SDO6-ZH",16,FALSE,0.989322881470469,1,6.25
+"databricks-claude-opus-4-7","Claude Opus 4.7","SDO7s",8,FALSE,1,0,0
+"databricks-claude-opus-4-7","Claude Opus 4.7","VSA",6,FALSE,1,0,0
+"databricks-claude-opus-4-8","Claude Opus 4.8","SDO6-EN",16,FALSE,1,0,0
+"databricks-claude-opus-4-8","Claude Opus 4.8","SDO6-ZH",16,FALSE,0.944522471910112,2,12.5
+"databricks-claude-opus-4-8","Claude Opus 4.8","SDO7s",8,FALSE,1,0,0
+"databricks-claude-opus-4-8","Claude Opus 4.8","VSA",6,FALSE,1,0,0
+"databricks-claude-opus-5","Claude Opus 5","SDO6-EN",16,FALSE,0.911810672025006,4,25
+"databricks-claude-opus-5","Claude Opus 5","SDO6-ZH",16,FALSE,1,0,0
+"databricks-claude-opus-5","Claude Opus 5","SDO7s",8,FALSE,0.922863924050633,2,25
+"databricks-claude-opus-5","Claude Opus 5","VSA",6,FALSE,0.686428038777032,2,33.3333333333333
+"databricks-claude-sonnet-4-5","Claude Sonnet 4.5","SDO6-EN",16,FALSE,1,0,0
+"databricks-claude-sonnet-4-5","Claude Sonnet 4.5","SDO6-ZH",16,FALSE,1,0,0
+"databricks-claude-sonnet-4-5","Claude Sonnet 4.5","SDO7s",8,FALSE,1,0,0
+"databricks-claude-sonnet-4-5","Claude Sonnet 4.5","VSA",6,FALSE,0.961195361284567,1,16.6666666666667
+"databricks-claude-sonnet-4-6","Claude Sonnet 4.6","SDO6-EN",16,FALSE,0.986918363967544,1,6.25
+"databricks-claude-sonnet-4-6","Claude Sonnet 4.6","SDO6-ZH",16,FALSE,1,0,0
+"databricks-claude-sonnet-4-6","Claude Sonnet 4.6","SDO7s",8,FALSE,1,0,0
+"databricks-claude-sonnet-4-6","Claude Sonnet 4.6","VSA",6,FALSE,1,0,0
+"databricks-claude-sonnet-5","Claude Sonnet 5","SDO6-EN",16,FALSE,0.912197832731314,3,18.75
+"databricks-claude-sonnet-5","Claude Sonnet 5","SDO6-ZH",16,FALSE,0.955660679923028,3,18.75
+"databricks-claude-sonnet-5","Claude Sonnet 5","SDO7s",8,FALSE,0.961370839936609,2,25
+"databricks-claude-sonnet-5","Claude Sonnet 5","VSA",6,FALSE,0.95242782152231,2,33.3333333333333
+"databricks-gemma-3-12b","Gemma 3 12B","SDO6-EN",16,FALSE,0.981472795497186,1,6.25
+"databricks-gemma-3-12b","Gemma 3 12B","SDO6-ZH",16,FALSE,0.991875771287536,1,6.25
+"databricks-gemma-3-12b","Gemma 3 12B","SDO7s",8,FALSE,1,0,0
+"databricks-gemma-3-12b","Gemma 3 12B","VSA",6,FALSE,0.939316438037666,1,16.6666666666667
+"databricks-gpt-oss-120b","GPT-OSS 120B","SDO6-EN",14,FALSE,0.0733748540288057,7,50
+"databricks-gpt-oss-120b","GPT-OSS 120B","SDO6-ZH",11,FALSE,0.232733812949641,9,81.8181818181818
+"databricks-gpt-oss-120b","GPT-OSS 120B","SDO7s",8,FALSE,0.221500721500721,4,50
+"databricks-gpt-oss-120b","GPT-OSS 120B","VSA",6,FALSE,0.431856899488927,3,50
+"databricks-gpt-oss-20b","GPT-OSS 20B","SDO6-EN",16,FALSE,0.399401013669175,10,62.5
+"databricks-gpt-oss-20b","GPT-OSS 20B","SDO6-ZH",16,FALSE,0.182878521126761,15,93.75
+"databricks-gpt-oss-20b","GPT-OSS 20B","SDO7s",7,FALSE,0.676440329218107,5,71.4285714285714
+"databricks-gpt-oss-20b","GPT-OSS 20B","VSA",6,FALSE,-0.00485751295336745,6,100
+"databricks-llama-4-maverick","Llama 4 Maverick","SDO6-EN",16,FALSE,1,0,0
+"databricks-llama-4-maverick","Llama 4 Maverick","SDO6-ZH",16,FALSE,1,0,0
+"databricks-llama-4-maverick","Llama 4 Maverick","SDO7s",8,FALSE,1,0,0
+"databricks-llama-4-maverick","Llama 4 Maverick","VSA",6,FALSE,0.971635367762128,2,33.3333333333333
+"databricks-meta-llama-3-1-8b-instruct","Llama 3.1 8B","SDO6-EN",16,FALSE,0.431071991198021,9,56.25
+"databricks-meta-llama-3-1-8b-instruct","Llama 3.1 8B","SDO6-ZH",15,FALSE,0.720812305900621,11,73.3333333333333
+"databricks-meta-llama-3-1-8b-instruct","Llama 3.1 8B","SDO7s",8,FALSE,0.618125,5,62.5
+"databricks-meta-llama-3-1-8b-instruct","Llama 3.1 8B","VSA",6,FALSE,0.521025587248322,6,100
+"databricks-meta-llama-3-3-70b-instruct","Llama 3.3 70B","SDO6-EN",16,FALSE,0.731657608695652,2,12.5
+"databricks-meta-llama-3-3-70b-instruct","Llama 3.3 70B","SDO6-ZH",16,FALSE,0.899554990464081,3,18.75
+"databricks-meta-llama-3-3-70b-instruct","Llama 3.3 70B","SDO7s",8,FALSE,0.821264894592117,2,25
+"databricks-meta-llama-3-3-70b-instruct","Llama 3.3 70B","VSA",6,FALSE,0.643609550561798,3,50
+"databricks-qwen3-next-80b-a3b-instruct","Qwen3-Next 80B","SDO6-EN",16,FALSE,0.380535055350554,1,6.25
+"databricks-qwen3-next-80b-a3b-instruct","Qwen3-Next 80B","SDO6-ZH",16,FALSE,0.991599319438537,1,6.25
+"databricks-qwen3-next-80b-a3b-instruct","Qwen3-Next 80B","SDO7s",8,TRUE,,0,0
+"databricks-qwen3-next-80b-a3b-instruct","Qwen3-Next 80B","VSA",6,FALSE,0.874186550976139,2,33.3333333333333
+"databricks-qwen35-122b-a10b","Qwen3.5 122B","SDO6-EN",15,FALSE,0.585686465433301,5,33.3333333333333
+"databricks-qwen35-122b-a10b","Qwen3.5 122B","SDO6-ZH",14,FALSE,0.86378132118451,2,14.2857142857143
+"databricks-qwen35-122b-a10b","Qwen3.5 122B","SDO7s",5,FALSE,0.656108597285068,2,40
+"databricks-qwen35-122b-a10b","Qwen3.5 122B","VSA",6,TRUE,,0,0

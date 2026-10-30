@@ -24,8 +24,10 @@ Notebooks/                   The code used to send the questions to the models
 Analysis_script/             The analysis code, numbered in the order to run it
 Analysis_output/             Everything the analysis code produces (tables and logs)
 Figures/
-  ├── Main_figures/          Figures 1–4 of the manuscript
-  └── Supplementary_figures/ Supplementary Figures S1–S13
+  ├── Main_figures/          Figures 1–4 as submitted (Figure 1: PNG and TIFF; Figures 2–4: PDF, PNG, TIFF and SVG)
+  ├── Supplementary_figures/ Supplementary Figures S1–S14
+  ├── Captions/              Separate current figure captions
+  └── Archive/               Earlier plotted values, used only to verify script 15
 ```
 
 If you only want to check a number in the paper, start with
@@ -89,19 +91,19 @@ API keys and storage paths have been removed. No temperature, top-p or random se
 source("Analysis_script/02_statistical_analysis.R")   # all statistical tests
 source("Analysis_script/03_figures.R")                # Supplementary Figs S1, S2, S4–S7, S9–S13
 source("Analysis_script/04_reframing_checks.R")       # reliability statistics vs answer changes; single-run checks
+source("Analysis_script/15_final_manuscript_figures.R") # final Figures 2–4 and supplementary S14, directly from raw data
 ```
 ```bash
 pip install -r requirements.txt
 python3 Analysis_script/05_two_run_disagreement_and_language_sensitivity.py
 python3 Analysis_script/06_report_descriptives.py      # descriptive tables; earlier vs later model generations
 python3 Analysis_script/07_report_figures.py           # Supplementary Fig. S8
-python3 Analysis_script/08_manuscript_figures.py       # Figures 2–4
 python3 Analysis_script/11_supplementary_fig_s3.py     # Supplementary Fig. S3
 python3 Analysis_script/12_change_size_and_rank_agreement.py   # size of answer changes; ranking agreement across runs
 quarto render Analysis_script/10_sdo6_language_tests.qmd --output-dir ../Analysis_output/Language_comparison
 ```
 
-**Where new figures are written.** Scripts 03, 07 and 08 write to `Analysis_output/Figures/` and `Manuscript_figures/` under the scripts' own working names. The copies in `Figures/` are the final versions used in the paper, renamed to match its numbering. The table below gives the working name of each one.
+**Where new figures are written.** Scripts 03 and 07 write to `Analysis_output/Figures/` under the scripts' own working names. The copies in `Figures/` are the final versions used in the paper, renamed to match its numbering. The table below gives the working name of each one.
 
 **Random numbers.** Random procedures use seed 20260922, with 2,000 bootstrap and 5,000 permutation resamples, so results repeat exactly.
 
@@ -111,36 +113,66 @@ quarto render Analysis_script/10_sdo6_language_tests.qmd --output-dir ../Analysi
 
 ### Main figures (`Figures/Main_figures/`)
 
-| Figure | File | Made by |
+This folder contains the four figures as submitted. Figures 2–4 are given as PDF,
+600 dpi PNG, lossless 600 dpi TIFF and editable SVG. Captions are separate in
+`Figures/Captions/`.
+
+| Figure | File stem | Rebuilt by |
 |---|---|---|
-| Fig. 1 Study design | `Fig1_study_design.png` | Drawn in Canva (no code) |
-| Fig. 2 English vs Chinese SDO6 | `Fig2_language.png` | Script 13 (selected revised layout; original from script 08) |
-| Fig. 3 Reliability vs answer changes | `Fig3_answer_changes.png` | Script 13 (selected alternative chart; original from script 08) |
-| Fig. 4 RMET accuracy and response variability | `Fig4_rmet.png` | Script 14 (descriptive title and revised layout; original from script 08) |
+| Fig. 1 Study design | `Fig1_study_design` | Drawn in Canva (no script) |
+| Fig. 2 Language differences, all 27 models | `Fig2_language` | Script 15 |
+| Fig. 3 Item responses, reliability by scale and response-variation heatmap | `Fig3_answer_changes` | Script 15 |
+| Fig. 4 Accuracy and response variability | `Fig4_rmet` | Script 15 |
 
-**Figure 2 and 3 revision options (29 October 2026).**
-`Figures/Main_figures/Revision_options/` contains two chart-based versions:
-`01_Revised/` simplifies the existing layouts, and `02_Alternative_charts/`
-uses different chart designs with the same data. Each figure is supplied as a
-600 dpi PNG and editable SVG. The five-page `Figures_2_and_3_review.pdf` shows
-both versions with their captions; `Captions_and_revision_notes.md` contains
-copyable captions and the revision details. The original Figure 2C is now
-`Figures/Supplementary_figures/FigS14_language_direction.{png,svg}`.
-The selected main pair is Figure 2 revised and Figure 3 alternative, saved under
-the main figure filenames with editable SVG copies. `Figures_2_and_3.pdf` in
-`Main_figures/` contains only the two figure artworks, without captions or review
-headings; their captions are saved separately in `Figures_2_and_3_captions.md`.
-The original main PNGs are preserved in `Revision_options/00_Originals/`. Run
-`python3 Analysis_script/13_figure_revision_options.py` to regenerate these
-options; this also requires Poppler's `pdftoppm` for PNG export. Plotted values
-are saved in the revision folder's `source_data/` directory.
+Figure 1 (`Fig1_study_design`, PNG and TIFF) is the study-design diagram, drawn
+in Canva. It contains no data and is not generated by any script.
 
-**Figure 4 revision (30 October 2026).** The main figure uses the descriptive
-title "Relationship between accuracy and response variability". It is available
-as `Fig4_rmet.{png,svg,pdf}`, with its full caption separately in `Fig4_caption.md`.
-Script 14 regenerates it using the original RMET aggregation and human reference.
-The original PNG is preserved in `Revision_options/00_Originals/`; plotted values
-and revision notes are saved in `Revision_options/`.
+**Rebuild the selected figures directly from the raw CSV files:**
+
+```r
+source("Analysis_script/15_final_manuscript_figures.R")
+```
+
+or:
+
+```bash
+Rscript Analysis_script/15_final_manuscript_figures.R
+```
+
+The R script requires `viridisLite` for colour palettes and uses `ragg` for PNG
+exports if installed. It uses native Quartz PDF output on macOS, or Cairo on
+other systems. `colorspace`, when available, supplies colour-vision simulations.
+No Python or precomputed statistics supplies any plotted value.
+
+The script independently rescores the raw attitude responses, recomputes all
+108 reliability coefficients, verifies Reading the Mind in the Eyes Test answers
+against their answer keys, and calculates every percentage and correlation.
+It checks the recomputed values against the frozen earlier exports in
+`Figures/Archive/Revision_options/source_data/` and the earlier reliability table.
+These files are comparison targets only. A disagreement stops figure export;
+the script never changes the data to force a match.
+
+Verification tables, input-file hashes, exclusions, item-level profiles and
+plotted coordinates are in `Analysis_output/Final_figure_data/`. Start with
+`validation_report.md` and `validation_checks.csv`. The two raw CSV files are
+read-only and their hashes are checked before and after rendering.
+
+For an audit without rendering, use `--verify-only`. Use `--output-root PATH`
+for staging. If intentionally applying the script to a new raw-data version
+without the historical comparison files, explicitly add `--skip-reference-checks`;
+the report records this omission rather than claiming historical agreement.
+
+**Interpretation and layout.** Figure 2A pools valid responses within each
+language; it is not an unweighted mean of model percentages. Figure 2B contains
+all models and five runs. Figure 3A contains every model's six authoritarianism
+items on the full -4 to +4 colour scale; missing values are crossed, not imputed.
+Figure 3B separates the four scale versions. Figure 3C shows scale-specific and
+pooled response-variation percentages with their denominators. Number labels,
+shape differences, Okabe–Ito comparisons and cividis scales support colour
+accessibility. Full captions describe incomplete profiles and aggregation.
+
+The former Figure 2C is now `Figures/Supplementary_figures/FigS14_language_direction`.
+It is also generated by script 15.
 
 ### Supplementary figures (`Figures/Supplementary_figures/`)
 
@@ -159,7 +191,7 @@ and revision notes are saved in `Revision_options/`.
 | S11 Which RMET items models get wrong together | `FigS11_rmet_error_agreement.png` | Script 03 (`Fig10_rmet_error_consistency`) |
 | S12 Correlations across models | `FigS12_correlations_across_models.png` | Script 03 (`FigS3_cross_instrument_correlations`) |
 | S13 SDO subscale scores | `FigS13_sdo_subscales.png` | Script 03 (`Fig12_subscale_divergence`) |
-| S14 Language-effect direction across repeated runs (former Fig. 2C) | `FigS14_language_direction.png` | Script 13 (figure revision options) |
+| S14 Language-effect direction across repeated runs (former Fig. 2C) | `FigS14_language_direction.png` | Script 15 |
 
 ### Supplementary tables (built from these files in `Analysis_output/`)
 
