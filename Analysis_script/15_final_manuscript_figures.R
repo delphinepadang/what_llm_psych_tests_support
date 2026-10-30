@@ -332,6 +332,11 @@ SEQ <- viridisLite::cividis(101)
 VSA_COL <- viridisLite::cividis(9)
 DIV <- grDevices::colorRampPalette(c(BLUE,"#FFFFFF",ORANGE),space="Lab")(201)
 FONT <- "Arial"; W <- H <- 0; SVG <- NULL
+# Layouts are drawn in design points (W x H). S scales them to the printed size set
+# in save_figure(print_mm=), so files open at the size the journal prints
+# (180 mm = two columns) instead of the much larger design canvas.
+S <- 1
+bp <- function(v) unit(v*S,"bigpts")
 xml <- function(x){x<-gsub("&","&amp;",x,fixed=TRUE);x<-gsub("<","&lt;",x,fixed=TRUE);gsub(">","&gt;",x,fixed=TRUE)}
 emit <- function(x)if(!is.null(SVG))SVG<<-c(SVG,x)
 svg_colour<-function(x)if(is.na(x))"none" else x
@@ -351,14 +356,14 @@ text_at <- function(x,y,label,size=11,col=INK,bold=FALSE,anchor="start",angle=0)
   chunks[subscript] <- substring(chunks[subscript],4)
   sizes <- ifelse(subscript,size*.72,size)
   widths <- vapply(seq_along(chunks),function(i)convertWidth(grobWidth(textGrob(chunks[i],
-    gp=gpar(fontfamily=FONT,fontsize=sizes[i],fontface=if(bold)2 else 1))),"bigpts",valueOnly=TRUE),numeric(1))
+    gp=gpar(fontfamily=FONT,fontsize=sizes[i]*S,fontface=if(bold)2 else 1))),"bigpts",valueOnly=TRUE),numeric(1))
   offset <- switch(anchor,start=0,middle=sum(widths)/2,end=sum(widths))
-  pushViewport(viewport(x=unit(x,"bigpts"),y=unit(H-y,"bigpts"),width=unit(W,"bigpts"),
-                        height=unit(H,"bigpts"),just=c(0,0),angle=angle))
+  pushViewport(viewport(x=bp(x),y=bp(H-y),width=bp(W),
+                        height=bp(H),just=c(0,0),angle=angle))
   cursor <- -offset
   for(i in seq_along(chunks)) {
-    grid.text(chunks[i],x=unit(cursor,"bigpts"),y=unit(if(subscript[i])-size*.22 else 0,"bigpts"),
-              just=c(0,.2),gp=gpar(fontfamily=FONT,fontsize=sizes[i],fontface=if(bold)2 else 1,col=col))
+    grid.text(chunks[i],x=unit(cursor,"bigpts"),y=bp(if(subscript[i])-size*.22 else 0),
+              just=c(0,.2),gp=gpar(fontfamily=FONT,fontsize=sizes[i]*S,fontface=if(bold)2 else 1,col=col))
     cursor <- cursor+widths[i]
   }
   popViewport()
@@ -369,15 +374,15 @@ text_at <- function(x,y,label,size=11,col=INK,bold=FALSE,anchor="start",angle=0)
     x,y,tr,size,if(bold)"700" else "400",col,anchor,paste(spans,collapse="")))
 }
 rect_at <- function(x,y,w,h,fill="white",stroke=NA,sw=.7,radius=0) {
-  gp <- gpar(fill=fill,col=stroke,lwd=sw)
-  if(radius>0) grid.roundrect(x=unit(x,"bigpts"),y=unit(H-y,"bigpts"),width=unit(w,"bigpts"),height=unit(h,"bigpts"),
-    r=unit(radius,"bigpts"),just=c(0,1),gp=gp)
-  else grid.rect(x=unit(x,"bigpts"),y=unit(H-y,"bigpts"),width=unit(w,"bigpts"),height=unit(h,"bigpts"),just=c(0,1),gp=gp)
+  gp <- gpar(fill=fill,col=stroke,lwd=sw*S)
+  if(radius>0) grid.roundrect(x=bp(x),y=bp(H-y),width=bp(w),height=bp(h),
+    r=bp(radius),just=c(0,1),gp=gp)
+  else grid.rect(x=bp(x),y=bp(H-y),width=bp(w),height=bp(h),just=c(0,1),gp=gp)
   emit(sprintf('<rect x="%g" y="%g" width="%g" height="%g" rx="%g" fill="%s" stroke="%s" stroke-width="%g"/>',x,y,w,h,radius,fill,svg_colour(stroke),sw))
 }
-line_at <- function(x1,y1,x2,y2,col=EDGE,sw=1,dash=FALSE){grid.lines(x=unit(c(x1,x2),"bigpts"),y=unit(H-c(y1,y2),"bigpts"),gp=gpar(col=col,lwd=sw,lty=if(dash)2 else 1))
+line_at <- function(x1,y1,x2,y2,col=EDGE,sw=1,dash=FALSE){grid.lines(x=bp(c(x1,x2)),y=bp(H-c(y1,y2)),gp=gpar(col=col,lwd=sw*S,lty=if(dash)2 else 1))
   emit(sprintf('<line x1="%g" y1="%g" x2="%g" y2="%g" stroke="%s" stroke-width="%g"%s/>',x1,y1,x2,y2,col,sw,if(dash)' stroke-dasharray="4,3"' else ""))}
-dot_at <- function(x,y,r,fill,stroke="white",sw=1){grid.circle(x=unit(x,"bigpts"),y=unit(H-y,"bigpts"),r=unit(r,"bigpts"),gp=gpar(fill=fill,col=stroke,lwd=sw))
+dot_at <- function(x,y,r,fill,stroke="white",sw=1){grid.circle(x=bp(x),y=bp(H-y),r=bp(r),gp=gpar(fill=fill,col=stroke,lwd=sw*S))
   emit(sprintf('<circle cx="%g" cy="%g" r="%g" fill="%s" stroke="%s" stroke-width="%g"/>',x,y,r,fill,stroke,sw))}
 arrow_at <- function(x1,y1,x2,y2,col=EDGE,sw=1.3) {
   a <- atan2(y2-y1,x2-x1); x1<-x1+6*cos(a);y1<-y1+6*sin(a);x2<-x2-6*cos(a);y2<-y2-6*sin(a)
@@ -385,25 +390,28 @@ arrow_at <- function(x1,y1,x2,y2,col=EDGE,sw=1.3) {
   for(side in c(-1,1))line_at(x2,y2,x2-5*cos(a+side*.45),y2-5*sin(a+side*.45),col,sw)
 }
 heading <- function(letter,label,y,x=18,size=14) {text_at(x,y,letter,19,bold=TRUE);text_at(x+28,y-1,label,size,bold=TRUE)}
-save_figure <- function(stem,width,height,draw,folder) {
+save_figure <- function(stem,width,height,draw,folder,print_mm=NULL) {
   dir.create(folder,recursive=TRUE,showWarnings=FALSE)
   W <<- width; H <<- height
+  S <<- if(is.null(print_mm)) 1 else (print_mm/25.4*72)/width
+  on.exit(S <<- 1, add=TRUE)
+  pw <- width*S/72; ph <- height*S/72   # output size in inches
   for(ext in c("pdf","png","tiff","svg")) {
     path <- file.path(folder,paste0(stem,".",ext))
     SVG<<-NULL
     measure_file<-if(ext=="svg")tempfile(fileext=".pdf")else path
     if(ext %in% c("png","tiff")) {
       if(requireNamespace("ragg",quietly=TRUE)) {
-        if(ext=="png")ragg::agg_png(path,width=width/72,height=height/72,units="in",res=600,background="white")
-        else ragg::agg_tiff(path,width=width/72,height=height/72,units="in",res=600,background="white",compression="lzw")
+        if(ext=="png")ragg::agg_png(path,width=pw,height=ph,units="in",res=600,background="white")
+        else ragg::agg_tiff(path,width=pw,height=ph,units="in",res=600,background="white",compression="lzw")
       } else {
-        if(ext=="png")grDevices::png(path,width=width/72,height=height/72,units="in",res=600,type=if(capabilities("aqua"))"quartz"else "cairo",bg="white")
-        else grDevices::tiff(path,width=width/72,height=height/72,units="in",res=600,type=if(capabilities("aqua"))"quartz"else "cairo",bg="white",compression="lzw")
+        if(ext=="png")grDevices::png(path,width=pw,height=ph,units="in",res=600,type=if(capabilities("aqua"))"quartz"else "cairo",bg="white")
+        else grDevices::tiff(path,width=pw,height=ph,units="in",res=600,type=if(capabilities("aqua"))"quartz"else "cairo",bg="white",compression="lzw")
       }
     } else {
-      if(capabilities("aqua"))grDevices::quartz(type="pdf",file=measure_file,width=width/72,height=height/72,family=FONT,bg="white")
-      else grDevices::cairo_pdf(measure_file,width=width/72,height=height/72,family=FONT,bg="white")
-      if(ext=="svg")SVG<<-c(sprintf('<svg xmlns="http://www.w3.org/2000/svg" width="%gpt" height="%gpt" viewBox="0 0 %g %g">',width,height,width,height),
+      if(capabilities("aqua"))grDevices::quartz(type="pdf",file=measure_file,width=pw,height=ph,family=FONT,bg="white")
+      else grDevices::cairo_pdf(measure_file,width=pw,height=ph,family=FONT,bg="white")
+      if(ext=="svg")SVG<<-c(sprintf('<svg xmlns="http://www.w3.org/2000/svg" width="%gpt" height="%gpt" viewBox="0 0 %g %g">',round(width*S,2),round(height*S,2),width,height),
                             sprintf('<rect width="%g" height="%g" fill="white"/>',width,height))
     }
     tryCatch({grid.newpage();draw()},finally=dev.off())
@@ -425,7 +433,7 @@ missing_cell <- function(x,y,w,h) {
 row_models <- function()s14$model[match(unlist(FAMILIES,use.names=FALSE),short(s14$model))]
 
 draw_fig2 <- function() {
-  heading("A","Pooled social dominance orientation responses",28,size=18)
+  heading("A","Pooled Social Dominance Orientation responses",28,size=18)
   text_at(175,54,sprintf("16-item scale; valid responses pooled within each language across %d models",length(unique(s6$model_label))),13,SEC)
   for(i in 1:2){z<-dist[dist$language==c("en","zh")[i],];y<-76+(i-1)*50
     text_at(160,y+22,c("English","Chinese")[i],15,anchor="end");left<-175
@@ -458,14 +466,13 @@ draw_fig2 <- function() {
 }
 
 diamond_at <- function(x,y,r,fill) {
-  grid.polygon(x=unit(c(x,x+r,x,x-r),"bigpts"),y=unit(H-c(y-r,y,y+r,y),"bigpts"),gp=gpar(fill=fill,col="white",lwd=.7))
+  grid.polygon(x=bp(c(x,x+r,x,x-r)),y=bp(H-c(y-r,y,y+r,y)),gp=gpar(fill=fill,col="white",lwd=.7*S))
   emit(sprintf('<polygon points="%g,%g %g,%g %g,%g %g,%g" fill="%s" stroke="white" stroke-width=".7"/>',x,y-r,x+r,y,x,y+r,x-r,y,fill))
 }
 
 draw_fig3 <- function() {
   heading("A","Very Short Authoritarianism: responses across runs",28,size=18)
   models<-row_models();x0<-190;y0<-100;cw<-745/30;rh<-16
-  text_at(935,53,paste(length(models),"models; six items"),13,SEC,anchor="end")
   text_at(25,y0+length(models)*rh/2,"Model",14,anchor="middle",angle=90)
   for(item in 1:6){text_at(x0+(item-.5)*5*cw,69,paste("Item",item),14,bold=TRUE,anchor="middle")
     for(run in 1:5)text_at(x0+((item-1)*5+run-.5)*cw,90,run,13,SEC,anchor="middle")}
@@ -485,10 +492,10 @@ draw_fig3 <- function() {
   text_at(25,784,"Items changed across runs (%)",14,anchor="middle",angle=90)
   for(s in seq_along(SCALES)){
     id<-SCALES[s];a<-a_defined[a_defined$inst_lang==id,];left<-95+(s-1)*215;right<-left+190;centre<-(left+right)/2
-    name<-if(id=="VSA")"Very Short Authoritarianism"else "Social dominance orientation"
-    version<-switch(id,SDO7s="8-item scale (English)",`SDO6-EN`="16-item scale (English)",`SDO6-ZH`="16-item scale (Chinese)",VSA="6-item scale (English)")
-    text_at(centre,662,name,12.5,bold=TRUE,anchor="middle");text_at(centre,681,version,12.5,anchor="middle")
-    text_at(centre,699,sprintf("n = %d (alpha defined)",nrow(a)),12,SEC,anchor="middle")
+    name<-switch(id,SDO7s="Social Dominance Orientation 7",`SDO6-EN`="Social Dominance Orientation 6",
+                 `SDO6-ZH`="Social Dominance Orientation 6",VSA="Very Short Authoritarianism")
+    language<-if(id=="SDO6-ZH")"Chinese"else "English"
+    text_at(centre,666,name,12.5,bold=TRUE,anchor="middle");text_at(centre,686,language,12.5,anchor="middle")
     X<-function(v)left+(v+.025)/1.06*190;Y<-function(v)850-v/100*136
     for(t in c(0,50,100)){line_at(left,Y(t),right,Y(t),GRID,.7);if(s==1)text_at(left-10,Y(t)+4,t,13,SEC,anchor="end")}
     line_at(left,850,right,850,EDGE,.7);line_at(X(.8),714,X(.8),850,SEC,.8,TRUE)
@@ -501,7 +508,6 @@ draw_fig3 <- function() {
   }
   text_at(510,946,"Response reliability (Krippendorff's interval alpha)",14,anchor="middle")
   heading("C","Response variation by initial response",984,size=18)
-  text_at(935,983,paste("All",length(unique(d$model_label)),"models"),13,SEC,anchor="end")
   text_at(615,1010,"Initial rescored response (Run 1)",14,anchor="middle")
   labels<-c("1","2","3","4","5-7");x0<-300;cw<-127;top<-1055;rh<-42
   for(j in 1:5){xx<-x0+(j-.5)*cw;text_at(xx,1032,labels[j],15,bold=TRUE,anchor="middle")
@@ -509,8 +515,9 @@ draw_fig3 <- function() {
   text_at(25,1139,"Scale version",14,anchor="middle",angle=90)
   for(s in 1:4){id<-c(SCALES[1:3],"Pooled")[s];yy<-top+(s-.5)*rh
     if(id=="Pooled")text_at(286,yy+5,"All scales pooled",13.5,bold=TRUE,anchor="end")
-    else {text_at(286,yy-4,"Social dominance orientation",12.5,anchor="end")
-      text_at(286,yy+13,switch(id,SDO7s="8-item scale, English",`SDO6-EN`="16-item scale, English",`SDO6-ZH`="16-item scale, Chinese"),12.5,anchor="end")}
+    else {text_at(286,yy-4,switch(id,SDO7s="Social Dominance Orientation 7",`SDO6-EN`="Social Dominance Orientation 6",
+                                  `SDO6-ZH`="Social Dominance Orientation 6"),12.5,anchor="end")
+      text_at(286,yy+13,if(id=="SDO6-ZH")"Chinese"else "English",12.5,anchor="end")}
     for(j in 1:5){z<-fig3c_scale[fig3c_scale$scale==id&fig3c_scale$initial_response==labels[j],];x<-x0+(j-1)*cw;y<-top+(s-1)*rh
       if(is.na(z$percent)){missing_cell(x,y,cw,rh);text_at(x+cw/2,yy,"No items",13,anchor="middle")}
       else {cc<-SEQ[1+round(z$percent)];rect_at(x,y,cw,rh,cc,"white",.8)
@@ -564,9 +571,10 @@ draw_s14 <- function() {
 }
 
 if (!"--verify-only" %in% args) {
-  save_figure("Fig2_language",960,850,draw_fig2,DIR_MAIN)
-  save_figure("Fig3_answer_changes",960,1310,draw_fig3,DIR_MAIN)
-  save_figure("Fig4_rmet",720,484,draw_fig4,DIR_MAIN)
+  # Main figures are written at the journal's two-column width (180 mm), 600 dpi.
+  save_figure("Fig2_language",960,850,draw_fig2,DIR_MAIN,print_mm=180)
+  save_figure("Fig3_answer_changes",960,1310,draw_fig3,DIR_MAIN,print_mm=180)
+  save_figure("Fig4_rmet",720,484,draw_fig4,DIR_MAIN,print_mm=180)
   save_figure("FigS14_language_direction",960,394,draw_s14,DIR_SUPP)
 }
 check("Raw files unchanged after figure export", identical(unname(raw_hash),unname(tools::md5sum(raw_paths))))
