@@ -114,9 +114,33 @@ quarto render Analysis_script/10_sdo6_language_tests.qmd --output-dir ../Analysi
 | Figure | File | Made by |
 |---|---|---|
 | Fig. 1 Study design | `Fig1_study_design.png` | Drawn in Canva (no code) |
-| Fig. 2 English vs Chinese SDO6 | `Fig2_language.png` | Script 08 (working name `Fig2_language_simple`) |
-| Fig. 3 Reliability vs answer changes | `Fig3_answer_changes.png` | Script 08 |
-| Fig. 4 RMET accuracy and consistency | `Fig4_rmet.png` | Script 08 |
+| Fig. 2 English vs Chinese SDO6 | `Fig2_language.png` | Script 13 (selected revised layout; original from script 08) |
+| Fig. 3 Reliability vs answer changes | `Fig3_answer_changes.png` | Script 13 (selected alternative chart; original from script 08) |
+| Fig. 4 RMET accuracy and response variability | `Fig4_rmet.png` | Script 14 (descriptive title and revised layout; original from script 08) |
+
+**Figure 2 and 3 revision options (29 October 2026).**
+`Figures/Main_figures/Revision_options/` contains two chart-based versions:
+`01_Revised/` simplifies the existing layouts, and `02_Alternative_charts/`
+uses different chart designs with the same data. Each figure is supplied as a
+600 dpi PNG and editable SVG. The five-page `Figures_2_and_3_review.pdf` shows
+both versions with their captions; `Captions_and_revision_notes.md` contains
+copyable captions and the revision details. The original Figure 2C is now
+`Figures/Supplementary_figures/FigS14_language_direction.{png,svg}`.
+The selected main pair is Figure 2 revised and Figure 3 alternative, saved under
+the main figure filenames with editable SVG copies. `Figures_2_and_3.pdf` in
+`Main_figures/` contains only the two figure artworks, without captions or review
+headings; their captions are saved separately in `Figures_2_and_3_captions.md`.
+The original main PNGs are preserved in `Revision_options/00_Originals/`. Run
+`python3 Analysis_script/13_figure_revision_options.py` to regenerate these
+options; this also requires Poppler's `pdftoppm` for PNG export. Plotted values
+are saved in the revision folder's `source_data/` directory.
+
+**Figure 4 revision (30 October 2026).** The main figure uses the descriptive
+title "Relationship between accuracy and response variability". It is available
+as `Fig4_rmet.{png,svg,pdf}`, with its full caption separately in `Fig4_caption.md`.
+Script 14 regenerates it using the original RMET aggregation and human reference.
+The original PNG is preserved in `Revision_options/00_Originals/`; plotted values
+and revision notes are saved in `Revision_options/`.
 
 ### Supplementary figures (`Figures/Supplementary_figures/`)
 
@@ -135,6 +159,7 @@ quarto render Analysis_script/10_sdo6_language_tests.qmd --output-dir ../Analysi
 | S11 Which RMET items models get wrong together | `FigS11_rmet_error_agreement.png` | Script 03 (`Fig10_rmet_error_consistency`) |
 | S12 Correlations across models | `FigS12_correlations_across_models.png` | Script 03 (`FigS3_cross_instrument_correlations`) |
 | S13 SDO subscale scores | `FigS13_sdo_subscales.png` | Script 03 (`Fig12_subscale_divergence`) |
+| S14 Language-effect direction across repeated runs (former Fig. 2C) | `FigS14_language_direction.png` | Script 13 (figure revision options) |
 
 ### Supplementary tables (built from these files in `Analysis_output/`)
 

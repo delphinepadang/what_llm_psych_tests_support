@@ -1,6 +1,8 @@
-# Python packages for the Python scripts in Analysis_script/ (05, 06, 07, 08 and 11)
+# Python packages for the Python scripts in Analysis_script/ (05, 06, 07, 08, 11, 12 and 13)
 # Install with:  pip install -r requirements.txt
 pandas>=2.0
 numpy>=1.24
 matplotlib>=3.7
 scipy>=1.10
+reportlab>=4.0
+pypdf>=5.0

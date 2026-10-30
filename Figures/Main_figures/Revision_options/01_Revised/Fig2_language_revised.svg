@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720pt" height="450pt" viewBox="0 0 720 450" role="img">
+<title>Figure 2: revised layout</title>
+<rect width="720" height="450" fill="white"/>
+<text x="18.000" y="28.000" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="#20272D" text-anchor="start"><tspan font-size="19" dy="0">A</tspan></text>
+<text x="46.000" y="27.000" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#20272D" text-anchor="start"><tspan font-size="14" dy="0">SDO</tspan><tspan font-size="10.08" dy="3.08">6</tspan><tspan font-size="14" dy="-3.08"> response distributions by language</tspan></text>
+<text x="101.000" y="77.000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#20272D" text-anchor="end"><tspan font-size="12" dy="0">English</tspan></text>
+<rect x="115.000" y="57.000" width="403.309" height="29.000" rx="0" fill="#245FA5" stroke="white" stroke-width="0.8"/>
+<text x="316.655" y="77.000" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="white" text-anchor="middle"><tspan font-size="11" dy="0">71%</tspan></text>
+<rect x="518.309" y="57.000" width="105.872" height="29.000" rx="0" fill="#5896DE" stroke="white" stroke-width="0.8"/>
+<text x="571.245" y="77.000" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#20272D" text-anchor="middle"><tspan font-size="11" dy="0">19%</tspan></text>
+<rect x="624.181" y="57.000" width="19.917" height="29.000" rx="0" fill="#BCD5F0" stroke="white" stroke-width="0.8"/>
+<text x="634.140" y="77.000" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#20272D" text-anchor="middle"><tspan font-size="9" dy="0">4%</tspan></text>
+<rect x="644.098" y="57.000" width="26.468" height="29.000" rx="0" fill="#DADBD7" stroke="white" stroke-width="0.8"/>
+<text x="657.332" y="77.000" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#20272D" text-anchor="middle"><tspan font-size="9" dy="0">5%</tspan></text>
+<rect x="670.566" y="57.000" width="4.193" height="29.000" rx="0" fill="#F4C5BD" stroke="white" stroke-width="0.8"/>
+<rect x="674.759" y="57.000" width="0.524" height="29.000" rx="0" fill="#E67870" stroke="white" stroke-width="0.8"/>
+<rect x="675.283" y="57.000" width="4.717" height="29.000" rx="0" fill="#AF302F" stroke="white" stroke-width="0.8"/>
+<text x="101.000" y="121.000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#20272D" text-anchor="end"><tspan font-size="12" dy="0">Chinese</tspan></text>
+<rect x="115.000" y="101.000" width="300.930" height="29.000" rx="0" fill="#245FA5" stroke="white" stroke-width="0.8"/>
+<text x="265.465" y="121.000" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="white" text-anchor="middle"><tspan font-size="11" dy="0">53%</tspan></text>
+<rect x="415.930" y="101.000" width="176.398" height="29.000" rx="0" fill="#5896DE" stroke="white" stroke-width="0.8"/>
+<text x="504.129" y="121.000" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#20272D" text-anchor="middle"><tspan font-size="11" dy="0">31%</tspan></text>
+<rect x="592.328" y="101.000" width="27.381" height="29.000" rx="0" fill="#BCD5F0" stroke="white" stroke-width="0.8"/>
+<text x="606.018" y="121.000" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#20272D" text-anchor="middle"><tspan font-size="9" dy="0">5%</tspan></text>
+<rect x="619.709" y="101.000" width="41.598" height="29.000" rx="0" fill="#DADBD7" stroke="white" stroke-width="0.8"/>
+<text x="640.508" y="121.000" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#20272D" text-anchor="middle"><tspan font-size="9" dy="0">7%</tspan></text>
+<rect x="661.307" y="101.000" width="8.425" height="29.000" rx="0" fill="#F4C5BD" stroke="white" stroke-width="0.8"/>
+<rect x="669.732" y="101.000" width="2.633" height="29.000" rx="0" fill="#E67870" stroke="white" stroke-width="0.8"/>
+<rect x="672.365" y="101.000" width="7.635" height="29.000" rx="0" fill="#AF302F" stroke="white" stroke-width="0.8"/>
+<text x="268.000" y="159.000" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#59616B" text-anchor="end"><tspan font-size="10" dy="0">Most egalitarian</tspan></text>
+<rect x="278.000" y="148.000" width="20.000" height="16.000" rx="0" fill="#245FA5" stroke="none" stroke-width="0.7"/>
+<text x="288.000" y="160.000" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="700" fill="white" text-anchor="middle"><tspan font-size="10" dy="0">1</tspan></text>
+<rect x="300.000" y="148.000" width="20.000" height="16.000" rx="0" fill="#5896DE" stroke="none" stroke-width="0.7"/>
+<text x="310.000" y="160.000" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="700" fill="#20272D" text-anchor="middle"><tspan font-size="10" dy="0">2</tspan></text>
+<rect x="322.000" y="148.000" width="20.000" height="16.000" rx="0" fill="#BCD5F0" stroke="none" stroke-width="0.7"/>
+<text x="332.000" y="160.000" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="700" fill="#20272D" text-anchor="middle"><tspan font-size="10" dy="0">3</tspan></text>
+<rect x="344.000" y="148.000" width="20.000" height="16.000" rx="0" fill="#DADBD7" stroke="none" stroke-width="0.7"/>
+<text x="354.000" y="160.000" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="700" fill="#20272D" text-anchor="middle"><tspan font-size="10" dy="0">4</tspan></text>
+<rect x="366.000" y="148.000" width="20.000" height="16.000" rx="0" fill="#F4C5BD" stroke="none" stroke-width="0.7"/>
+<text x="376.000" y="160.000" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="700" fill="#20272D" text-anchor="middle"><tspan font-size="10" dy="0">5</tspan></text>
+<rect x="388.000" y="148.000" width="20.000" height="16.000" rx="0" fill="#E67870" stroke="none" stroke-width="0.7"/>
+<text x="398.000" y="160.000" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="700" fill="#20272D" text-anchor="middle"><tspan font-size="10" dy="0">6</tspan></text>
+<rect x="410.000" y="148.000" width="20.000" height="16.000" rx="0" fill="#AF302F" stroke="none" stroke-width="0.7"/>
+<text x="420.000" y="160.000" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="700" fill="white" text-anchor="middle"><tspan font-size="10" dy="0">7</tspan></text>
+<text x="440.000" y="159.000" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#59616B" text-anchor="start"><tspan font-size="10" dy="0">Most hierarchy-endorsing</tspan></text>
+<text x="18.000" y="211.000" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="#20272D" text-anchor="start"><tspan font-size="19" dy="0">B</tspan></text>
+<text x="46.000" y="210.000" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#20272D" text-anchor="start"><tspan font-size="14" dy="0">SDO</tspan><tspan font-size="10.08" dy="3.08">6</tspan><tspan font-size="14" dy="-3.08"> scores across runs: GPT-5</tspan></text>
+<circle cx="120.000" cy="236.000" r="4" fill="#42566D" stroke="white" stroke-width="1"/>
+<text x="131.000" y="240.000" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#20272D" text-anchor="start"><tspan font-size="11" dy="0">English</tspan></text>
+<circle cx="219.000" cy="236.000" r="4" fill="#138B82" stroke="white" stroke-width="1"/>
+<text x="230.000" y="240.000" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#20272D" text-anchor="start"><tspan font-size="11" dy="0">Chinese</tspan></text>
+<line x1="115.000" y1="258.000" x2="115.000" y2="395.000" stroke="#E5E8EC" stroke-width="0.7"/>
+<text x="115.000" y="412.000" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#59616B" text-anchor="middle"><tspan font-size="10" dy="0">1.00</tspan></text>
+<line x1="249.524" y1="258.000" x2="249.524" y2="395.000" stroke="#E5E8EC" stroke-width="0.7"/>
+<text x="249.524" y="412.000" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#59616B" text-anchor="middle"><tspan font-size="10" dy="0">1.25</tspan></text>
+<line x1="384.048" y1="258.000" x2="384.048" y2="395.000" stroke="#E5E8EC" stroke-width="0.7"/>
+<text x="384.048" y="412.000" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#59616B" text-anchor="middle"><tspan font-size="10" dy="0">1.50</tspan></text>
+<line x1="518.571" y1="258.000" x2="518.571" y2="395.000" stroke="#E5E8EC" stroke-width="0.7"/>
+<text x="518.571" y="412.000" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#59616B" text-anchor="middle"><tspan font-size="10" dy="0">1.75</tspan></text>
+<line x1="653.095" y1="258.000" x2="653.095" y2="395.000" stroke="#E5E8EC" stroke-width="0.7"/>
+<text x="653.095" y="412.000" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#59616B" text-anchor="middle"><tspan font-size="10" dy="0">2.00</tspan></text>
+<text x="101.000" y="273.000" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#20272D" text-anchor="end"><tspan font-size="11.5" dy="0">Run 1</tspan></text>
+<line x1="255.524" y1="269.000" x2="478.940" y2="269.000" stroke="#9AA3AC" stroke-width="1.3"/>
+<line x1="478.940" y1="269.000" x2="474.438" y2="271.175" stroke="#9AA3AC" stroke-width="1.3"/>
+<line x1="478.940" y1="269.000" x2="474.438" y2="266.825" stroke="#9AA3AC" stroke-width="1.3"/>
+<circle cx="249.524" cy="269.000" r="4.8" fill="#42566D" stroke="white" stroke-width="1"/>
+<circle cx="484.940" cy="269.000" r="4.8" fill="#138B82" stroke="white" stroke-width="1"/>
+<text x="101.000" y="301.000" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#20272D" text-anchor="end"><tspan font-size="11.5" dy="0">Run 2</tspan></text>
+<line x1="289.155" y1="297.000" x2="613.464" y2="297.000" stroke="#9AA3AC" stroke-width="1.3"/>
+<line x1="613.464" y1="297.000" x2="608.962" y2="299.175" stroke="#9AA3AC" stroke-width="1.3"/>
+<line x1="613.464" y1="297.000" x2="608.962" y2="294.825" stroke="#9AA3AC" stroke-width="1.3"/>
+<circle cx="283.155" cy="297.000" r="4.8" fill="#42566D" stroke="white" stroke-width="1"/>
+<circle cx="619.464" cy="297.000" r="4.8" fill="#138B82" stroke="white" stroke-width="1"/>
+<text x="101.000" y="329.000" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#20272D" text-anchor="end"><tspan font-size="11.5" dy="0">Run 3</tspan></text>
+<line x1="457.310" y1="325.000" x2="579.833" y2="325.000" stroke="#9AA3AC" stroke-width="1.3"/>
+<line x1="579.833" y1="325.000" x2="575.331" y2="327.175" stroke="#9AA3AC" stroke-width="1.3"/>
+<line x1="579.833" y1="325.000" x2="575.331" y2="322.825" stroke="#9AA3AC" stroke-width="1.3"/>
+<circle cx="451.310" cy="325.000" r="4.8" fill="#42566D" stroke="white" stroke-width="1"/>
+<circle cx="585.833" cy="325.000" r="4.8" fill="#138B82" stroke="white" stroke-width="1"/>
+<rect x="115.000" y="342.000" width="565.000" height="22.000" rx="0" fill="#FFF0E7" stroke="none" stroke-width="0.7"/>
+<text x="101.000" y="357.000" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#20272D" text-anchor="end"><tspan font-size="11.5" dy="0">Run 4</tspan></text>
+<line x1="378.048" y1="353.000" x2="356.417" y2="353.000" stroke="#D95B2B" stroke-width="1.3"/>
+<line x1="356.417" y1="353.000" x2="360.919" y2="350.825" stroke="#D95B2B" stroke-width="1.3"/>
+<line x1="356.417" y1="353.000" x2="360.919" y2="355.175" stroke="#D95B2B" stroke-width="1.3"/>
+<circle cx="384.048" cy="353.000" r="4.8" fill="#42566D" stroke="white" stroke-width="1"/>
+<circle cx="350.417" cy="353.000" r="4.8" fill="#138B82" stroke="white" stroke-width="1"/>
+<text x="101.000" y="385.000" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#20272D" text-anchor="end"><tspan font-size="11.5" dy="0">Run 5</tspan></text>
+<line x1="356.417" y1="381.000" x2="478.940" y2="381.000" stroke="#9AA3AC" stroke-width="1.3"/>
+<line x1="478.940" y1="381.000" x2="474.438" y2="383.175" stroke="#9AA3AC" stroke-width="1.3"/>
+<line x1="478.940" y1="381.000" x2="474.438" y2="378.825" stroke="#9AA3AC" stroke-width="1.3"/>
+<circle cx="350.417" cy="381.000" r="4.8" fill="#42566D" stroke="white" stroke-width="1"/>
+<circle cx="484.940" cy="381.000" r="4.8" fill="#138B82" stroke="white" stroke-width="1"/>
+<line x1="115.000" y1="395.000" x2="680.000" y2="395.000" stroke="#C6CCD3" stroke-width="1"/>
+<text x="397.500" y="432.000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#20272D" text-anchor="middle"><tspan font-size="12" dy="0">Mean </tspan><tspan font-size="12" dy="0">SDO</tspan><tspan font-size="8.64" dy="2.64">6</tspan><tspan font-size="12" dy="-2.64"> score</tspan></text>
+</svg>
