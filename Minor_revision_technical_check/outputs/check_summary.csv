@@ -1,0 +1,74 @@
+section,location,quantity,reported,recomputed,unrounded,agrees
+Data,"Methods 2.3, l. 264",Attitude calls after exclusion,6210,6210,6210,✅
+Data,"Methods 2.3, l. 264",RMET calls after exclusion,7560,7560,7560,✅
+Data,Methods 2.3,Attitude models,27,27,27,✅
+Data,Methods 2.3,RMET models,21,21,21,✅
+3.2 Language,"Results 3.2, l. 382–385",Models higher in Chinese (of 27),26,26,26,✅
+3.2 Language,"Results 3.2, l. 382–385","Pooled mean, Chinese",1.79,1.79,1.79404,✅
+3.2 Language,"Results 3.2, l. 382–385","Pooled mean, English",1.48,1.48,1.48284,✅
+3.2 Language,"Results 3.2, l. 382–385","SD across models, Chinese",0.48,0.48,0.483447,✅
+3.2 Language,"Results 3.2, l. 382–385","SD across models, English",0.32,0.32,0.316032,✅
+3.2 Language,"Results 3.2, l. 382–385",Mean difference,0.31,0.31,0.312932,✅
+3.2 Language,"Results 3.2, l. 382–385","95% CI, lower",0.21,0.21,0.209276,✅
+3.2 Language,"Results 3.2, l. 382–385","95% CI, upper",0.42,0.42,0.416589,✅
+3.2 Language,"Results 3.2, l. 382–385",t(26),6.21,6.21,6.20552,✅
+3.2 Language,"Results 3.2, l. 382–385","P, paired t test",1.5e-06,1.5e-06,1.45211e-6,✅
+3.2 Language,"Results 3.2, l. 382–385",dz,1.19,1.19,1.19425,✅
+3.2 Language,"Results 3.2, l. 382–385",Wilcoxon V,373,373,373,✅
+3.2 Language,"Results 3.2, l. 382–385","P, Wilcoxon (exact)",1.5e-07,1.5e-07,1.49012e-7,✅
+3.2 Robustness,"Results 3.2, l. 409–411","Without 2, 4, 8: mean difference",0.25,0.25,0.249299,✅
+3.2 Robustness,"Results 3.2, l. 409–411","Without 2, 4, 8: 95% CI lower",0.15,0.15,0.150802,✅
+3.2 Robustness,"Results 3.2, l. 409–411","Without 2, 4, 8: 95% CI upper",0.35,0.35,0.347797,✅
+3.2 Robustness,"Results 3.2, l. 409–411","Without 2, 4, 8: models higher in Chinese",23,23,23,✅
+3.2 Robustness,SI Notes / Table S4,"Without 2, 4, 8: t(26)",5.20,5.20,5.20259,✅
+3.2 Robustness,SI Notes / Table S4,"Without 2, 4, 8: P",2.0e-05,2.0e-05,1.97036e-5,✅
+3.2 Robustness,SI Notes,"Without 2, 4, 8: dz",1.00,1.00,1.00124,✅
+3.2 Robustness,SI Notes / Table S4,"Without 2, 4, 8: Wilcoxon V",358,358,358,✅
+3.2 Robustness,SI Notes / Table S4,"Without 2, 4, 8: Wilcoxon P (corrected; earlier draft 5.5e-6)",5.3e-06,5.3e-06,5.26011e-6,✅
+3.2 Robustness,SI Notes / Table S4,"Without 2, 3, 4, 8: mean difference",0.21,0.21,0.208449,✅
+3.2 Robustness,SI Notes,"Without 2, 3, 4, 8: 95% CI lower",0.10,0.10,0.103317,✅
+3.2 Robustness,SI Notes,"Without 2, 3, 4, 8: 95% CI upper",0.31,0.31,0.31358,✅
+3.2 Robustness,SI Notes / Table S4,"Without 2, 3, 4, 8: t(26)",4.08,4.08,4.07559,✅
+3.2 Robustness,SI Notes / Table S4,"Without 2, 3, 4, 8: P",3.8e-04,3.8e-04,3.83763e-4,✅
+3.2 Robustness,SI Notes,"Without 2, 3, 4, 8: models higher in Chinese",22,22,22,✅
+3.2 Robustness,"Results 3.2, l. 411–413",Developer-adjusted estimate,0.37,0.37,0.372473,✅
+3.2 Robustness,"Results 3.2, l. 411–413","Developer-adjusted 95% CI lower (t, 4 df)",0.05,0.05,0.0492272,✅
+3.2 Robustness,"Results 3.2, l. 411–413","Developer-adjusted 95% CI upper (t, 4 df)",0.70,0.70,0.695718,✅
+3.2 Robustness,SI Notes,Developer-adjusted SE,0.12,0.12,0.116424,✅
+3.2 Robustness,SI Notes / Table S4,"Developer-adjusted P (t, 4 df)",0.033,0.033,0.0329237,✅
+3.2 Robustness,SI Notes,Developer-adjusted Wald CI lower,0.14,0.14,0.144285,✅
+3.2 Robustness,SI Notes,Developer-adjusted Wald CI upper,0.60,0.60,0.60066,✅
+3.2 Robustness,SI Notes,Response-level estimate,0.37,0.37,0.365965,✅
+3.2 Robustness,SI Notes,"Response-level 95% CI lower (t, 4 df)",0.04,0.04,0.0417863,✅
+3.2 Robustness,SI Notes,"Response-level 95% CI upper (t, 4 df)",0.69,0.69,0.690144,✅
+3.2 Robustness,SI Notes / Table S4,"Without 2, 4, 8: developer-adjusted estimate",0.28,0.28,0.275587,✅
+3.2 Robustness,SI Notes / Table S4,"Without 2, 4, 8: 95% CI lower (t, 4 df)",-0.03,-0.03,-0.0259353,✅
+3.2 Robustness,SI Notes / Table S4,"Without 2, 4, 8: 95% CI upper (t, 4 df)",0.58,0.58,0.57711,✅
+3.2 Robustness,SI Notes / Table S4,"Without 2, 4, 8: P (t, 4 df)",0.064,0.064,0.0641422,✅
+3.2 Robustness,SI Notes,"Without 2, 4, 8: Wald CI lower",0.06,0.06,0.0627348,✅
+3.2 Robustness,SI Notes,"Without 2, 4, 8: Wald CI upper",0.49,0.49,0.48844,✅
+3.2 Robustness,SI Notes,"Developer mean difference, Alibaba",0.15,0.15,0.154698,✅
+3.2 Robustness,SI Notes,"Developer mean difference, Anthropic",0.26,0.26,0.263636,✅
+3.2 Robustness,SI Notes,"Developer mean difference, Google",0.45,0.45,0.45,✅
+3.2 Robustness,SI Notes,"Developer mean difference, Meta",0.80,0.80,0.799156,✅
+3.2 Robustness,SI Notes,"Developer mean difference, OpenAI",0.24,0.24,0.239231,✅
+3.1 RMET,"Results 3.1, l. 362–364",Accuracy (%),74,74,74.1667,✅
+3.1 RMET,"Results 3.1, l. 362–364",Mean score (of 36),26.7,26.7,26.7,✅
+3.1 RMET,"Results 3.1, l. 362–364",SD across models,3.7,3.7,3.68062,✅
+3.1 RMET,"Results 3.1, l. 362–364",Difference from adult mean,0.5,0.5,0.5,✅
+3.1 RMET,"Results 3.1, l. 362–364",95% CI lower,-1.3,-1.3,-1.27848,✅
+3.1 RMET,"Results 3.1, l. 362–364",95% CI upper,2.3,2.3,2.27848,✅
+3.3 Change,"Results 3.3, l. 425–426",Changed (%),21,21,20.7009,✅
+3.3 Change,"Results 3.3, l. 425–426","Changed, 95% CI lower (%)",13,13,12.7212,✅
+3.3 Change,"Results 3.3, l. 425–426","Changed, 95% CI upper (%)",30,30,29.8617,✅
+3.3 Change,"Results 3.3, l. 425–426",Two-run disagreement (%),11,11,11.3855,✅
+3.3 Change,"Results 3.3, l. 425–426","Disagreement, 95% CI lower (%)",7,7,6.68807,✅
+3.3 Change,"Results 3.3, l. 425–426","Disagreement, 95% CI upper (%)",17,17,17.0009,✅
+3.3 Generations,"Results 3.3, l. 471–474",Attitudes – earlier-generation models,10,10,10,✅
+3.3 Generations,"Results 3.3, l. 471–474",Attitudes – later-generation models,9,9,9,✅
+3.3 Generations,"Results 3.3, l. 471–474",RMET – earlier-generation models,10,10,10,✅
+3.3 Generations,"Results 3.3, l. 471–474",RMET – later-generation models,9,9,9,✅
+3.3 Generations,"Results 3.3, l. 471–474",Attitudes – GPT-OSS models left out,2,2,2,✅
+3.3 Generations,"Results 3.3, l. 471–474",RMET – GPT-OSS models tested,0,0,0,✅
+Benchmarks,"Results 3.1, l. 370–372",Pratto lowest SD on 1–7 (1.26 × 6/9),0.8,0.8,0.84,✅
+Benchmarks,"Results 3.1, l. 370–372",Pratto highest SD on 1–7 (2.14 × 6/9),1.4,1.4,1.42667,✅

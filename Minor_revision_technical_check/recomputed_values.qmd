@@ -1,0 +1,621 @@
+---
+title: "Minor revision (technical check): recomputed values"
+subtitle: "Every number added or changed for the HSSC technical check, recomputed from the raw data"
+author: "MS_AAI_ToM"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    code-fold: true
+    code-tools: true
+    embed-resources: true
+    theme: cosmo
+execute:
+  echo: true
+  warning: false
+  message: false
+  error: false
+---
+
+## How to read this file
+
+The HSSC technical check (Submission ID dec96048-eb1b-4977-a973-b7bc7dd040f7)
+asked us to report the results accurately. Revising the manuscript added or
+corrected a set of numbers. This notebook recomputes **each of those numbers
+from the raw data files in `Results/`** and compares it with the value printed
+in the final manuscript.
+
+Each section follows the same layout:
+
+1. **Claim**: the sentence as printed, and where it appears (final PDF line
+   numbers).
+2. **Computation**: the code, folded. Click *Code* to open it.
+3. **Check**: the reported value, the recomputed value, and whether they agree
+   after rounding to the number of digits printed in the manuscript.
+
+The last section collects every check in one table. All checks should show
+✅. The table is also saved as `outputs/check_summary.csv`.
+
+This notebook only adds checks. It does not change or replace the original
+analysis pipeline in `Analysis_script/` (`02_statistical_analysis.R` and the
+other scripts), which produced the submitted results.
+
+**To render**, open this file in RStudio and click **Render**, or run this
+from the repository root:
+
+```bash
+quarto render Minor_revision_technical_check/recomputed_values.qmd
+```
+
+Required R packages: `dplyr`, `tidyr`, `readr`, `lme4`, `knitr`.
+
+```{r}
+#| label: setup
+#| code-summary: "Setup: packages, paths and helper functions"
+needed <- c("dplyr", "tidyr", "readr", "lme4", "knitr")
+missing <- needed[!vapply(needed, requireNamespace, logical(1), quietly = TRUE)]
+if (length(missing)) stop("Install these R packages first: ", paste(missing, collapse = ", "))
+suppressPackageStartupMessages({
+  library(dplyr); library(tidyr); library(readr); library(lme4)
+})
+options(dplyr.summarise.inform = FALSE)
+
+# Find the repository root (the folder that contains Results/).
+find_root <- function(start = getwd()) {
+  d <- normalizePath(start, mustWork = TRUE)
+  repeat {
+    if (file.exists(file.path(d, "Results", "SDO_VSA_Results_20260830.csv"))) return(d)
+    up <- dirname(d)
+    if (identical(up, d)) stop("Cannot find the Results folder.")
+    d <- up
+  }
+}
+root    <- find_root()
+out_dir <- file.path(root, "Minor_revision_technical_check", "outputs")
+dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
+
+SEED   <- 20260922   # same seed as 02_statistical_analysis.R
+B_BOOT <- 20000      # 10 × the original 2,000 resamples, so the limits are stable (see Section 3.3)
+
+# ---- check register --------------------------------------------------------
+# Each check stores the value as printed and the recomputed value.
+# `digits` = decimals printed in the manuscript; `sig` = significant figures
+# for P values printed as a × 10^k.
+checks <- tibble()
+check <- function(section, location, quantity, reported, value,
+                  digits = NULL, sig = NULL, pct = FALSE) {
+  shown <- if (!is.null(sig)) {
+    formatC(signif(value, sig), format = "e", digits = sig - 1)
+  } else if (pct) {
+    sprintf(paste0("%.", digits, "f%%"), value)
+  } else {
+    formatC(round(value, digits), format = "f", digits = digits)
+  }
+  rep_num <- if (!is.null(sig)) {
+    formatC(as.numeric(reported), format = "e", digits = sig - 1)
+  } else if (pct) {
+    sprintf(paste0("%.", digits, "f%%"), as.numeric(reported))
+  } else {
+    formatC(as.numeric(reported), format = "f", digits = digits)
+  }
+  row <- tibble(section = section, location = location, quantity = quantity,
+                reported = rep_num, recomputed = shown,
+                unrounded = signif(value, 6),
+                agrees = ifelse(rep_num == shown, "✅", "❌"))
+  checks <<- bind_rows(checks, row)
+  invisible(row)
+}
+show_checks <- function(sec) {
+  checks |> filter(section == sec) |>
+    select(Location = location, Quantity = quantity, Reported = reported,
+           Recomputed = recomputed, Agrees = agrees) |>
+    knitr::kable(align = "llrrc")
+}
+
+# Developer from the endpoint name.
+developer_of <- function(m) {
+  m <- tolower(m)
+  case_when(grepl("gpt", m) ~ "OpenAI", grepl("claude", m) ~ "Anthropic",
+            grepl("gemma", m) ~ "Google", grepl("llama", m) ~ "Meta",
+            grepl("qwen", m) ~ "Alibaba", TRUE ~ NA_character_)
+}
+
+# Exact two-sided Wilcoxon signed-rank test that allows tied |differences|.
+# (R's wilcox.test() cannot give an exact P value with ties and switches to a
+# normal approximation.) Ranks are doubled so midranks become integers, and
+# the null distribution of the signed-rank sum is built by convolution.
+exact_signed_rank <- function(d) {
+  d  <- d[d != 0]
+  r  <- rank(abs(d))
+  r2 <- as.integer(round(2 * r))
+  V  <- sum(r[d > 0])
+  tot  <- sum(r2)
+  dist <- c(1, numeric(tot))
+  for (k in r2) {
+    shifted <- c(numeric(k), dist[seq_len(tot + 1 - k)])
+    dist <- dist + shifted
+  }
+  dist <- dist / sum(dist)
+  s   <- 0:tot                        # possible values of 2V
+  obs <- abs(round(2 * V) - tot / 2)  # distance of the observed 2V from its null mean
+  p   <- sum(dist[abs(s - tot / 2) >= obs - 1e-9])
+  list(V = V, p = min(1, p), n = length(d))
+}
+
+# Pigeonhole bootstrap (Owen, 2007): resample models and items independently.
+# Identical to crossed_boot() in 02_statistical_analysis.R.
+crossed_boot <- function(P, B = B_BOOT) {
+  nr <- nrow(P); nc <- ncol(P)
+  bs <- vapply(seq_len(B), function(b) {
+    mean(P[sample.int(nr, nr, TRUE), sample.int(nc, nc, TRUE), drop = FALSE], na.rm = TRUE)
+  }, numeric(1))
+  c(estimate = mean(P, na.rm = TRUE),
+    lower = unname(quantile(bs, .025)), upper = unname(quantile(bs, .975)))
+}
+```
+
+## Data and exclusions
+
+**Claim** (Methods 2.3, lines 264–265): the 6,210 attitude calls and the 7,560
+RMET calls exclude the failed calls to the excluded endpoint (Claude Sonnet 4).
+
+The rule matches the original script: an endpoint is excluded if more than 50%
+of its calls were API errors. A non-numeric answer from a retained model counts
+as missing.
+
+```{r}
+#| label: data
+#| code-summary: "Read the raw files and apply the exclusion rule"
+att_raw  <- read_csv(file.path(root, "Results", "SDO_VSA_Results_20260830.csv"), show_col_types = FALSE)
+rmet_raw <- read_csv(file.path(root, "Results", "RMET_Results_20260912.csv"), show_col_types = FALSE)
+
+api_share <- function(df) df |>
+  group_by(model_label) |>
+  summarise(calls = n(), api_errors = sum(parse_error %in% "API_ERROR")) |>
+  mutate(share = api_errors / calls, excluded = share > .5)
+att_audit  <- api_share(att_raw)
+rmet_audit <- api_share(rmet_raw)
+excluded <- union(att_audit$model_label[att_audit$excluded],
+                  rmet_audit$model_label[rmet_audit$excluded])
+
+att  <- att_raw  |> filter(!model_label %in% excluded) |>
+  mutate(run = as.integer(.data[["repeat"]]) + 1L, developer = developer_of(model_label))
+rmet <- rmet_raw |> filter(!model_label %in% excluded) |>
+  mutate(run = as.integer(.data[["repeat"]]) + 1L)
+
+bind_rows(
+  att_audit  |> filter(api_errors > 0) |> mutate(file = "Attitudes"),
+  rmet_audit |> filter(api_errors > 0) |> mutate(file = "RMET")) |>
+  select(file, model_label, calls, api_errors, share, excluded) |>
+  knitr::kable(digits = 3, caption = "Endpoints with any API errors")
+
+sec <- "Data"
+check(sec, "Methods 2.3, l. 264", "Attitude calls after exclusion", 6210, nrow(att), digits = 0)
+check(sec, "Methods 2.3, l. 264", "RMET calls after exclusion", 7560, nrow(rmet), digits = 0)
+check(sec, "Methods 2.3", "Attitude models", 27, n_distinct(att$model_label), digits = 0)
+check(sec, "Methods 2.3", "RMET models", 21, n_distinct(rmet$model_label), digits = 0)
+show_checks(sec)
+```
+
+Excluded endpoint: **`r paste(excluded, collapse = ", ")`**.
+
+## Section 3.2: English versus Chinese SDO6
+
+**Claim** (lines 382–385): "Chinese SDO6 scores exceeded English scores for 26
+of 27 models (pooled means 1.79 versus 1.48; SDs across models 0.48 and 0.32;
+mean difference 0.31, 95% CI 0.21 to 0.42; paired t-test across models,
+t(26) = 6.21, P = 1.5 × 10⁻⁶, d<sub>z</sub> = 1.19; Wilcoxon signed-rank test,
+V = 373, P = 1.5 × 10⁻⁷)".
+
+Items 9–16 are reverse-keyed as `8 − value`, so 1 is most egalitarian. Each
+model's score is the mean of its numeric answers in each language. The test
+compares the 27 Chinese-minus-English differences with zero. d<sub>z</sub> is
+the mean difference divided by the SD of the differences.
+
+```{r}
+#| label: sdo6
+#| code-summary: "Model-level scores and paired tests"
+sdo6 <- att |>
+  filter(instrument == "SDO6") |>
+  mutate(item_no = as.integer(item_no),
+         score = if_else(item_no >= 9L, 8 - value, value))
+
+language_test <- function(drop_items = integer(0)) {
+  d <- sdo6 |> filter(!item_no %in% drop_items, !is.na(score))
+  mm <- d |> group_by(model_label, developer, language) |>
+    summarise(m = mean(score)) |>
+    pivot_wider(names_from = language, values_from = m) |>
+    mutate(diff = zh - en) |> ungroup()
+  tt <- t.test(mm$zh, mm$en, paired = TRUE)
+  w  <- exact_signed_rank(mm$diff)
+  list(mm = mm, data = d,
+       pooled_en = mean(d$score[d$language == "en"]),
+       pooled_zh = mean(d$score[d$language == "zh"]),
+       sd_en = sd(mm$en), sd_zh = sd(mm$zh),
+       diff = mean(mm$diff), ci = unname(tt$conf.int),
+       t = unname(tt$statistic), df = unname(tt$parameter), p = tt$p.value,
+       dz = mean(mm$diff) / sd(mm$diff), V = w$V, p_w = w$p,
+       higher = sum(mm$diff > 0), n = nrow(mm))
+}
+L_all <- language_test()
+
+with(L_all, tibble(
+  `Pooled mean, Chinese` = pooled_zh, `Pooled mean, English` = pooled_en,
+  `SD across models, Chinese` = sd_zh, `SD across models, English` = sd_en,
+  `Mean difference` = diff, `95% CI` = sprintf("%.3f to %.3f", ci[1], ci[2]),
+  t = t, df = df, P = format.pval(p, digits = 3), dz = dz, V = V,
+  `P (Wilcoxon)` = format.pval(p_w, digits = 3), `Models higher in Chinese` = higher)) |>
+  pivot_longer(everything(), values_transform = as.character) |>
+  knitr::kable(col.names = c("Statistic", "Value"))
+
+sec <- "3.2 Language"
+loc <- "Results 3.2, l. 382–385"
+with(L_all, {
+  check(sec, loc, "Models higher in Chinese (of 27)", 26, higher, digits = 0)
+  check(sec, loc, "Pooled mean, Chinese", 1.79, pooled_zh, digits = 2)
+  check(sec, loc, "Pooled mean, English", 1.48, pooled_en, digits = 2)
+  check(sec, loc, "SD across models, Chinese", 0.48, sd_zh, digits = 2)
+  check(sec, loc, "SD across models, English", 0.32, sd_en, digits = 2)
+  check(sec, loc, "Mean difference", 0.31, diff, digits = 2)
+  check(sec, loc, "95% CI, lower", 0.21, ci[1], digits = 2)
+  check(sec, loc, "95% CI, upper", 0.42, ci[2], digits = 2)
+  check(sec, loc, "t(26)", 6.21, t, digits = 2)
+  check(sec, loc, "P, paired t test", 1.5e-6, p, sig = 2)
+  check(sec, loc, "dz", 1.19, dz, digits = 2)
+  check(sec, loc, "Wilcoxon V", 373, V, digits = 0)
+  check(sec, loc, "P, Wilcoxon (exact)", 1.5e-7, p_w, sig = 2)
+})
+show_checks(sec)
+```
+
+R's built-in `wilcox.test()` gives the same V. Because some |differences| are
+tied, it cannot give an exact P value and switches to a normal approximation
+(P = `r signif(suppressWarnings(wilcox.test(L_all$mm$zh, L_all$mm$en, paired = TRUE))$p.value, 2)`).
+The exact P value above handles the ties directly.
+
+**Correction for the Supplementary Information.** The round-2 draft of the SI
+Notes and Table S4 gave P = 5.5 × 10⁻⁶ for the Wilcoxon test without items 2,
+4 and 8. That value came from a routine that ignores tied ranks. The exact value
+that allows for ties is **5.3 × 10⁻⁶** (next section). For all 16 items both
+methods give 1.5 × 10⁻⁷, so the main text is unaffected.
+
+## Section 3.2: robustness checks
+
+**Claim** (lines 409–413): "The difference also persisted without the three
+items with non-standard Chinese wording (items 2, 4 and 8; mean difference
+0.25, 95% CI 0.15 to 0.35; 23 of 27 models higher in Chinese). Allowing for
+developer in a mixed model gave a similar but less precise estimate (0.37,
+95% CI 0.05 to 0.70), because only five developers were represented."
+
+The full results go in the Supplementary Notes ("Language analyses") and
+Table S4.
+
+### Without the items with non-standard Chinese wording
+
+```{r}
+#| label: robust-items
+#| code-summary: "Repeat the paired tests without items 2, 4, 8 (and 2, 3, 4, 8)"
+L_248  <- language_test(c(2L, 4L, 8L))
+L_2348 <- language_test(c(2L, 3L, 4L, 8L))
+
+summ <- function(x, label) with(x, tibble(
+  Items = label, `Mean difference` = diff, `CI lower` = ci[1], `CI upper` = ci[2],
+  t = t, P = format.pval(p, digits = 2), dz = dz, V = V,
+  `P (Wilcoxon)` = format.pval(p_w, digits = 2), `Higher in Chinese` = higher))
+bind_rows(summ(L_all, "All 16"), summ(L_248, "Without 2, 4, 8"),
+          summ(L_2348, "Without 2, 3, 4, 8")) |>
+  knitr::kable(digits = 3)
+
+sec <- "3.2 Robustness"
+check(sec, "Results 3.2, l. 409–411", "Without 2, 4, 8: mean difference", 0.25, L_248$diff, digits = 2)
+check(sec, "Results 3.2, l. 409–411", "Without 2, 4, 8: 95% CI lower", 0.15, L_248$ci[1], digits = 2)
+check(sec, "Results 3.2, l. 409–411", "Without 2, 4, 8: 95% CI upper", 0.35, L_248$ci[2], digits = 2)
+check(sec, "Results 3.2, l. 409–411", "Without 2, 4, 8: models higher in Chinese", 23, L_248$higher, digits = 0)
+check(sec, "SI Notes / Table S4", "Without 2, 4, 8: t(26)", 5.20, L_248$t, digits = 2)
+check(sec, "SI Notes / Table S4", "Without 2, 4, 8: P", 2.0e-5, L_248$p, sig = 2)
+check(sec, "SI Notes", "Without 2, 4, 8: dz", 1.00, L_248$dz, digits = 2)
+check(sec, "SI Notes / Table S4", "Without 2, 4, 8: Wilcoxon V", 358, L_248$V, digits = 0)
+check(sec, "SI Notes / Table S4", "Without 2, 4, 8: Wilcoxon P (corrected; earlier draft 5.5e-6)", 5.3e-6, L_248$p_w, sig = 2)
+check(sec, "SI Notes / Table S4", "Without 2, 3, 4, 8: mean difference", 0.21, L_2348$diff, digits = 2)
+check(sec, "SI Notes", "Without 2, 3, 4, 8: 95% CI lower", 0.10, L_2348$ci[1], digits = 2)
+check(sec, "SI Notes", "Without 2, 3, 4, 8: 95% CI upper", 0.31, L_2348$ci[2], digits = 2)
+check(sec, "SI Notes / Table S4", "Without 2, 3, 4, 8: t(26)", 4.08, L_2348$t, digits = 2)
+check(sec, "SI Notes / Table S4", "Without 2, 3, 4, 8: P", 3.8e-4, L_2348$p, sig = 2)
+check(sec, "SI Notes", "Without 2, 3, 4, 8: models higher in Chinese", 22, L_2348$higher, digits = 0)
+```
+
+### Allowing for developer
+
+Most models (21 of 27) came from OpenAI or Anthropic, so models from the same
+developer may not be independent. The model-level mixed model regresses each
+model's Chinese-minus-English difference on an intercept, with a random
+intercept for developer (REML). With only five developers, the main CI uses a
+t distribution with 4 degrees of freedom (number of developers − 1). The
+normal-theory (Wald) interval is also shown. The response-level model uses
+every answer: item as a fixed effect, and random intercepts and language slopes
+for developer and for model.
+
+```{r}
+#| label: robust-developer
+#| code-summary: "Mixed models with developer as a random effect"
+mixed_model_level <- function(x) {
+  fit <- lmer(diff ~ 1 + (1 | developer), data = x$mm, REML = TRUE)
+  est <- fixef(fit)[[1]]; se <- sqrt(vcov(fit)[1, 1]); k <- n_distinct(x$mm$developer)
+  tibble(estimate = est, se = se,
+         ci_t_lo = est - qt(.975, k - 1) * se, ci_t_hi = est + qt(.975, k - 1) * se,
+         p_t = 2 * pt(-abs(est / se), k - 1),
+         ci_wald_lo = est - qnorm(.975) * se, ci_wald_hi = est + qnorm(.975) * se,
+         p_wald = 2 * pnorm(-abs(est / se)))
+}
+M_all <- mixed_model_level(L_all)
+M_248 <- mixed_model_level(L_248)
+
+resp <- L_all$data |> mutate(zh = as.integer(language == "zh"), item = factor(item_no))
+fit_resp <- lmer(score ~ zh + item + (1 + zh | developer) + (1 | model_label) + (0 + zh | model_label),
+                 data = resp, REML = TRUE)
+est_r <- fixef(fit_resp)[["zh"]]; se_r <- sqrt(vcov(fit_resp)["zh", "zh"])
+M_resp <- tibble(estimate = est_r, se = se_r,
+                 ci_t_lo = est_r - qt(.975, 4) * se_r, ci_t_hi = est_r + qt(.975, 4) * se_r,
+                 p_t = 2 * pt(-abs(est_r / se_r), 4))
+
+bind_rows(M_all |> mutate(Model = "Model level, all items"),
+          M_248 |> mutate(Model = "Model level, without 2, 4, 8"),
+          M_resp |> mutate(Model = "Response level, all items")) |>
+  relocate(Model) |>
+  knitr::kable(digits = 3, caption = "ci_t / p_t use t with 4 df; ci_wald / p_wald use the normal distribution")
+
+dev_means <- L_all$mm |> group_by(developer) |>
+  summarise(models = n(), mean_difference = mean(diff)) |> arrange(developer)
+knitr::kable(dev_means, digits = 3, caption = "Mean Chinese-minus-English difference by developer")
+
+sec <- "3.2 Robustness"
+check(sec, "Results 3.2, l. 411–413", "Developer-adjusted estimate", 0.37, M_all$estimate, digits = 2)
+check(sec, "Results 3.2, l. 411–413", "Developer-adjusted 95% CI lower (t, 4 df)", 0.05, M_all$ci_t_lo, digits = 2)
+check(sec, "Results 3.2, l. 411–413", "Developer-adjusted 95% CI upper (t, 4 df)", 0.70, M_all$ci_t_hi, digits = 2)
+check(sec, "SI Notes", "Developer-adjusted SE", 0.12, M_all$se, digits = 2)
+check(sec, "SI Notes / Table S4", "Developer-adjusted P (t, 4 df)", 0.033, M_all$p_t, digits = 3)
+check(sec, "SI Notes", "Developer-adjusted Wald CI lower", 0.14, M_all$ci_wald_lo, digits = 2)
+check(sec, "SI Notes", "Developer-adjusted Wald CI upper", 0.60, M_all$ci_wald_hi, digits = 2)
+check(sec, "SI Notes", "Response-level estimate", 0.37, M_resp$estimate, digits = 2)
+check(sec, "SI Notes", "Response-level 95% CI lower (t, 4 df)", 0.04, M_resp$ci_t_lo, digits = 2)
+check(sec, "SI Notes", "Response-level 95% CI upper (t, 4 df)", 0.69, M_resp$ci_t_hi, digits = 2)
+check(sec, "SI Notes / Table S4", "Without 2, 4, 8: developer-adjusted estimate", 0.28, M_248$estimate, digits = 2)
+check(sec, "SI Notes / Table S4", "Without 2, 4, 8: 95% CI lower (t, 4 df)", -0.03, M_248$ci_t_lo, digits = 2)
+check(sec, "SI Notes / Table S4", "Without 2, 4, 8: 95% CI upper (t, 4 df)", 0.58, M_248$ci_t_hi, digits = 2)
+check(sec, "SI Notes / Table S4", "Without 2, 4, 8: P (t, 4 df)", 0.064, M_248$p_t, digits = 3)
+check(sec, "SI Notes", "Without 2, 4, 8: Wald CI lower", 0.06, M_248$ci_wald_lo, digits = 2)
+check(sec, "SI Notes", "Without 2, 4, 8: Wald CI upper", 0.49, M_248$ci_wald_hi, digits = 2)
+for (i in seq_len(nrow(dev_means))) {
+  rep_val <- c(Alibaba = 0.15, Anthropic = 0.26, Google = 0.45, Meta = 0.80, OpenAI = 0.24)[[dev_means$developer[i]]]
+  check(sec, "SI Notes", paste("Developer mean difference,", dev_means$developer[i]),
+        rep_val, dev_means$mean_difference[i], digits = 2)
+}
+show_checks(sec)
+```
+
+## Section 3.1: RMET accuracy and spread
+
+**Claim** (lines 362–364): "the models chose the consensus ('correct') word on
+74% of items (26.7 of 36, SD 3.7 across models), close to the adult average of
+26.2 (SD 3.6; Baron-Cohen et al., 2001; difference 0.5 items, 95% CI −1.3 to
+2.3)."
+
+Each model's accuracy is averaged over runs for each item, then over the 36
+items within each condition (with and without word definitions), then over the
+two conditions. Unscored answers are missing. The human values are from
+Baron-Cohen et al. (2001), Table 3, general-population controls (N = 122,
+mean 26.2, SD 3.6). The difference uses a Welch t interval from the summary
+statistics.
+
+```{r}
+#| label: rmet
+#| code-summary: "RMET score per model and the Welch comparison"
+rmet_acc <- rmet |>
+  mutate(correct = if_else(is.na(choice), NA_real_,
+                           as.numeric(tolower(trimws(choice)) == tolower(trimws(correct_answer))))) |>
+  group_by(model_label, definitions_shown, question_id) |>
+  summarise(item_acc = mean(correct, na.rm = TRUE)) |>
+  group_by(model_label, definitions_shown) |>
+  summarise(acc = mean(item_acc, na.rm = TRUE)) |>
+  group_by(model_label) |>
+  summarise(accuracy = mean(acc)) |>
+  mutate(score36 = 36 * accuracy)
+
+m_mod <- mean(rmet_acc$score36); s_mod <- sd(rmet_acc$score36); n_mod <- nrow(rmet_acc)
+m_hum <- 26.2; s_hum <- 3.6; n_hum <- 122
+se_d  <- sqrt(s_mod^2 / n_mod + s_hum^2 / n_hum)
+df_w  <- se_d^4 / ((s_mod^2 / n_mod)^2 / (n_mod - 1) + (s_hum^2 / n_hum)^2 / (n_hum - 1))
+d_rm  <- m_mod - m_hum
+ci_rm <- d_rm + c(-1, 1) * qt(.975, df_w) * se_d
+
+tibble(`Models` = n_mod, `Mean accuracy` = mean(rmet_acc$accuracy),
+       `Mean score (of 36)` = m_mod, `SD across models` = s_mod,
+       `Range` = sprintf("%.1f to %.1f", min(rmet_acc$score36), max(rmet_acc$score36)),
+       `Difference from adults` = d_rm, `Welch df` = df_w,
+       `95% CI` = sprintf("%.2f to %.2f", ci_rm[1], ci_rm[2])) |>
+  knitr::kable(digits = 3)
+
+sec <- "3.1 RMET"
+loc <- "Results 3.1, l. 362–364"
+check(sec, loc, "Accuracy (%)", 74, 100 * mean(rmet_acc$accuracy), digits = 0)
+check(sec, loc, "Mean score (of 36)", 26.7, m_mod, digits = 1)
+check(sec, loc, "SD across models", 3.7, s_mod, digits = 1)
+check(sec, loc, "Difference from adult mean", 0.5, d_rm, digits = 1)
+check(sec, loc, "95% CI lower", -1.3, ci_rm[1], digits = 1)
+check(sec, loc, "95% CI upper", 2.3, ci_rm[2], digits = 1)
+show_checks(sec)
+```
+
+## Section 3.3: answer change and two-run disagreement
+
+**Claim** (lines 425–426): "21% of model–item combinations (95% CI 13% to 30%)
+changed answer across five runs, and two runs disagreed in 11% of comparisons
+(95% CI 7% to 17%)."
+
+These figures use the attitude items (SDO7(s), English and Chinese SDO6, VSA)
+with a numeric answer in all five runs. *Changed* means at least two different
+answers across the five runs. *Two-run disagreement* is the share of the 10 pairs
+of runs that gave different answers. The CIs use the pigeonhole bootstrap
+(Owen, 2007), which resamples models and items independently.
+
+The 13% to 30% interval in the manuscript comes from Table S7.1 of the
+original script (`Analysis_output/stats_log.txt`: 12.99 to 30.06, from 2,000
+resamples). With only 2,000 resamples the upper limit moves between about 29.4
+and 30.1, depending on the random-number stream. That is enough to flip its
+rounding. This notebook therefore uses 20,000 resamples, which gives stable
+limits (about 12.7 to 29.9 whatever the seed). Both intervals round to the
+whole percentages printed.
+
+```{r}
+#| label: change
+#| code-summary: "Per-pair change and disagreement, then the pigeonhole bootstrap"
+pairs_df <- att |>
+  mutate(item = paste(instrument, language, question_id)) |>
+  group_by(model_label, item) |>
+  filter(sum(!is.na(value)) == 5L, n() == 5L) |>
+  arrange(run, .by_group = TRUE) |>
+  summarise(changed = as.numeric(n_distinct(value) > 1),
+            disagree = mean(combn(value, 2, function(v) v[1] != v[2])))
+
+as_matrix <- function(df, v) {
+  w <- df |> select(model_label, item, all_of(v)) |>
+    pivot_wider(names_from = item, values_from = all_of(v))
+  M <- as.matrix(w[, -1]); rownames(M) <- w$model_label; M
+}
+set.seed(SEED); bc <- crossed_boot(as_matrix(pairs_df, "changed"))
+set.seed(SEED); bd <- crossed_boot(as_matrix(pairs_df, "disagree"))
+
+tibble(Measure = c("Changed across five runs", "Two-run disagreement"),
+       `Complete pairs` = nrow(pairs_df),
+       `Estimate (%)` = 100 * c(bc["estimate"], bd["estimate"]),
+       `95% CI lower` = 100 * c(bc["lower"], bd["lower"]),
+       `95% CI upper` = 100 * c(bc["upper"], bd["upper"])) |>
+  knitr::kable(digits = 2)
+
+sec <- "3.3 Change"
+loc <- "Results 3.3, l. 425–426"
+check(sec, loc, "Changed (%)", 21, 100 * bc[["estimate"]], digits = 0)
+check(sec, loc, "Changed, 95% CI lower (%)", 13, 100 * bc[["lower"]], digits = 0)
+check(sec, loc, "Changed, 95% CI upper (%)", 30, 100 * bc[["upper"]], digits = 0)
+check(sec, loc, "Two-run disagreement (%)", 11, 100 * bd[["estimate"]], digits = 0)
+check(sec, loc, "Disagreement, 95% CI lower (%)", 7, 100 * bd[["lower"]], digits = 0)
+check(sec, loc, "Disagreement, 95% CI upper (%)", 17, 100 * bd[["upper"]], digits = 0)
+show_checks(sec)
+```
+
+## Section 3.3: models in the generation comparison
+
+**Claim** (lines 471–474): "The comparison included 19 models from two
+developers (10 earlier, 9 later; the two open-weight GPT-OSS models belong to
+neither generation and were excluded)".
+
+Generation labels follow Supplementary Table S2: GPT-4 and Claude 4 are
+earlier, GPT-5 and Claude 5 are later.
+
+```{r}
+#| label: generations
+#| code-summary: "Assign generations from endpoint names"
+generation_of <- function(m) {
+  m <- tolower(m)
+  case_when(grepl("gpt-oss", m) ~ "none (open-weight)",
+            grepl("gpt-4", m) ~ "earlier", grepl("gpt-5", m) ~ "later",
+            grepl("claude-[a-z]+-4|claude-[a-z]+-4-", m) ~ "earlier",
+            grepl("claude-[a-z]+-5", m) ~ "later",
+            TRUE ~ "other developer")
+}
+gen <- bind_rows(
+  tibble(set = "Attitudes", model_label = unique(att$model_label)),
+  tibble(set = "RMET", model_label = unique(rmet$model_label))) |>
+  mutate(generation = generation_of(model_label))
+gen |> count(set, generation) |>
+  pivot_wider(names_from = set, values_from = n, values_fill = 0) |>
+  knitr::kable()
+gen |> filter(set == "Attitudes") |> arrange(generation, model_label) |>
+  select(generation, model_label) |> knitr::kable()
+
+sec <- "3.3 Generations"
+for (s in c("Attitudes", "RMET")) {
+  g <- gen |> filter(set == s)
+  check(sec, "Results 3.3, l. 471–474", paste(s, "– earlier-generation models"), 10, sum(g$generation == "earlier"), digits = 0)
+  check(sec, "Results 3.3, l. 471–474", paste(s, "– later-generation models"), 9, sum(g$generation == "later"), digits = 0)
+}
+check(sec, "Results 3.3, l. 471–474", "Attitudes – GPT-OSS models left out", 2,
+      sum(gen$set == "Attitudes" & gen$generation == "none (open-weight)"), digits = 0)
+check(sec, "Results 3.3, l. 471–474", "RMET – GPT-OSS models tested", 0,
+      sum(gen$set == "RMET" & gen$generation == "none (open-weight)"), digits = 0)
+show_checks(sec)
+```
+
+## Human benchmarks (arithmetic only)
+
+**Claim** (Introduction, line 109; Results 3.1, lines 370–372): the standard
+deviations within the national samples of Pratto et al. (2013) "were 1.26 to
+2.14 on a 1–10 scale, corresponding to roughly 0.8 to 1.4 on a 1–7 scale."
+
+Rescaling a 1–10 scale to 1–7 multiplies standard deviations by 6/9. The 1.26
+and 2.14 come from Pratto et al. (2013) and were checked against the paper.
+They are not recomputed from our data.
+
+```{r}
+#| label: pratto
+#| code-summary: "Rescale the Pratto et al. (2013) SDs"
+sec <- "Benchmarks"
+check(sec, "Results 3.1, l. 370–372", "Pratto lowest SD on 1–7 (1.26 × 6/9)", 0.8, 1.26 * 6 / 9, digits = 1)
+check(sec, "Results 3.1, l. 370–372", "Pratto highest SD on 1–7 (2.14 × 6/9)", 1.4, 2.14 * 6 / 9, digits = 1)
+show_checks(sec)
+```
+
+The Introduction (lines 113–115) now credits the Bizumic and Duckitt (2018)
+results to the studies that reported them. The voter-group SDs (1.3 to 1.6)
+come from Study 2 (UK adults). The note that every item spanned −4 to +4 comes
+from Appendix B, Table B1, which is Study 1 (Australian undergraduates). This
+is a source check, so there is nothing to recompute.
+
+## Which tests are one-sided?
+
+**Claim** (Methods, lines 322–328): "Tests were two-sided (α = .05) except the
+equivalence tests and the permutation tests of shared wrong answers and of item
+coherence, which were one-sided."
+
+This is read from the code in `Analysis_script/02_statistical_analysis.R`,
+not recomputed:
+
+| Test (Table S4 row) | How the P value is computed | Sidedness |
+|---|---|---|
+| Two erring models choosing the same wrong word | share of permutations with P(same) ≥ observed | one-sided |
+| Same wrong word, same versus different developers | share of permutations with excess ≥ observed | one-sided |
+| Items with the same keying / same subscale cohere more | exact permutation, within-minus-between r ≥ observed | one-sided |
+| RMET equivalence (±1.8 items) and definitions (±5 points) | two one-sided tests (TOST) | one-sided by design |
+| Concentration of wrong answers; session-label test | upper tail of a non-negative statistic (like a chi-square test) | not directional |
+| All t, Wilcoxon, likelihood-ratio, meta-regression and correlation tests; bootstrap drift test | two-sided | two-sided |
+
+## Summary of all checks
+
+```{r}
+#| label: summary
+#| code-summary: "Collect and save every check"
+write_csv(checks, file.path(out_dir, "check_summary.csv"))
+write_csv(L_all$mm, file.path(out_dir, "sdo6_model_scores_by_language.csv"))
+write_csv(rmet_acc, file.path(out_dir, "rmet_scores_by_model.csv"))
+write_csv(bind_rows(M_all |> mutate(model = "model level, all items"),
+                    M_248 |> mutate(model = "model level, without 2, 4, 8"),
+                    M_resp |> mutate(model = "response level, all items")),
+          file.path(out_dir, "developer_mixed_models.csv"))
+
+n_ok <- sum(checks$agrees == "✅")
+checks |>
+  select(Section = section, Location = location, Quantity = quantity,
+         Reported = reported, Recomputed = recomputed, Agrees = agrees) |>
+  knitr::kable(align = "lllrrc")
+```
+
+**`r n_ok` of `r nrow(checks)` checks agree** with the values printed in the
+manuscript and the Supplementary Information.
+
+```{r}
+#| label: session
+#| code-summary: "Session information"
+sessionInfo()
+```
